@@ -1,0 +1,1625 @@
+2018-06-23 16:35:14,421 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2018-06-23 16:35:14,438 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-8 - HikariPool-1 - Starting...
+2018-06-23 16:35:14,739 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-8 - HikariPool-1 - Start completed.
+2018-06-23 16:35:14,750 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-8 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 16:35:14,828 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 16:35:15,280 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 16:35:15,286 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev)
+2018-06-23 16:38:48,601 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp8oe4m - Internal server error, for (GET) [/query?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 16:39:38,478 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp919p9 - Internal server error, for (GET) [/query?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 16:39:51,408 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp9232h - Internal server error, for (GET) [/query?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 16:39:54,677 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp927o9 - Internal server error, for (GET) [/query?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 16:40:44,230 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp95366 - Internal server error, for (GET) [/query?key=1&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 16:41:01,629 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp962pb - Internal server error, for (GET) [/query?key=1&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 16:41:29,213 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78bp97hk7 - Internal server error, for (GET) [/query?key=1&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.net.ConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at play.shaded.ahc.org.asynchttpclient.netty.channel.NettyConnectListener.onFailure(NettyConnectListener.java:168)
+	at play.shaded.ahc.org.asynchttpclient.netty.request.NettyChannelConnector$1.onFailure(NettyChannelConnector.java:103)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:28)
+	at play.shaded.ahc.org.asynchttpclient.netty.SimpleChannelFutureListener.operationComplete(SimpleChannelFutureListener.java:20)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:507)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:500)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:479)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:420)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultPromise.tryFailure(DefaultPromise.java:122)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.fulfillConnectPromise(AbstractNioChannel.java:278)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:294)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:634)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:581)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498)
+	at play.shaded.ahc.io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:460)
+	at play.shaded.ahc.io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at play.shaded.ahc.io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:138)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: play.shaded.ahc.io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: localhost/0:0:0:0:0:0:0:1:9200
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at play.shaded.ahc.io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:259)
+	at play.shaded.ahc.io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:291)
+	... 7 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	... 11 common frames omitted
+2018-06-23 17:52:38,604 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 17:52:38,608 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-1 - Shutdown initiated...
+2018-06-23 17:52:38,610 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-1 - Shutdown completed.
+2018-06-23 17:52:38,792 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-3 - Creating Pool for datasource 'default'
+2018-06-23 17:52:38,793 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-3 - HikariPool-2 - Starting...
+2018-06-23 17:52:38,799 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-3 - HikariPool-2 - Start completed.
+2018-06-23 17:52:38,800 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-3 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 17:52:38,837 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 17:52:38,873 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-3 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 17:52:38,874 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-3 - Application started (Dev)
+2018-06-23 17:53:20,869 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @78bpiipp8 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.Promise.failure(Promise.scala:100)
+	at scala.concurrent.Promise.failure$(Promise.scala:100)
+	at scala.concurrent.impl.Promise$DefaultPromise.failure(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:102)
+	at scala.util.Either.fold(Either.scala:188)
+	at play.api.mvc.ActionRefiner.$anonfun$invokeBlock$3(Action.scala:522)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	... 12 common frames omitted
+2018-06-23 17:53:31,237 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @78bpijf82 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.Promise.failure(Promise.scala:100)
+	at scala.concurrent.Promise.failure$(Promise.scala:100)
+	at scala.concurrent.impl.Promise$DefaultPromise.failure(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:102)
+	at scala.util.Either.fold(Either.scala:188)
+	at play.api.mvc.ActionRefiner.$anonfun$invokeBlock$3(Action.scala:522)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	... 12 common frames omitted
+2018-06-23 17:54:40,781 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @78bpine4m - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.Promise.failure(Promise.scala:100)
+	at scala.concurrent.Promise.failure$(Promise.scala:100)
+	at scala.concurrent.impl.Promise$DefaultPromise.failure(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:102)
+	at scala.util.Either.fold(Either.scala:188)
+	at play.api.mvc.ActionRefiner.$anonfun$invokeBlock$3(Action.scala:522)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	... 12 common frames omitted
+2018-06-23 17:56:19,141 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @78bpj33hn - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.Promise.failure(Promise.scala:100)
+	at scala.concurrent.Promise.failure$(Promise.scala:100)
+	at scala.concurrent.impl.Promise$DefaultPromise.failure(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:102)
+	at scala.util.Either.fold(Either.scala:188)
+	at play.api.mvc.ActionRefiner.$anonfun$invokeBlock$3(Action.scala:522)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	... 12 common frames omitted
+2018-06-23 17:57:01,539 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2018-06-23 17:57:01,539 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-2 - Shutdown initiated...
+2018-06-23 17:57:01,543 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-2 - Shutdown completed.
+2018-06-23 17:57:01,711 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-16 - Creating Pool for datasource 'default'
+2018-06-23 17:57:01,712 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-16 - HikariPool-3 - Starting...
+2018-06-23 17:57:01,719 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-16 - HikariPool-3 - Start completed.
+2018-06-23 17:57:01,720 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-16 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 17:57:01,762 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 17:57:01,797 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-16 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 17:57:01,798 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-16 - Application started (Dev)
+2018-06-23 17:57:01,809 [ERROR] from application in application-akka.actor.default-dispatcher-4 - 
+
+! @78bpj5el0 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.Promise.failure(Promise.scala:100)
+	at scala.concurrent.Promise.failure$(Promise.scala:100)
+	at scala.concurrent.impl.Promise$DefaultPromise.failure(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:103)
+	at scala.util.Either.fold(Either.scala:188)
+	at play.api.mvc.ActionRefiner.$anonfun$invokeBlock$3(Action.scala:522)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	... 12 common frames omitted
+2018-06-23 17:57:24,988 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-23 17:57:24,988 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-3 - Shutdown initiated...
+2018-06-23 17:57:24,991 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-3 - Shutdown completed.
+2018-06-23 17:57:25,108 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-16 - Creating Pool for datasource 'default'
+2018-06-23 17:57:25,109 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-16 - HikariPool-4 - Starting...
+2018-06-23 17:57:25,114 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-16 - HikariPool-4 - Start completed.
+2018-06-23 17:57:25,115 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-16 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 17:57:25,147 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 17:57:25,176 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-16 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 17:57:25,177 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-16 - Application started (Dev)
+2018-06-23 19:30:47,004 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78c05dg2h - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: None.get]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.Promise.failure(Promise.scala:100)
+	at scala.concurrent.Promise.failure$(Promise.scala:100)
+	at scala.concurrent.impl.Promise$DefaultPromise.failure(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:41)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: None.get
+	at scala.None$.get(Option.scala:349)
+	at scala.None$.get(Option.scala:347)
+	at controllers.Application.$anonfun$query$2(Application.scala:104)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	... 12 common frames omitted
+2018-06-23 19:32:16,853 [INFO] from application in application-akka.actor.default-dispatcher-7 - Shutting down connection pool.
+2018-06-23 19:32:16,853 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-4 - Shutdown initiated...
+2018-06-23 19:32:16,857 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-4 - Shutdown completed.
+2018-06-23 19:32:17,003 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-19 - Creating Pool for datasource 'default'
+2018-06-23 19:32:17,004 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-19 - HikariPool-5 - Starting...
+2018-06-23 19:32:17,009 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-19 - HikariPool-5 - Start completed.
+2018-06-23 19:32:17,010 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-19 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 19:32:17,040 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 19:32:17,072 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-19 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 19:32:17,073 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-19 - Application started (Dev)
+2018-06-23 19:36:48,214 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78c0684b9 - Internal server error, for (GET) [/search?key=1&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: None.get]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: None.get
+	at scala.None$.get(Option.scala:349)
+	at scala.None$.get(Option.scala:347)
+	at controllers.Application.$anonfun$query$2(Application.scala:102)
+	at scala.concurrent.Future.$anonfun$flatMap$1(Future.scala:303)
+	... 13 common frames omitted
+2018-06-23 19:37:37,592 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 19:37:37,593 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-5 - Shutdown initiated...
+2018-06-23 19:37:37,597 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-5 - Shutdown completed.
+2018-06-23 19:37:37,738 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-27 - Creating Pool for datasource 'default'
+2018-06-23 19:37:37,739 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-27 - HikariPool-6 - Starting...
+2018-06-23 19:37:37,746 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-27 - HikariPool-6 - Start completed.
+2018-06-23 19:37:37,747 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-27 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 19:37:37,785 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 19:37:37,816 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-27 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 19:37:37,817 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-27 - Application started (Dev)
+2018-06-23 20:16:37,411 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-29 - 
+
+! @78c0be2hf - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of Seq[models.Company] to HTTP response. Try to define a Writeable[Seq[models.Company]]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:17:02,073 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-29 - 
+
+! @78c0bfd61 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of Seq[models.Company] to HTTP response. Try to define a Writeable[Seq[models.Company]]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:17:59,586 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2018-06-23 20:17:59,586 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-6 - Shutdown initiated...
+2018-06-23 20:17:59,589 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-6 - Shutdown completed.
+2018-06-23 20:17:59,717 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-33 - Creating Pool for datasource 'default'
+2018-06-23 20:17:59,718 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-33 - HikariPool-7 - Starting...
+2018-06-23 20:17:59,724 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-33 - HikariPool-7 - Start completed.
+2018-06-23 20:17:59,725 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-33 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:17:59,754 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:17:59,783 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-33 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:17:59,783 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-33 - Application started (Dev)
+2018-06-23 20:17:59,995 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @78c0biknm - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[JsResultException: JsResultException(errors:List((,List(JsonValidationError(List([{"_index":"data","_type":"company","_id":"2","_score":0.5753642,"_source":{"id":2,"name":"小米通讯技术有限公司","represent":"黎万强","capital":13000,"found_time":1282712400000,"mail":"chenchongwei@xiaomi.com","phone":"010-60606666-1000","addr":"北京市海淀区清河中街68号华润五彩城购物中心二期9层","website":"http://www.xiaomi.com ","introduction":"<p class=\"mb10 cmp-txtshow\" id=\"textShowMore\">小米科技于2010年4月正式启动，专注于iphone、android等新一代智能手机软件开发与热点移动互联网业务运营。<br> <br> 我们正在寻找工作经验1年以上的全职员工或硕士的实习生。<br> 我们可以为你提供：<br> 1、平等、轻松的伙伴式工作氛围，享受与技术、产品、设计等领域顶尖人才共同创业成长的快意；<br> 2、交通便利和温馨舒适的工作环境；<br> 3、创业公司中最具竞争力的薪酬。</p>"}},{"_index":"data","_type":"company","_id":"1","_score":0.5753642,"_source":{"id":1,"name":"小米科技有限责任公司","represent":"雷军","capital":185000,"found_time":1267596000000,"mail":"chenchongwei@xiaomi.com","phone":"010-60606666-1000","addr":"北京市海淀区清河中街68号华润五彩城购物中心二期13层","website":"http://www.xiaomi.com ","introduction":"<p> 小米公司正式成立于2010年4月，是一家专注于高端智能手机、互联网电视以及智能家居生态链建设的创新型科技企业。 </p> <p> “让每个人都能享受科技的乐趣”是小米公司的愿景。小米公司应用了互联网开发模式开发产品的模式，用极客精神做产品，用互联网模式干掉中间环节，致力于让全球每个人，都能享用来自中国的优质科技产品。 </p> <p> <br> </p> <p> 小米公司自创办以来，保持了令世界惊讶的增长速度，小米公司在2012年全年售出手机719万台，2013年售出手机1870万台，2014年售出手机6112万台。 </p> <p> <span style=\"line-height:1.5;\">小米</span><span style=\"line-height:1.5;\">公司在互联网电视机顶盒、互联网智能电视，以及家用智能路由器和智能家居产品等领域也颠覆了传统市场。截至2014年年底，小米公司旗下生态链企业已达22家，其中紫米科技的小米移动电源、华米科技的小米手环、智米科技的小米空气净化器、加一联创的小米活塞耳机等产品均在短时间内迅速成为影响整个中国消费电子市场的明星产品。 小米生态链建设将秉承开放、不排他、非独家的合作策略，和业界合作伙伴一起推动智能生态链建设。、</span> </p>"}}] is not an object),WrappedArray())))))]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: play.api.libs.json.JsResultException: JsResultException(errors:List((,List(JsonValidationError(List([{"_index":"data","_type":"company","_id":"2","_score":0.5753642,"_source":{"id":2,"name":"小米通讯技术有限公司","represent":"黎万强","capital":13000,"found_time":1282712400000,"mail":"chenchongwei@xiaomi.com","phone":"010-60606666-1000","addr":"北京市海淀区清河中街68号华润五彩城购物中心二期9层","website":"http://www.xiaomi.com ","introduction":"<p class=\"mb10 cmp-txtshow\" id=\"textShowMore\">小米科技于2010年4月正式启动，专注于iphone、android等新一代智能手机软件开发与热点移动互联网业务运营。<br> <br> 我们正在寻找工作经验1年以上的全职员工或硕士的实习生。<br> 我们可以为你提供：<br> 1、平等、轻松的伙伴式工作氛围，享受与技术、产品、设计等领域顶尖人才共同创业成长的快意；<br> 2、交通便利和温馨舒适的工作环境；<br> 3、创业公司中最具竞争力的薪酬。</p>"}},{"_index":"data","_type":"company","_id":"1","_score":0.5753642,"_source":{"id":1,"name":"小米科技有限责任公司","represent":"雷军","capital":185000,"found_time":1267596000000,"mail":"chenchongwei@xiaomi.com","phone":"010-60606666-1000","addr":"北京市海淀区清河中街68号华润五彩城购物中心二期13层","website":"http://www.xiaomi.com ","introduction":"<p> 小米公司正式成立于2010年4月，是一家专注于高端智能手机、互联网电视以及智能家居生态链建设的创新型科技企业。 </p> <p> “让每个人都能享受科技的乐趣”是小米公司的愿景。小米公司应用了互联网开发模式开发产品的模式，用极客精神做产品，用互联网模式干掉中间环节，致力于让全球每个人，都能享用来自中国的优质科技产品。 </p> <p> <br> </p> <p> 小米公司自创办以来，保持了令世界惊讶的增长速度，小米公司在2012年全年售出手机719万台，2013年售出手机1870万台，2014年售出手机6112万台。 </p> <p> <span style=\"line-height:1.5;\">小米</span><span style=\"line-height:1.5;\">公司在互联网电视机顶盒、互联网智能电视，以及家用智能路由器和智能家居产品等领域也颠覆了传统市场。截至2014年年底，小米公司旗下生态链企业已达22家，其中紫米科技的小米移动电源、华米科技的小米手环、智米科技的小米空气净化器、加一联创的小米活塞耳机等产品均在短时间内迅速成为影响整个中国消费电子市场的明星产品。 小米生态链建设将秉承开放、不排他、非独家的合作策略，和业界合作伙伴一起推动智能生态链建设。、</span> </p>"}}] is not an object),WrappedArray())))))
+	at play.api.libs.json.JsReadable.$anonfun$as$2(JsReadable.scala:25)
+	at play.api.libs.json.JsError.fold(JsResult.scala:56)
+	at play.api.libs.json.JsReadable.as(JsReadable.scala:24)
+	at play.api.libs.json.JsReadable.as$(JsReadable.scala:23)
+	at play.api.libs.json.JsUndefined.as(JsLookup.scala:181)
+	at controllers.Application.$anonfun$query$4(Application.scala:108)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at controllers.Application.$anonfun$query$3(Application.scala:108)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	... 12 common frames omitted
+2018-06-23 20:20:29,220 [INFO] from application in application-akka.actor.default-dispatcher-7 - Shutting down connection pool.
+2018-06-23 20:20:29,220 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-7 - Shutdown initiated...
+2018-06-23 20:20:29,226 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-7 - Shutdown completed.
+2018-06-23 20:20:29,360 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:20:29,361 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-8 - Starting...
+2018-06-23 20:20:29,366 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-8 - Start completed.
+2018-06-23 20:20:29,366 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:20:29,396 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:20:29,427 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:20:29,427 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:20:42,376 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-36 - 
+
+! @78c0c212f - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[';' expected but ')' found.]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:20:53,263 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-23 20:20:53,263 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-8 - Shutdown initiated...
+2018-06-23 20:20:53,270 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-8 - Shutdown completed.
+2018-06-23 20:20:53,506 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-31 - Creating Pool for datasource 'default'
+2018-06-23 20:20:53,506 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-31 - HikariPool-9 - Starting...
+2018-06-23 20:20:53,517 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-31 - HikariPool-9 - Start completed.
+2018-06-23 20:20:53,517 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-31 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:20:53,575 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-23 20:20:53,615 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-31 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:20:53,615 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-31 - Application started (Dev)
+2018-06-23 20:21:19,654 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 20:21:19,654 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-9 - Shutdown initiated...
+2018-06-23 20:21:19,660 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-9 - Shutdown completed.
+2018-06-23 20:21:19,743 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:21:19,744 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-10 - Starting...
+2018-06-23 20:21:19,748 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-10 - Start completed.
+2018-06-23 20:21:19,748 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:21:19,768 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-23 20:21:19,785 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:21:19,785 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:21:51,185 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-06-23 20:21:51,186 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-10 - Shutdown initiated...
+2018-06-23 20:21:51,191 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-10 - Shutdown completed.
+2018-06-23 20:21:51,269 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:21:51,269 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-11 - Starting...
+2018-06-23 20:21:51,274 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-11 - Start completed.
+2018-06-23 20:21:51,275 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:21:51,298 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-23 20:21:51,324 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:21:51,325 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:22:25,885 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 20:22:25,885 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-11 - Shutdown initiated...
+2018-06-23 20:22:25,891 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-11 - Shutdown completed.
+2018-06-23 20:22:25,971 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:22:25,971 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-12 - Starting...
+2018-06-23 20:22:25,975 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-12 - Start completed.
+2018-06-23 20:22:25,976 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:22:26,002 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-23 20:22:26,020 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:22:26,021 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:23:36,907 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-36 - 
+
+! @78c0cbp6n - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of play.api.libs.json.JsLookupResult to HTTP response. Try to define a Writeable[play.api.libs.json.JsLookupResult]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:24:03,547 [INFO] from application in application-akka.actor.default-dispatcher-7 - Shutting down connection pool.
+2018-06-23 20:24:03,548 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-12 - Shutdown initiated...
+2018-06-23 20:24:03,552 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-12 - Shutdown completed.
+2018-06-23 20:24:03,652 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-31 - Creating Pool for datasource 'default'
+2018-06-23 20:24:03,652 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-31 - HikariPool-13 - Starting...
+2018-06-23 20:24:03,657 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-31 - HikariPool-13 - Start completed.
+2018-06-23 20:24:03,658 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-31 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:24:03,680 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-23 20:24:03,699 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-31 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:24:03,699 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-31 - Application started (Dev)
+2018-06-23 20:24:03,714 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @78c0cdcp1 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[JsResultException: JsResultException(errors:List((,List(JsonValidationError(List(error.expected.jsstring),WrappedArray())))))]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: play.api.libs.json.JsResultException: JsResultException(errors:List((,List(JsonValidationError(List(error.expected.jsstring),WrappedArray())))))
+	at play.api.libs.json.JsReadable.$anonfun$as$2(JsReadable.scala:25)
+	at play.api.libs.json.JsError.fold(JsResult.scala:56)
+	at play.api.libs.json.JsReadable.as(JsReadable.scala:24)
+	at play.api.libs.json.JsReadable.as$(JsReadable.scala:23)
+	at play.api.libs.json.JsDefined.as(JsLookup.scala:176)
+	at controllers.Application.$anonfun$query$3(Application.scala:108)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	... 12 common frames omitted
+2018-06-23 20:24:24,878 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-23 20:24:24,878 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-13 - Shutdown initiated...
+2018-06-23 20:24:24,883 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-13 - Shutdown completed.
+2018-06-23 20:24:24,965 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-31 - Creating Pool for datasource 'default'
+2018-06-23 20:24:24,965 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-31 - HikariPool-14 - Starting...
+2018-06-23 20:24:24,969 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-31 - HikariPool-14 - Start completed.
+2018-06-23 20:24:24,970 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-31 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:24:24,989 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:24:25,008 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-31 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:24:25,008 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-31 - Application started (Dev)
+2018-06-23 20:24:59,168 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2018-06-23 20:24:59,168 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-14 - Shutdown initiated...
+2018-06-23 20:24:59,173 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-14 - Shutdown completed.
+2018-06-23 20:24:59,243 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:24:59,244 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-15 - Starting...
+2018-06-23 20:24:59,248 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-15 - Start completed.
+2018-06-23 20:24:59,248 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:24:59,267 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:24:59,282 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:24:59,282 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:29:04,631 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 20:29:04,632 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-15 - Shutdown initiated...
+2018-06-23 20:29:04,636 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-15 - Shutdown completed.
+2018-06-23 20:29:04,718 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-40 - Creating Pool for datasource 'default'
+2018-06-23 20:29:04,719 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-16 - Starting...
+2018-06-23 20:29:04,723 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-16 - Start completed.
+2018-06-23 20:29:04,723 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-40 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:29:04,742 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-23 20:29:04,759 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-40 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:29:04,759 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-40 - Application started (Dev)
+2018-06-23 20:29:37,470 [INFO] from application in application-akka.actor.default-dispatcher-5 - Shutting down connection pool.
+2018-06-23 20:29:37,471 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - HikariPool-16 - Shutdown initiated...
+2018-06-23 20:29:37,475 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - HikariPool-16 - Shutdown completed.
+2018-06-23 20:29:37,545 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-40 - Creating Pool for datasource 'default'
+2018-06-23 20:29:37,545 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-17 - Starting...
+2018-06-23 20:29:37,549 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-17 - Start completed.
+2018-06-23 20:29:37,549 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-40 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:29:37,568 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-23 20:29:37,582 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-40 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:29:37,582 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-40 - Application started (Dev)
+2018-06-23 20:30:46,398 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-36 - 
+
+! @78c0daag8 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of Seq[play.api.libs.json.JsValue] to HTTP response. Try to define a Writeable[Seq[play.api.libs.json.JsValue]]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:30:55,533 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-36 - 
+
+! @78c0dao46 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of Seq[String] to HTTP response. Try to define a Writeable[Seq[String]]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:31:07,556 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-36 - 
+
+! @78c0dbfog - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of Seq[String] to HTTP response. Try to define a Writeable[Seq[String]]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:31:31,446 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 20:31:31,446 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-17 - Shutdown initiated...
+2018-06-23 20:31:31,453 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-17 - Shutdown completed.
+2018-06-23 20:31:31,614 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-40 - Creating Pool for datasource 'default'
+2018-06-23 20:31:31,615 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-18 - Starting...
+2018-06-23 20:31:31,621 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-18 - Start completed.
+2018-06-23 20:31:31,622 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-40 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:31:31,800 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:31:31,830 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-40 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:31:31,830 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-40 - Application started (Dev)
+2018-06-23 20:32:21,782 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-06-23 20:32:21,783 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-18 - Shutdown initiated...
+2018-06-23 20:32:21,787 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-18 - Shutdown completed.
+2018-06-23 20:32:21,861 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-40 - Creating Pool for datasource 'default'
+2018-06-23 20:32:21,862 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-19 - Starting...
+2018-06-23 20:32:21,865 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-19 - Start completed.
+2018-06-23 20:32:21,865 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-40 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:32:21,884 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-23 20:32:21,900 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-40 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:32:21,900 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-40 - Application started (Dev)
+2018-06-23 20:32:21,922 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @78c0dflon - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[JsResultException: JsResultException(errors:List((/introduction,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/website,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/capital,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/mail,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/phone,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/found_time,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/id,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/name,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/addr,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/represent,List(JsonValidationError(List(error.path.missing),WrappedArray())))))]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: play.api.libs.json.JsResultException: JsResultException(errors:List((/introduction,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/website,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/capital,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/mail,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/phone,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/found_time,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/id,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/name,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/addr,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/represent,List(JsonValidationError(List(error.path.missing),WrappedArray())))))
+	at play.api.libs.json.JsReadable.$anonfun$as$2(JsReadable.scala:25)
+	at play.api.libs.json.JsError.fold(JsResult.scala:56)
+	at play.api.libs.json.JsReadable.as(JsReadable.scala:24)
+	at play.api.libs.json.JsReadable.as$(JsReadable.scala:23)
+	at play.api.libs.json.JsObject.as(JsValue.scala:124)
+	at controllers.Application.$anonfun$query$5(Application.scala:108)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at controllers.Application.$anonfun$query$3(Application.scala:108)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	... 12 common frames omitted
+2018-06-23 20:32:47,062 [INFO] from application in application-akka.actor.default-dispatcher-7 - Shutting down connection pool.
+2018-06-23 20:32:47,062 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-19 - Shutdown initiated...
+2018-06-23 20:32:47,066 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-19 - Shutdown completed.
+2018-06-23 20:32:47,146 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:32:47,147 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-20 - Starting...
+2018-06-23 20:32:47,150 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-20 - Start completed.
+2018-06-23 20:32:47,151 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:32:47,174 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:32:47,196 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:32:47,197 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:33:44,711 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-23 20:33:44,712 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-20 - Shutdown initiated...
+2018-06-23 20:33:44,719 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-20 - Shutdown completed.
+2018-06-23 20:33:44,885 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-40 - Creating Pool for datasource 'default'
+2018-06-23 20:33:44,886 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-21 - Starting...
+2018-06-23 20:33:44,896 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-40 - HikariPool-21 - Start completed.
+2018-06-23 20:33:44,896 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-40 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:33:44,978 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-23 20:33:45,008 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-40 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:33:45,008 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-40 - Application started (Dev)
+2018-06-23 20:34:02,293 [INFO] from application in application-akka.actor.default-dispatcher-7 - Shutting down connection pool.
+2018-06-23 20:34:02,293 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-21 - Shutdown initiated...
+2018-06-23 20:34:02,300 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - HikariPool-21 - Shutdown completed.
+2018-06-23 20:34:02,387 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-36 - Creating Pool for datasource 'default'
+2018-06-23 20:34:02,388 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-22 - Starting...
+2018-06-23 20:34:02,392 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-36 - HikariPool-22 - Start completed.
+2018-06-23 20:34:02,392 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-36 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:34:02,413 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-23 20:34:02,433 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-36 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:34:02,433 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-36 - Application started (Dev)
+2018-06-23 20:41:02,542 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-06-23 20:41:02,543 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-22 - Shutdown initiated...
+2018-06-23 20:41:02,547 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-22 - Shutdown completed.
+2018-06-23 20:41:02,621 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-38 - Creating Pool for datasource 'default'
+2018-06-23 20:41:02,622 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-38 - HikariPool-23 - Starting...
+2018-06-23 20:41:02,626 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-38 - HikariPool-23 - Start completed.
+2018-06-23 20:41:02,626 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-38 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:41:02,644 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-06-23 20:41:02,659 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-38 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:41:02,660 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-38 - Application started (Dev)
+2018-06-23 20:42:28,021 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-06-23 20:42:28,021 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-23 - Shutdown initiated...
+2018-06-23 20:42:28,026 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-23 - Shutdown completed.
+2018-06-23 20:42:28,097 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-42 - Creating Pool for datasource 'default'
+2018-06-23 20:42:28,098 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-42 - HikariPool-24 - Starting...
+2018-06-23 20:42:28,102 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-42 - HikariPool-24 - Start completed.
+2018-06-23 20:42:28,102 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-42 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:42:28,120 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-23 20:42:28,136 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-42 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:42:28,136 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-42 - Application started (Dev)
+2018-06-23 20:44:24,718 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-23 20:44:24,718 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-24 - Shutdown initiated...
+2018-06-23 20:44:24,723 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-24 - Shutdown completed.
+2018-06-23 20:44:24,797 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-41 - Creating Pool for datasource 'default'
+2018-06-23 20:44:24,798 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-41 - HikariPool-25 - Starting...
+2018-06-23 20:44:24,802 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-41 - HikariPool-25 - Start completed.
+2018-06-23 20:44:24,802 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-41 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:44:24,820 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-23 20:44:24,836 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-41 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:44:24,836 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-41 - Application started (Dev)
+2018-06-23 20:55:23,770 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-50 - 
+
+! @78c0ggc26 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[Cannot write an instance of IndexedSeq[play.api.libs.json.JsLookupResult] to HTTP response. Try to define a Writeable[IndexedSeq[play.api.libs.json.JsLookupResult]]]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-23 20:56:15,726 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-06-23 20:56:15,726 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-25 - Shutdown initiated...
+2018-06-23 20:56:15,732 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-25 - Shutdown completed.
+2018-06-23 20:56:15,868 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-48 - Creating Pool for datasource 'default'
+2018-06-23 20:56:15,869 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-48 - HikariPool-26 - Starting...
+2018-06-23 20:56:15,873 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-48 - HikariPool-26 - Start completed.
+2018-06-23 20:56:15,874 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-48 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:56:15,899 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-23 20:56:15,921 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-48 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:56:15,921 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-48 - Application started (Dev)
+2018-06-23 20:56:32,047 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-23 20:56:32,048 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-26 - Shutdown initiated...
+2018-06-23 20:56:32,053 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-26 - Shutdown completed.
+2018-06-23 20:56:32,121 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-48 - Creating Pool for datasource 'default'
+2018-06-23 20:56:32,121 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-48 - HikariPool-27 - Starting...
+2018-06-23 20:56:32,125 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-48 - HikariPool-27 - Start completed.
+2018-06-23 20:56:32,125 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-48 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-23 20:56:32,143 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-06-23 20:56:32,156 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-48 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-23 20:56:32,156 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-48 - Application started (Dev)
+2018-06-23 20:57:11,410 [ERROR] from application in application-akka.actor.default-dispatcher-4 - 
+
+! @78c0gmf8n - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$KeptPromise$Kept.onComplete(Promise.scala:368)
+	at scala.concurrent.impl.Promise$KeptPromise$Kept.onComplete$(Promise.scala:367)
+	at scala.concurrent.impl.Promise$KeptPromise$Failed.onComplete(Promise.scala:383)
+	at scala.concurrent.impl.Promise.transformWith(Promise.scala:36)
+	at scala.concurrent.impl.Promise.transformWith$(Promise.scala:34)
+	at scala.concurrent.impl.Promise$KeptPromise$Failed.transformWith(Promise.scala:383)
+	at scala.concurrent.Future.recoverWith(Future.scala:412)
+	at scala.concurrent.Future.recoverWith$(Future.scala:411)
+	at scala.concurrent.impl.Promise$KeptPromise$Failed.recoverWith(Promise.scala:383)
+	at play.api.libs.streams.StrictAccumulator.$anonfun$recoverWith$3(Accumulator.scala:194)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	at play.api.libs.streams.StrictAccumulator.run(Accumulator.scala:207)
+	at play.core.server.AkkaHttpServer.$anonfun$runAction$4(AkkaHttpServer.scala:357)
+	at akka.http.scaladsl.util.FastFuture$.strictTransform$1(FastFuture.scala:41)
+	at akka.http.scaladsl.util.FastFuture$.$anonfun$transformWith$3(FastFuture.scala:51)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:101)
+	at play.api.mvc.MessagesActionBuilderImpl.invokeBlock(MessagesRequest.scala:70)
+	at play.api.mvc.MessagesActionBuilderImpl.invokeBlock(MessagesRequest.scala:66)
+	at play.api.mvc.ActionBuilder$$anon$10.$anonfun$invokeBlock$2(Action.scala:448)
+	at play.api.mvc.ActionBuilderImpl.invokeBlock(Action.scala:482)
+	at play.api.mvc.ActionBuilderImpl.invokeBlock(Action.scala:480)
+	at play.api.mvc.ActionBuilder$$anon$10.invokeBlock(Action.scala:448)
+	at play.api.mvc.ActionBuilder$$anon$10.invokeBlock(Action.scala:444)
+	at play.api.mvc.ActionBuilder$$anon$2.apply(Action.scala:419)
+	at play.api.mvc.Action.$anonfun$apply$2(Action.scala:96)
+	at play.api.libs.streams.StrictAccumulator.$anonfun$mapFuture$4(Accumulator.scala:174)
+	at scala.util.Try$.apply(Try.scala:209)
+	at play.api.libs.streams.StrictAccumulator.$anonfun$mapFuture$3(Accumulator.scala:174)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	... 19 common frames omitted
+2018-06-23 21:32:49,504 [ERROR] from application in application-akka.actor.default-dispatcher-4 - 
+
+! @78c0le657 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=0] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NumberFormatException: For input string: "小米"]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$KeptPromise$Kept.onComplete(Promise.scala:368)
+	at scala.concurrent.impl.Promise$KeptPromise$Kept.onComplete$(Promise.scala:367)
+	at scala.concurrent.impl.Promise$KeptPromise$Failed.onComplete(Promise.scala:383)
+	at scala.concurrent.impl.Promise.transformWith(Promise.scala:36)
+	at scala.concurrent.impl.Promise.transformWith$(Promise.scala:34)
+	at scala.concurrent.impl.Promise$KeptPromise$Failed.transformWith(Promise.scala:383)
+	at scala.concurrent.Future.recoverWith(Future.scala:412)
+	at scala.concurrent.Future.recoverWith$(Future.scala:411)
+	at scala.concurrent.impl.Promise$KeptPromise$Failed.recoverWith(Promise.scala:383)
+	at play.api.libs.streams.StrictAccumulator.$anonfun$recoverWith$3(Accumulator.scala:194)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	at play.api.libs.streams.StrictAccumulator.run(Accumulator.scala:207)
+	at play.core.server.AkkaHttpServer.$anonfun$runAction$4(AkkaHttpServer.scala:357)
+	at akka.http.scaladsl.util.FastFuture$.strictTransform$1(FastFuture.scala:41)
+	at akka.http.scaladsl.util.FastFuture$.$anonfun$transformWith$3(FastFuture.scala:51)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.NumberFormatException: For input string: "小米"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at scala.collection.immutable.StringLike.toInt(StringLike.scala:301)
+	at scala.collection.immutable.StringLike.toInt$(StringLike.scala:301)
+	at scala.collection.immutable.StringOps.toInt(StringOps.scala:29)
+	at controllers.Application.$anonfun$query$1(Application.scala:101)
+	at play.api.mvc.MessagesActionBuilderImpl.invokeBlock(MessagesRequest.scala:70)
+	at play.api.mvc.MessagesActionBuilderImpl.invokeBlock(MessagesRequest.scala:66)
+	at play.api.mvc.ActionBuilder$$anon$10.$anonfun$invokeBlock$2(Action.scala:448)
+	at play.api.mvc.ActionBuilderImpl.invokeBlock(Action.scala:482)
+	at play.api.mvc.ActionBuilderImpl.invokeBlock(Action.scala:480)
+	at play.api.mvc.ActionBuilder$$anon$10.invokeBlock(Action.scala:448)
+	at play.api.mvc.ActionBuilder$$anon$10.invokeBlock(Action.scala:444)
+	at play.api.mvc.ActionBuilder$$anon$2.apply(Action.scala:419)
+	at play.api.mvc.Action.$anonfun$apply$2(Action.scala:96)
+	at play.api.libs.streams.StrictAccumulator.$anonfun$mapFuture$4(Accumulator.scala:174)
+	at scala.util.Try$.apply(Try.scala:209)
+	at play.api.libs.streams.StrictAccumulator.$anonfun$mapFuture$3(Accumulator.scala:174)
+	at scala.Function1.$anonfun$andThen$1(Function1.scala:52)
+	... 19 common frames omitted
