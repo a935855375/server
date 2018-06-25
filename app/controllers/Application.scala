@@ -2,12 +2,12 @@ package controllers
 
 import com.google.inject.Inject
 import javax.inject.Singleton
-import models._
-import play.api.libs.json.{JsArray, Json, OFormat}
-import play.api.mvc._
 import models.Format._
+import models._
 import play.api.Configuration
+import play.api.libs.json.{JsArray, Json, OFormat}
 import play.api.libs.ws.WSClient
+import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -109,6 +109,39 @@ class Application @Inject()(cc: MessagesControllerComponents,
       case _ => Future.successful(Ok)
     }
   }
+
+  def getCompanyInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    val companyFuture = database.getCompanyById(id)
+    val basicInfoFuture = database.getCompanyInfoById(id)
+    val shareholderInformationFuture = database.getShareholderInformationById(id)
+    val outboundInvestmentFuture = database.getOutboundInvestmentById(id)
+    val branchFuture = database.getBranchById(id)
+    val changeRecordFuture = database.getChangeRecordById(id)
+    val mainPersonFuture = database.getMainPersonnelById(id)
+    val companyProfileFuture = database.getCompanyProfileById(id)
+    val json = for {
+      company <- companyFuture
+      basicInfo <- basicInfoFuture
+      shareholderInformation <- shareholderInformationFuture
+      outboundInvestment <- outboundInvestmentFuture
+      branch <- branchFuture
+      changeRecord <- changeRecordFuture
+      mainPersonnel <- mainPersonFuture
+      companyProfile <- companyProfileFuture
+    } yield {
+      Json.obj("company" -> company,
+        "basicInfo" -> basicInfo,
+        "shareholderInformation" -> shareholderInformation,
+        "outboundInvestment" -> outboundInvestment,
+        "branch" -> branch,
+        "changeRecord" -> changeRecord,
+        "mainPersonnel" -> mainPersonnel,
+        "companyProfile" -> companyProfile
+      )
+    }
+    json.map(Ok(_))
+  }
+
 
 
 }

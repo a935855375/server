@@ -21,7 +21,21 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     case id ~ username ~ password ~ nickname => User(id, username, password, nickname)
   }
 
-  val companyParser: RowParser[Company] = Macro.namedParser[Company]
+  lazy val companyParser: RowParser[Company] = Macro.namedParser[Company]
+
+  lazy val basicInfoParser: RowParser[BasicInfo] = Macro.namedParser[BasicInfo]
+
+  lazy val shareholderInformationParser: RowParser[ShareholderInformation] = Macro.namedParser[ShareholderInformation]
+
+  lazy val outboundInvestmentParser: RowParser[OutboundInvestment] = Macro.namedParser[OutboundInvestment]
+
+  lazy val branchParser: RowParser[Branch] = Macro.namedParser[Branch]
+
+  lazy val changeRecordParser: RowParser[ChangeRecord] = Macro.namedParser[ChangeRecord]
+
+  lazy val mainPersonnelParser: RowParser[MainPersonnel] = Macro.namedParser[MainPersonnel]
+
+  lazy val companyProfileParser: RowParser[CompanyProfile] = Macro.namedParser[CompanyProfile]
 
   def getUserByUsername(username: String, password: String) = Future {
     db.withConnection { implicit conn =>
@@ -55,5 +69,60 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     }
   }
 
+  def getCompanyInfoById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from basic_info where cid = {id}""")
+        .on('id -> id)
+        .as(basicInfoParser.singleOpt)
+    }
+  }
+
+  def getShareholderInformationById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from shareholder_information, `character` where shareholder_information.id = {id} and shareholder = `character`.id""")
+        .on('id -> id)
+        .as(shareholderInformationParser.*)
+    }
+  }
+
+  def getOutboundInvestmentById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from outbound_investment where id = {id}""")
+        .on('id -> id)
+        .as(outboundInvestmentParser.*)
+    }
+  }
+
+  def getBranchById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from branch where id = {id}""")
+        .on('id -> id)
+        .as(branchParser.*)
+    }
+  }
+
+  def getChangeRecordById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from change_record where id = {id}""")
+        .on('id -> id)
+        .as(changeRecordParser.*)
+    }
+  }
+
+  def getMainPersonnelById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from main_personnel, `character` where cid = `character`.id and main_personnel.id = {id}""")
+        .on('id -> id)
+        .as(mainPersonnelParser.*)
+    }
+  }
+
+  def getCompanyProfileById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from company_profile where id = {id}""")
+        .on('id -> id)
+        .as(companyProfileParser.singleOpt)
+    }
+  }
 }
 
