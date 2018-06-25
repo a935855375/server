@@ -35,11 +35,11 @@ case class LoginRes(status: Int, id_token: Option[String], expiresIn: Option[Int
 
 case class CommonRes(status: Int, reason: String)
 
-case class Company(id: Int, name: String, represent: String, capital: Int, found_time: Date, mail: String, phone: String, addr: String, website: String, introduction: String, img: String)
+case class Company(id: Int, name: String, status: String, represent: String, capital: Double, found_time: Date, mail: String, phone: String, addr: String, website: Option[String], introduction: Option[String], img: String)
 
 case class BasicInfo(cid: Int, open_status: String, paid_capital: Int, social_credit_code: String, taxpayer_identification_number: String, registration_number: String, organization_code: String, type_of_company: String, industry: String, date_of_approval: Date, registration_authority: String, region: String, english_name: String, name_used_before: String, operation_mode: String, personnel_scale: String, time_limit_for_business: String, enterprise_address: String, scope_of_operation: String)
 
-case class ShareholderInformation(id: Int, name: String, shareholding_ratio: Double, subscribed_capital_contribution: Double, date_of_subscription: Option[String], type_of_shareholder: String)
+case class ShareholderInformation(id: Int, name: String, associate_count: Int, shareholding_ratio: Double, subscribed_capital_contribution: Double, date_of_subscription: Option[String], type_of_shareholder: String)
 
 case class OutboundInvestment(id: Int, invested_enterprise: String, investment_representative: String, registered_capital: Option[String], contribution: Option[Double], date_of_establishment: Date, status: String)
 

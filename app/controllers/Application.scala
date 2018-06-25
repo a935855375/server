@@ -106,6 +106,16 @@ class Application @Inject()(cc: MessagesControllerComponents,
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
           "query" -> Json.obj("match" -> Json.obj("name" -> key))))).get()
           .map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
+      case 2 =>
+        ws.url(baseUrl + "data/company/" + key).delete().map(x => Ok(x.body))
+      case 3 =>
+        database.getCompanyById(key.toInt).map(Json.toJson(_)).flatMap { data =>
+          ws.url(baseUrl + "data/company/" + key).put(data)
+        }.map(x => Ok(x.body))
+      case 4 =>
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("match" -> Json.obj("name" -> key))))).get()
+          .map(x => Ok(Json.parse(x.body)))
       case _ => Future.successful(Ok)
     }
   }
