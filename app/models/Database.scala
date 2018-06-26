@@ -37,6 +37,8 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
   lazy val companyProfileParser: RowParser[CompanyProfile] = Macro.namedParser[CompanyProfile]
 
+  lazy val interestedPeopleParser: RowParser[InterestedPeople] = Macro.namedParser[InterestedPeople]
+
   def getUserByUsername(username: String, password: String) = Future {
     db.withConnection { implicit conn =>
       SQL("""select * from user where username = {username} and password = {password}""")
@@ -122,6 +124,13 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
       SQL("""select * from company_profile where id = {id}""")
         .on('id -> id)
         .as(companyProfileParser.singleOpt)
+    }
+  }
+
+  def getInterestedPeople = Future {
+    db.withConnection { implicit conn =>
+      SQL("""select * from interested_people""")
+        .as(interestedPeopleParser.*)
     }
   }
 }

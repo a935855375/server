@@ -9,7 +9,9 @@ import play.api.libs.json.{JsArray, Json, OFormat}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 
+import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Random
 
 
 @Singleton
@@ -95,16 +97,26 @@ class Application @Inject()(cc: MessagesControllerComponents,
     Future.successful(Ok("hello + " + name))
   }
 
-  def query(key: String, kind: Int): Action[AnyContent] = Action.async { implicit request =>
+  def query(key: String, kind: Int, sort: Int): Action[AnyContent] = Action.async { implicit request =>
+    var sc: String = "asc"
+    var s: String = "id"
+    sort match {
+      case 1 => s = "found_time"; sc = "asc"
+      case 2 => s = "found_time"; sc = "desc"
+      case 3 => s = "capital"; sc = "asc"
+      case 4 => s = "capital"; sc = "desc"
+      case _ => s = "id"; sc = "asc"
+    }
     kind match {
       case 0 =>
-        database.getCompanyById(key.toInt).flatMap { company =>
-          ws.url(baseUrl + "data/company/" + company.get.id).put(Json.toJson(company))
-          Future.successful(Ok)
-        }
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("multi_match" -> Json.obj("query" -> key, "fields" -> Json.arr("name", "represent"))),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc))
+        ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 1 =>
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
-          "query" -> Json.obj("match" -> Json.obj("name" -> key))))).get()
+          "query" -> Json.obj("match" -> Json.obj("name" -> key)),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc))))).get()
           .map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 2 =>
         ws.url(baseUrl + "data/company/" + key).delete().map(x => Ok(x.body))
@@ -152,6 +164,17 @@ class Application @Inject()(cc: MessagesControllerComponents,
     json.map(Ok(_))
   }
 
+  def getInterestedPeople: Action[AnyContent] = Action.async { implicit request =>
+    database.getInterestedPeople.map(data => getRandomList(data.length).map(data.apply))
+      .map(x => Ok(Json.toJson(x)))
+  }
+
+  def getRandomList(n: Int): List[Int] = (1 to n * 10)
+    .map(_ => Random.nextInt(n))
+    .++(0 until n)
+    .groupBy(x => x)
+    .mapValues(_.size).toList
+    .sortBy(_._2).map(_._1)
 
 
 }

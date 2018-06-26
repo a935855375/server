@@ -19,6 +19,7 @@ object Format {
   implicit lazy val ChangeRecordFormat: OFormat[ChangeRecord] = Json.format[ChangeRecord]
   implicit lazy val MainPersonnelFormat: OFormat[MainPersonnel] = Json.format[MainPersonnel]
   implicit lazy val CompanyProfileFormat: OFormat[CompanyProfile] = Json.format[CompanyProfile]
+  implicit lazy val InterestedPeopleFormat: OFormat[InterestedPeople] = Json.format[InterestedPeople]
 }
 
 class UserRequest[A](val username: String, request: Request[A]) extends WrappedRequest[A](request)
@@ -50,3 +51,5 @@ case class ChangeRecord(id: Int, change_date: Date, change_project: String, befo
 case class MainPersonnel(id: Int, name: String, associate_count: Int, desc: String)
 
 case class CompanyProfile(id: Int, profile: String)
+
+case class InterestedPeople(name: String, img: String, desc: String)
