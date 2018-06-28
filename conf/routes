@@ -16,5 +16,9 @@ GET         /companyinfo         controllers.Application.getCompanyInfo(id :Int)
 
 GET         /interestedpeople    controllers.Application.getInterestedPeople
 
+GET         /enterprisegraph     controllers.Application.getEnterpriseGraph(id: Int)
+
+GET         /investmentgraph     controllers.Application.getInvestmentGraph(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

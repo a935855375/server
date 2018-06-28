@@ -39,6 +39,12 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
   lazy val interestedPeopleParser: RowParser[InterestedPeople] = Macro.namedParser[InterestedPeople]
 
+  lazy val enterpriseGraphParser: RowParser[EnterpriseGraph] = Macro.namedParser[EnterpriseGraph]
+
+  lazy val investmentGraphParser: RowParser[InvestmentGraph] = Macro.namedParser[InvestmentGraph]
+
+  lazy val investmentBossParser: RowParser[InvestmentBoss] = Macro.namedParser[InvestmentBoss]
+
   def getUserByUsername(username: String, password: String) = Future {
     db.withConnection { implicit conn =>
       SQL("""select * from user where username = {username} and password = {password}""")
@@ -131,6 +137,64 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     db.withConnection { implicit conn =>
       SQL("""select * from interested_people""")
         .as(interestedPeopleParser.*)
+    }
+  }
+
+  def getEnterpriseGraphById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      val enterpriseGraphs = SQL(
+        """
+          |select *
+          |from enterprise_one, enterprise_two, enterprise_three
+          |where enterprise_one.id = enterprise_two.one and enterprise_two.id = enterprise_three.two and enterprise_one.id = {id}
+        """.stripMargin
+      ).on('id -> id).as(enterpriseGraphParser.*)
+      val trees = enterpriseGraphs.groupBy(_.two_name)
+        .map(x => Tree(x._1, Some(x._2.map(y => Tree(y.three_name, None, Some(0)))), None)).toList
+      Tree(enterpriseGraphs.head.one_name, Some(trees), None)
+    }
+  }
+
+  def getInvestmentGraphById(id: Int): Future[Tree] = {
+    val dataFuture = Future {
+      db.withConnection { implicit conn =>
+        val investmentGraph = SQL(
+          """
+            |select
+            |  q.name as q_name,
+            |  a.value as value_a,
+            |  w.name as w_name,
+            |  b.value as value_b,
+            |  e.name as e_name
+            |from (investment_graph as a left join investment_graph as b on a.bid = b.id
+            |  , investment_info q, investment_info w) left join investment_info e on b.bid = e.id
+            |where a.id = {id} and a.id = q.id and a.bid = w.id
+          """.stripMargin
+        ).on('id -> id).as(investmentGraphParser.*)
+        val trees = investmentGraph.groupBy(_.w_name)
+          .map { x =>
+            if (x._2.size > 1)
+              Tree(x._1.get, Some(x._2.map(y => Tree(y.e_name.get, None, y.value_b))), x._2.head.value_a)
+            else
+              Tree(x._1.get, None, x._2.head.value_a)
+          }.toList
+        Tree(investmentGraph.head.q_name.get, Some(trees), None)
+      }
+    }
+
+    val bossFuture = Future {
+      db.withConnection { implicit conn =>
+        SQL("""select * from investment_boss""")
+          .as(investmentBossParser.*)
+      }
+    }
+
+    for {
+      data <- dataFuture
+      boss <- bossFuture
+    } yield {
+      val tree = boss.map(x => Tree(x.name, None, x.value))
+      Tree(data.name, Some(List(Tree("对外投资", data.children, None), Tree("股东", Some(tree), None))), None)
     }
   }
 }

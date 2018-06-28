@@ -9,7 +9,6 @@ import play.api.libs.json.{JsArray, Json, OFormat}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 
-import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
@@ -176,5 +175,13 @@ class Application @Inject()(cc: MessagesControllerComponents,
     .mapValues(_.size).toList
     .sortBy(_._2).map(_._1)
 
+
+  def getEnterpriseGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    database.getEnterpriseGraphById(id).map(x => Ok(Json.toJson(x)))
+  }
+
+  def getInvestmentGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    database.getInvestmentGraphById(id).map(x => Ok(Json.toJson(x)))
+  }
 
 }
