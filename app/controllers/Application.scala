@@ -184,4 +184,10 @@ class Application @Inject()(cc: MessagesControllerComponents,
     database.getInvestmentGraphById(id).map(x => Ok(Json.toJson(x)))
   }
 
+  def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    database.getAssociationGraphById(1).map { x =>
+      Ok(Json.obj("data" -> x._1, "links" -> x._2))
+    }
+  }
+
 }

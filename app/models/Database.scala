@@ -1,11 +1,12 @@
 package models
 
 import javax.inject._
-
 import anorm.SqlParser._
 import anorm._
 import play.api.db.DBApi
 
+import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 import scala.concurrent.Future
 import scala.language.postfixOps
 
@@ -19,6 +20,12 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     get[String]("password") ~
     get[Option[String]]("nickname") map {
     case id ~ username ~ password ~ nickname => User(id, username, password, nickname)
+  }
+
+  private lazy val associationInfoSample = get[Int]("id") ~
+    get[String]("name") ~
+    get[Int]("kind") map {
+    case id ~ name ~ kind => (id, name, kind)
   }
 
   lazy val companyParser: RowParser[Company] = Macro.namedParser[Company]
@@ -44,6 +51,8 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
   lazy val investmentGraphParser: RowParser[InvestmentGraph] = Macro.namedParser[InvestmentGraph]
 
   lazy val investmentBossParser: RowParser[InvestmentBoss] = Macro.namedParser[InvestmentBoss]
+
+  lazy val associationParser: RowParser[Association] = Macro.namedParser[Association]
 
   def getUserByUsername(username: String, password: String) = Future {
     db.withConnection { implicit conn =>
@@ -196,6 +205,69 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
       val tree = boss.map(x => Tree(x.name, None, x.value))
       Tree(data.name, Some(List(Tree("对外投资", data.children, None), Tree("股东", Some(tree), None))), None)
     }
+  }
+
+  def getAssociationGraphById(id: Int) = Future {
+    val queue = mutable.Queue[Int]()
+    val set = mutable.Set[(Int, String, Int)]()
+    val relationBuffer = ListBuffer[Association]()
+    queue += id
+
+    val first_node = db.withConnection { implicit conn =>
+      SQL(
+        """
+          |select * from association_info where id = {id}
+        """.stripMargin)
+        .on('id -> id)
+        .as(associationInfoSample.single)
+    }
+
+    set += first_node
+
+    while (queue.nonEmpty) {
+      val head = queue.dequeue()
+      val associations = db.withConnection { implicit conn =>
+        SQL(
+          """
+            |select
+            |  association_graph.id  as id,
+            |  association_graph.bid as bid,
+            |  value,
+            |  a.name                as name_a,
+            |  b.name                as name_b,
+            |  a.kind                as kind_a,
+            |  b.kind                as kind_b
+            |from association_graph, association_info as a, association_info as b
+            |where association_graph.id = a.id and association_graph.bid = b.id and (association_graph.id = {id} or association_graph.bid = {id})
+          """.stripMargin)
+          .on('id -> head)
+          .as(associationParser.*)
+      }
+
+      val (first, second) = associations.partition(_.id == head)
+
+      relationBuffer ++= first
+      relationBuffer ++= second
+
+      first.map(x => (x.bid, x.name_b, x.kind_b)).filterNot(set).foreach { x =>
+        queue += x._1
+        set += x
+      }
+      second.map(x => (x.id, x.name_a, x.kind_a)).filterNot(set).foreach{ x =>
+        queue += x._1
+        set += x
+      }
+    }
+
+    val listSet = set.toList
+
+    val index = listSet.map(_._1).zipWithIndex.toMap
+
+    val links = relationBuffer.distinct.toList.map(x => Links(index(x.id), index(x.bid), x.value))
+
+    val data = listSet.map(x => Nodes(x._2, x._3, draggable = true))
+
+    (data, links)
   }
 }
 

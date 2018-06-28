@@ -21,6 +21,8 @@ object Format {
   implicit lazy val CompanyProfileFormat: OFormat[CompanyProfile] = Json.format[CompanyProfile]
   implicit lazy val InterestedPeopleFormat: OFormat[InterestedPeople] = Json.format[InterestedPeople]
   implicit lazy val TreeFormat: OFormat[Tree] = Json.format[Tree]
+  implicit lazy val LinksFormat: OFormat[Links] = Json.format[Links]
+  implicit lazy val NodesFormat: OFormat[Nodes] = Json.format[Nodes]
 }
 
 class UserRequest[A](val username: String, request: Request[A]) extends WrappedRequest[A](request)
@@ -62,3 +64,9 @@ case class EnterpriseGraph(one_name: String, two_name: String, three_name: Strin
 case class InvestmentGraph(q_name: Option[String], value_a: Option[Double], w_name: Option[String], value_b: Option[Double], e_name: Option[String])
 
 case class InvestmentBoss(id: Int, name: String, value: Option[Double])
+
+case class Association(id: Int, bid: Int, value: String, name_a: String, name_b: String, kind_a: Int, kind_b: Int)
+
+case class Links(source: Int, target: Int, value: String)
+
+case class Nodes(name: String, category: Int, draggable: Boolean)
