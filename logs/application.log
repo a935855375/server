@@ -421,3 +421,61 @@ play.sbt.PlayExceptions$CompilationException: Compilation error[value Test is no
     play.filters.cors.CORSFilter
 
 2018-06-28 14:11:50,829 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-43 - Application started (Dev)
+2018-06-28 19:45:33,280 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-305 - 
+
+! @78dagl0a4 - Internal server error, for (GET) [/companyinfo?id=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error['}' expected but ',' found.]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-28 19:46:22,454 [INFO] from application in application-akka.actor.default-dispatcher-1764 - Shutting down connection pool.
+2018-06-28 19:46:22,454 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-1764 - HikariPool-18 - Shutdown initiated...
+2018-06-28 19:46:22,458 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-1764 - HikariPool-18 - Shutdown completed.
+2018-06-28 19:46:22,584 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-305 - Creating Pool for datasource 'default'
+2018-06-28 19:46:22,585 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-305 - HikariPool-19 - Starting...
+2018-06-28 19:46:22,589 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-305 - HikariPool-19 - Start completed.
+2018-06-28 19:46:22,589 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-305 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 19:46:22,612 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-28 19:46:22,631 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-305 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 19:46:22,632 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-305 - Application started (Dev)

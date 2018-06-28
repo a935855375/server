@@ -54,6 +54,8 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
   lazy val associationParser: RowParser[Association] = Macro.namedParser[Association]
 
+  lazy val bossParser: RowParser[Boss] = Macro.namedParser[Boss]
+
   def getUserByUsername(username: String, password: String) = Future {
     db.withConnection { implicit conn =>
       SQL("""select * from user where username = {username} and password = {password}""")
@@ -131,6 +133,19 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
       SQL("""select * from main_personnel, `character` where cid = `character`.id and main_personnel.id = {id}""")
         .on('id -> id)
         .as(mainPersonnelParser.*)
+    }
+  }
+
+  def getBossById(id: Int) = Future {
+    db.withConnection { implicit conn =>
+      SQL(
+        """
+          |select *
+          |from boss, `character`
+          |where boss.bid = `character`.id and boss.id = {id}
+        """.stripMargin)
+        .on('id -> id)
+        .as(bossParser.single)
     }
   }
 

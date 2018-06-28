@@ -140,6 +140,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
     val changeRecordFuture = database.getChangeRecordById(id)
     val mainPersonFuture = database.getMainPersonnelById(id)
     val companyProfileFuture = database.getCompanyProfileById(id)
+    val bossFuture = database.getBossById(id)
     val json = for {
       company <- companyFuture
       basicInfo <- basicInfoFuture
@@ -149,6 +150,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
       changeRecord <- changeRecordFuture
       mainPersonnel <- mainPersonFuture
       companyProfile <- companyProfileFuture
+      boss <- bossFuture
     } yield {
       Json.obj("company" -> company,
         "basicInfo" -> basicInfo,
@@ -157,7 +159,8 @@ class Application @Inject()(cc: MessagesControllerComponents,
         "branch" -> branch,
         "changeRecord" -> changeRecord,
         "mainPersonnel" -> mainPersonnel,
-        "companyProfile" -> companyProfile
+        "companyProfile" -> companyProfile,
+        "boss" -> boss
       )
     }
     json.map(Ok(_))
