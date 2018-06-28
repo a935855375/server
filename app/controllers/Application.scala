@@ -131,7 +131,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getCompanyInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getCompanyInfo(id: Int): Action[AnyContent] = (Action andThen authLogin).async { implicit request =>
     val companyFuture = database.getCompanyById(id)
     val basicInfoFuture = database.getCompanyInfoById(id)
     val shareholderInformationFuture = database.getShareholderInformationById(id)
@@ -191,6 +191,10 @@ class Application @Inject()(cc: MessagesControllerComponents,
     database.getAssociationGraphById(1).map { x =>
       Ok(Json.obj("data" -> x._1, "links" -> x._2))
     }
+  }
+
+  def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    database.getEquityStructureGraphById(id).map(x => Ok(Json.toJson(x)))
   }
 
 }

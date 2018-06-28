@@ -479,3 +479,382 @@ play.sbt.PlayExceptions$CompilationException: Compilation error['}' expected but
     play.filters.cors.CORSFilter
 
 2018-06-28 19:46:22,632 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-305 - Application started (Dev)
+2018-06-28 20:47:01,001 [ERROR] from application in application-akka.actor.default-dispatcher-329 - 
+
+! @78daomlg6 - Internal server error, for (GET) [/investmentgraph?id=7] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: head of empty list]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: head of empty list
+	at scala.collection.immutable.Nil$.head(List.scala:428)
+	at scala.collection.immutable.Nil$.head(List.scala:425)
+	at models.Database.$anonfun$getInvestmentGraphById$2(Database.scala:205)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:160)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:154)
+	at models.Database.$anonfun$getInvestmentGraphById$1(Database.scala:184)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:654)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-06-28 20:47:03,201 [ERROR] from application in application-akka.actor.default-dispatcher-329 - 
+
+! @78daomomm - Internal server error, for (GET) [/investmentgraph?id=6] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: head of empty list]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: head of empty list
+	at scala.collection.immutable.Nil$.head(List.scala:428)
+	at scala.collection.immutable.Nil$.head(List.scala:425)
+	at models.Database.$anonfun$getInvestmentGraphById$2(Database.scala:205)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:160)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:154)
+	at models.Database.$anonfun$getInvestmentGraphById$1(Database.scala:184)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:654)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-06-28 20:49:28,495 [INFO] from application in application-akka.actor.default-dispatcher-400 - Shutting down connection pool.
+2018-06-28 20:49:28,495 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-400 - HikariPool-19 - Shutdown initiated...
+2018-06-28 20:49:28,500 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-400 - HikariPool-19 - Shutdown completed.
+2018-06-28 20:49:28,630 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-355 - Creating Pool for datasource 'default'
+2018-06-28 20:49:28,631 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-355 - HikariPool-20 - Starting...
+2018-06-28 20:49:28,635 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-355 - HikariPool-20 - Start completed.
+2018-06-28 20:49:28,635 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-355 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 20:49:28,654 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-28 20:49:28,673 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-355 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 20:49:28,673 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-355 - Application started (Dev)
+2018-06-28 20:58:10,007 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-06-28 20:58:10,007 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-20 - Shutdown initiated...
+2018-06-28 20:58:10,012 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-20 - Shutdown completed.
+2018-06-28 20:58:10,111 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-368 - Creating Pool for datasource 'default'
+2018-06-28 20:58:10,112 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-368 - HikariPool-21 - Starting...
+2018-06-28 20:58:10,115 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-368 - HikariPool-21 - Start completed.
+2018-06-28 20:58:10,115 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-368 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 20:58:10,142 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-06-28 20:58:10,198 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-368 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 20:58:10,198 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-368 - Application started (Dev)
+2018-06-28 20:58:10,214 [ERROR] from application in application-akka.actor.default-dispatcher-5 - 
+
+! @78db08nf5 - Internal server error, for (GET) [/investmentgraph?id=6] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[SQLException: Parameter index out of range (1 > number of parameters, which is 0).]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.sql.SQLException: Parameter index out of range (1 > number of parameters, which is 0).
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:545)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:513)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:505)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:479)
+	at com.mysql.cj.jdbc.PreparedStatement.checkBounds(PreparedStatement.java:3246)
+	at com.mysql.cj.jdbc.PreparedStatement.setInternal(PreparedStatement.java:3230)
+	at com.mysql.cj.jdbc.PreparedStatement.setInternal(PreparedStatement.java:3263)
+	at com.mysql.cj.jdbc.PreparedStatement.setInt(PreparedStatement.java:3220)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.setInt(HikariProxyPreparedStatement.java)
+	at anorm.ToStatementPriority0$intToStatement$.set(ToStatement.scala:225)
+	at anorm.ToStatementPriority0$intToStatement$.set(ToStatement.scala:224)
+	at anorm.DefaultParameterValue.set(ParameterValue.scala:36)
+	at anorm.SimpleSql.$anonfun$unsafeStatement$3(SimpleSql.scala:66)
+	at anorm.SimpleSql.$anonfun$unsafeStatement$3$adapted(SimpleSql.scala:66)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:66)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:53)
+	at anorm.Sql.$anonfun$preparedStatement$1(Anorm.scala:90)
+	at resource.DefaultManagedResource.open(AbstractManagedResource.scala:110)
+	at resource.AbstractManagedResource.acquireFor(AbstractManagedResource.scala:87)
+	at resource.ManagedResourceOperations$$anon$2.acquireFor(ManagedResourceOperations.scala:49)
+	at resource.DeferredExtractableManagedResource.acquireFor(AbstractManagedResource.scala:27)
+	at resource.ManagedResourceOperations.apply(ManagedResourceOperations.scala:26)
+	at resource.ManagedResourceOperations.apply$(ManagedResourceOperations.scala:26)
+	at resource.DeferredExtractableManagedResource.apply(AbstractManagedResource.scala:24)
+	at resource.ManagedResourceOperations.acquireAndGet(ManagedResourceOperations.scala:25)
+	at resource.ManagedResourceOperations.acquireAndGet$(ManagedResourceOperations.scala:25)
+	at resource.DeferredExtractableManagedResource.acquireAndGet(AbstractManagedResource.scala:24)
+	at anorm.Sql$.$anonfun$asTry$1(Anorm.scala:228)
+	at scala.util.Try$.apply(Try.scala:209)
+	at anorm.Sql$.asTry(Anorm.scala:228)
+	at anorm.WithResult.asTry(SqlResult.scala:181)
+	at anorm.WithResult.asTry$(SqlResult.scala:181)
+	at anorm.SimpleSql.asTry(SimpleSql.scala:6)
+	at anorm.WithResult.as(SqlResult.scala:173)
+	at anorm.WithResult.as$(SqlResult.scala:172)
+	at anorm.SimpleSql.as(SimpleSql.scala:6)
+	at models.Database.$anonfun$getInvestmentGraphById$2(Database.scala:193)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:160)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:154)
+	at models.Database.$anonfun$getInvestmentGraphById$1(Database.scala:185)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:654)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-06-28 20:58:39,530 [ERROR] from application in application-akka.actor.default-dispatcher-4 - 
+
+! @78db0aeoi - Internal server error, for (GET) [/investmentgraph?id=6] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[SQLException: Parameter index out of range (1 > number of parameters, which is 0).]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.sql.SQLException: Parameter index out of range (1 > number of parameters, which is 0).
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:545)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:513)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:505)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:479)
+	at com.mysql.cj.jdbc.PreparedStatement.checkBounds(PreparedStatement.java:3246)
+	at com.mysql.cj.jdbc.PreparedStatement.setInternal(PreparedStatement.java:3230)
+	at com.mysql.cj.jdbc.PreparedStatement.setInternal(PreparedStatement.java:3263)
+	at com.mysql.cj.jdbc.PreparedStatement.setInt(PreparedStatement.java:3220)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.setInt(HikariProxyPreparedStatement.java)
+	at anorm.ToStatementPriority0$intToStatement$.set(ToStatement.scala:225)
+	at anorm.ToStatementPriority0$intToStatement$.set(ToStatement.scala:224)
+	at anorm.DefaultParameterValue.set(ParameterValue.scala:36)
+	at anorm.SimpleSql.$anonfun$unsafeStatement$3(SimpleSql.scala:66)
+	at anorm.SimpleSql.$anonfun$unsafeStatement$3$adapted(SimpleSql.scala:66)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:66)
+	at anorm.SimpleSql.unsafeStatement(SimpleSql.scala:53)
+	at anorm.Sql.$anonfun$preparedStatement$1(Anorm.scala:90)
+	at resource.DefaultManagedResource.open(AbstractManagedResource.scala:110)
+	at resource.AbstractManagedResource.acquireFor(AbstractManagedResource.scala:87)
+	at resource.ManagedResourceOperations$$anon$2.acquireFor(ManagedResourceOperations.scala:49)
+	at resource.DeferredExtractableManagedResource.acquireFor(AbstractManagedResource.scala:27)
+	at resource.ManagedResourceOperations.apply(ManagedResourceOperations.scala:26)
+	at resource.ManagedResourceOperations.apply$(ManagedResourceOperations.scala:26)
+	at resource.DeferredExtractableManagedResource.apply(AbstractManagedResource.scala:24)
+	at resource.ManagedResourceOperations.acquireAndGet(ManagedResourceOperations.scala:25)
+	at resource.ManagedResourceOperations.acquireAndGet$(ManagedResourceOperations.scala:25)
+	at resource.DeferredExtractableManagedResource.acquireAndGet(AbstractManagedResource.scala:24)
+	at anorm.Sql$.$anonfun$asTry$1(Anorm.scala:228)
+	at scala.util.Try$.apply(Try.scala:209)
+	at anorm.Sql$.asTry(Anorm.scala:228)
+	at anorm.WithResult.asTry(SqlResult.scala:181)
+	at anorm.WithResult.asTry$(SqlResult.scala:181)
+	at anorm.SimpleSql.asTry(SimpleSql.scala:6)
+	at anorm.WithResult.as(SqlResult.scala:173)
+	at anorm.WithResult.as$(SqlResult.scala:172)
+	at anorm.SimpleSql.as(SimpleSql.scala:6)
+	at models.Database.$anonfun$getInvestmentGraphById$2(Database.scala:193)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:160)
+	at play.api.db.DefaultDatabase.withConnection(Databases.scala:154)
+	at models.Database.$anonfun$getInvestmentGraphById$1(Database.scala:185)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:654)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-06-28 20:59:26,861 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-28 20:59:26,862 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-21 - Shutdown initiated...
+2018-06-28 20:59:26,865 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-21 - Shutdown completed.
+2018-06-28 20:59:26,962 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-355 - Creating Pool for datasource 'default'
+2018-06-28 20:59:26,962 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-355 - HikariPool-22 - Starting...
+2018-06-28 20:59:26,966 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-355 - HikariPool-22 - Start completed.
+2018-06-28 20:59:26,966 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-355 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 20:59:26,983 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-06-28 20:59:27,055 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-355 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 20:59:27,055 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-355 - Application started (Dev)
+2018-06-28 21:20:42,908 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-06-28 21:20:42,908 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-22 - Shutdown initiated...
+2018-06-28 21:20:42,912 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-22 - Shutdown completed.
+2018-06-28 21:20:43,017 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-380 - Creating Pool for datasource 'default'
+2018-06-28 21:20:43,017 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-380 - HikariPool-23 - Starting...
+2018-06-28 21:20:43,021 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-380 - HikariPool-23 - Start completed.
+2018-06-28 21:20:43,021 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-380 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 21:20:43,125 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-28 21:20:43,145 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-380 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 21:20:43,145 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-380 - Application started (Dev)
+2018-06-28 21:56:11,475 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-391 - 
+
+! @78db7op94 - Internal server error, for (GET) [/equitystructuregraph?id=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[type mismatch;
+ found   : Option[Double]
+ required: Double]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-06-28 21:57:02,594 [INFO] from application in application-akka.actor.default-dispatcher-83 - Shutting down connection pool.
+2018-06-28 21:57:02,595 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-83 - HikariPool-23 - Shutdown initiated...
+2018-06-28 21:57:02,601 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-83 - HikariPool-23 - Shutdown completed.
+2018-06-28 21:57:02,724 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-391 - Creating Pool for datasource 'default'
+2018-06-28 21:57:02,724 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-391 - HikariPool-24 - Starting...
+2018-06-28 21:57:02,728 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-391 - HikariPool-24 - Start completed.
+2018-06-28 21:57:02,728 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-391 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 21:57:02,748 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-28 21:57:02,767 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-391 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 21:57:02,767 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-391 - Application started (Dev)
+2018-06-28 22:03:58,668 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2018-06-28 22:03:58,668 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-24 - Shutdown initiated...
+2018-06-28 22:03:58,673 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-24 - Shutdown completed.
+2018-06-28 22:03:58,772 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-395 - Creating Pool for datasource 'default'
+2018-06-28 22:03:58,773 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-395 - HikariPool-25 - Starting...
+2018-06-28 22:03:58,776 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-395 - HikariPool-25 - Start completed.
+2018-06-28 22:03:58,777 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-395 - Database [default] connected at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-06-28 22:03:58,794 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-06-28 22:03:58,864 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-395 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-06-28 22:03:58,865 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-395 - Application started (Dev)

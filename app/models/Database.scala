@@ -180,8 +180,18 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
   }
 
   def getInvestmentGraphById(id: Int): Future[Tree] = {
+
     val dataFuture = Future {
       db.withConnection { implicit conn =>
+        val real = SQL(
+          """
+            |select investment_info.id
+            |from company, investment_info
+            |where company.id = investment_info.real_id and company.id = {id}
+          """.stripMargin)
+          .on('id -> id)
+          .as(scalar[Int].single)
+
         val investmentGraph = SQL(
           """
             |select
@@ -194,7 +204,7 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
             |  , investment_info q, investment_info w) left join investment_info e on b.bid = e.id
             |where a.id = {id} and a.id = q.id and a.bid = w.id
           """.stripMargin
-        ).on('id -> id).as(investmentGraphParser.*)
+        ).on('id -> real).as(investmentGraphParser.*)
         val trees = investmentGraph.groupBy(_.w_name)
           .map { x =>
             if (x._2.size > 1)
@@ -208,7 +218,8 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
     val bossFuture = Future {
       db.withConnection { implicit conn =>
-        SQL("""select * from investment_boss""")
+        SQL("""select * from investment_boss where id = {id}""")
+          .on('id -> id)
           .as(investmentBossParser.*)
       }
     }
@@ -229,11 +240,20 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     queue += id
 
     val first_node = db.withConnection { implicit conn =>
+      val real = SQL(
+        """
+          |select *
+          |from company, association_info
+          |where company.id = association_info.real_id and company.id = {id}
+        """.stripMargin)
+        .on('id -> id)
+        .as(scalar[Int].single)
+
       SQL(
         """
           |select * from association_info where id = {id}
         """.stripMargin)
-        .on('id -> id)
+        .on('id -> real)
         .as(associationInfoSample.single)
     }
 
@@ -268,7 +288,7 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
         queue += x._1
         set += x
       }
-      second.map(x => (x.id, x.name_a, x.kind_a)).filterNot(set).foreach{ x =>
+      second.map(x => (x.id, x.name_a, x.kind_a)).filterNot(set).foreach { x =>
         queue += x._1
         set += x
       }
@@ -284,5 +304,25 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
     (data, links)
   }
+
+  def getEquityStructureGraphById(id: Int): Future[Tree] = {
+    val outboundInvestmentFuture = getOutboundInvestmentById(id)
+
+    val shareholderInformationFuture = getShareholderInformationById(id)
+
+    val companyFuture = getCompanyById(id)
+    for {
+      outboundInvestment <- outboundInvestmentFuture
+      shareholderInformation <- shareholderInformationFuture
+      company <- companyFuture
+    } yield {
+      Tree(company.get.name, Some(List(Tree("股东",
+        Option(shareholderInformation.map(x => Tree(x.name, None, Option(x.shareholding_ratio)))) , None),
+        Tree("对外投资",
+          Option(outboundInvestment.map(x => Tree(x.invested_enterprise, None, x.contribution))) , None))), None)
+    }
+  }
+
+
 }
 
