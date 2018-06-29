@@ -21,6 +21,7 @@ object Format {
   implicit lazy val CompanyProfileFormat: OFormat[CompanyProfile] = Json.format[CompanyProfile]
   implicit lazy val InterestedPeopleFormat: OFormat[InterestedPeople] = Json.format[InterestedPeople]
   implicit lazy val TreeFormat: OFormat[Tree] = Json.format[Tree]
+  implicit lazy val ColorTreeFormat: OFormat[ColorTree] = Json.format[ColorTree]
   implicit lazy val LinksFormat: OFormat[Links] = Json.format[Links]
   implicit lazy val NodesFormat: OFormat[Nodes] = Json.format[Nodes]
   implicit lazy val BossFormat: OFormat[Boss] = Json.format[Boss]
@@ -61,6 +62,8 @@ case class Boss(name: String, associate_count: Int, avator: String)
 case class InterestedPeople(name: String, img: String, desc: String)
 
 case class Tree(name: String, children: Option[List[Tree]], value: Option[Double])
+
+case class ColorTree(name: String, children: Option[List[ColorTree]], value: Option[Double], symbolSize: List[Int], symbol: String = "rectangle")
 
 case class EnterpriseGraph(one_name: String, two_name: String, three_name: String)
 

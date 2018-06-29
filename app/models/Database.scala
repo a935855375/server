@@ -305,7 +305,7 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     (data, links)
   }
 
-  def getEquityStructureGraphById(id: Int): Future[Tree] = {
+  def getEquityStructureGraphById(id: Int): Future[ColorTree] = {
     val outboundInvestmentFuture = getOutboundInvestmentById(id)
 
     val shareholderInformationFuture = getShareholderInformationById(id)
@@ -316,10 +316,11 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
       shareholderInformation <- shareholderInformationFuture
       company <- companyFuture
     } yield {
-      Tree(company.get.name, Some(List(Tree("股东",
-        Option(shareholderInformation.map(x => Tree(x.name, None, Option(x.shareholding_ratio)))) , None),
-        Tree("对外投资",
-          Option(outboundInvestment.map(x => Tree(x.invested_enterprise, None, x.contribution))) , None))), None)
+      val z = 16
+      ColorTree(company.get.name, Some(List(ColorTree("股东",
+        Option(shareholderInformation.map(x => ColorTree(x.name, None, Option(x.shareholding_ratio), List(x.name.length * z, 30)))) , None, List("股东".length * z, 30)),
+        ColorTree("对外投资",
+          Option(outboundInvestment.map(x => ColorTree(x.invested_enterprise, None, x.contribution, List(x.invested_enterprise.length * z, 30)))) , None, List("对外投资".length * z, 30)))), None ,List(company.get.name.length * z, 30))
     }
   }
 

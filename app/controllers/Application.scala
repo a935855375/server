@@ -131,7 +131,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getCompanyInfo(id: Int): Action[AnyContent] = (Action andThen authLogin).async { implicit request =>
+  def getCompanyInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
     val companyFuture = database.getCompanyById(id)
     val basicInfoFuture = database.getCompanyInfoById(id)
     val shareholderInformationFuture = database.getShareholderInformationById(id)
