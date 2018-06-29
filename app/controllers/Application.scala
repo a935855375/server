@@ -188,7 +188,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
   }
 
   def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    database.getAssociationGraphById(1).map { x =>
+    database.getAssociationGraphById(id).map { x =>
       Ok(Json.obj("data" -> x._1, "links" -> x._2))
     }
   }
@@ -197,4 +197,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
     database.getEquityStructureGraphById(id).map(x => Ok(Json.toJson(x)))
   }
 
+  def getSuspectedController(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    database.getSuspectedControllerById(id).map(x => Ok(Json.toJson(x)))
+  }
 }

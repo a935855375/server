@@ -242,7 +242,7 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     val first_node = db.withConnection { implicit conn =>
       val real = SQL(
         """
-          |select *
+          |select association_info.id
           |from company, association_info
           |where company.id = association_info.real_id and company.id = {id}
         """.stripMargin)
@@ -300,7 +300,12 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
     val links = relationBuffer.distinct.toList.map(x => Links(index(x.id), index(x.bid), x.value))
 
-    val data = listSet.map(x => Nodes(x._2, x._3, draggable = true))
+    val data = listSet.map{x =>
+      if(x._2 != first_node._2)
+        Nodes(x._2, x._3, draggable = true)
+      else
+        Nodes(x._2, 2, draggable = true)
+    }
 
     (data, links)
   }
@@ -324,6 +329,9 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
     }
   }
 
+  def getSuspectedControllerById(id: Int): Future[ShareholderInformation] = {
+    getShareholderInformationById(id).map(_.maxBy(_.shareholding_ratio))
+  }
 
 }
 
