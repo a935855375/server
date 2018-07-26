@@ -5,21 +5,25 @@ import javax.inject.Singleton
 import models.Format._
 import models._
 import play.api.Configuration
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.{JsArray, Json, OFormat}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
+import slick.jdbc.JdbcProfile
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
-
+import models.Tables.profile.api._
+import play.api.db.NamedDatabase
 
 @Singleton
 class Application @Inject()(cc: MessagesControllerComponents,
-                            database: Database,
+                            database: MyDatabase,
                             auth: Auth,
                             config: Configuration,
-                            ws: WSClient)
-                           (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
+                            ws: WSClient,
+                            @NamedDatabase("mysql") protected val dbConfigProvider: DatabaseConfigProvider)
+                           (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
   final val baseUrl = config.get[String]("es.baseUrl")
 
@@ -28,7 +32,14 @@ class Application @Inject()(cc: MessagesControllerComponents,
   implicit val userFormat: OFormat[User] = Json.format[User]
 
   def index: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok("hello"))
+    Future.successful(Ok("hello, world"))
+  }
+
+  def test: Action[AnyContent] = Action.async { implicit request =>
+    val users = db.run(Tables.User.filter(x => x.id === 1).result)
+    //Future.successful(Ok(views.html.index()))
+    val data = db.run(Tables.Temp.filter(x => x.id === 1 && x.kind === 5).result)
+    data.map(x => Ok(Json.prettyPrint(Json.parse(x.head.data.get))))
   }
 
   def loginAuth[A](action: Action[A]): Action[A] = Action.async(action.parser) { request =>
@@ -189,15 +200,21 @@ class Application @Inject()(cc: MessagesControllerComponents,
 
   def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
     database.getAssociationGraphById(id).map { x =>
-      Ok(Json.obj("data" -> x._1, "links" -> x._2))
+      Ok(Json.obj("nodes" -> x._1, "links" -> x._2))
     }
   }
 
   def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    //val sql = Tables.Temp.filter()
     database.getEquityStructureGraphById(id).map(x => Ok(Json.toJson(x)))
   }
 
   def getSuspectedController(id: Int): Action[AnyContent] = Action.async { implicit request =>
     database.getSuspectedControllerById(id).map(x => Ok(Json.toJson(x)))
+  }
+
+  def getPersonalGraph(id: Int, kind: Int): Action[AnyContent] = Action.async { implicit request =>
+    val sql = Tables.Temp.filter(x => x.id === id && x.kind === kind).result
+    db.run(sql).map(x => Ok(x.head.data.get).as(JSON))
   }
 }

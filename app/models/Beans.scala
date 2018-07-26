@@ -75,4 +75,4 @@ case class Association(id: Int, bid: Int, value: String, name_a: String, name_b:
 
 case class Links(source: Int, target: Int, value: String)
 
-case class Nodes(name: String, category: Int, draggable: Boolean)
+case class Nodes(id: Int, name: String, category: Int)

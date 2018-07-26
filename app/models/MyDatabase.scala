@@ -12,8 +12,8 @@ import scala.language.postfixOps
 
 
 @Singleton
-class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
-  private val db = dbapi.database("default")
+class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
+  private lazy val db = dbapi.database("default")
 
   private lazy val UserSample = get[Int]("id") ~
     get[String]("username") ~
@@ -302,9 +302,9 @@ class Database @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) {
 
     val data = listSet.map{x =>
       if(x._2 != first_node._2)
-        Nodes(x._2, x._3, draggable = true)
+        Nodes(x._1, x._2, x._3)
       else
-        Nodes(x._2, 2, draggable = true)
+        Nodes(x._1, x._2, 2)
     }
 
     (data, links)
