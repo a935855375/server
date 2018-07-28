@@ -4,8 +4,6 @@
 
 GET         /                            controllers.Application.index
 
-GET         /test                        controllers.Application.test
-
 POST        /login                       controllers.Application.login
 
 POST        /register                    controllers.Application.register
@@ -27,6 +25,10 @@ GET         /equitystructuregraph        controllers.Application.getEquityStruct
 GET         /suspectedcontroller         controllers.Application.getSuspectedController(id: Int)
 
 GET         /personalGraph               controllers.Application.getPersonalGraph(id: Int, kind: Int)
+
+GET         /companyShortInfo            controllers.Application.getCompanyShortInfo(key: String)
+
+GET         /tempAssociationgraph        controllers.Application.getTempAssociationGraph
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /*file                       controllers.Assets.at(path="/public", file)

@@ -25,6 +25,14 @@ object Format {
   implicit lazy val LinksFormat: OFormat[Links] = Json.format[Links]
   implicit lazy val NodesFormat: OFormat[Nodes] = Json.format[Nodes]
   implicit lazy val BossFormat: OFormat[Boss] = Json.format[Boss]
+
+  implicit lazy val PropertyFormat: OFormat[Property] = Json.format[Property]
+  implicit lazy val TempNodeFormat: OFormat[TempNode] = Json.format[TempNode]
+  implicit lazy val NodeResultFormat: OFormat[NodeResult] = Json.format[NodeResult]
+
+  implicit lazy val Property2Format: OFormat[Property2] = Json.format[Property2]
+  implicit lazy val TempLinkFormat: OFormat[TempLink] = Json.format[TempLink]
+  implicit lazy val LinkResultFormat: OFormat[LinkResult] = Json.format[LinkResult]
 }
 
 class UserRequest[A](val username: String, request: Request[A]) extends WrappedRequest[A](request)
@@ -76,3 +84,15 @@ case class Association(id: Int, bid: Int, value: String, name_a: String, name_b:
 case class Links(source: Int, target: Int, value: String)
 
 case class Nodes(id: Int, name: String, category: Int)
+
+case class Property(keyNo: String, name: String)
+
+case class TempNode(id: String, labels: Array[String], properties: Property)
+
+case class NodeResult(id: String, keyNo: String, name: String, category: Int)
+
+case class Property2(role: Option[String])
+
+case class TempLink(startNode: String, endNode: String, `type`: String, properties: Property2)
+
+case class LinkResult(source: Int, target: Int, relation: String)

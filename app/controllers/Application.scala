@@ -32,14 +32,47 @@ class Application @Inject()(cc: MessagesControllerComponents,
   implicit val userFormat: OFormat[User] = Json.format[User]
 
   def index: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok("hello, world"))
+    Future.successful(Ok("GG"))
   }
 
-  def test: Action[AnyContent] = Action.async { implicit request =>
-    val users = db.run(Tables.User.filter(x => x.id === 1).result)
-    //Future.successful(Ok(views.html.index()))
-    val data = db.run(Tables.Temp.filter(x => x.id === 1 && x.kind === 5).result)
-    data.map(x => Ok(Json.prettyPrint(Json.parse(x.head.data.get))))
+  def getTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
+    val sql = Tables.Temp.filter(_.kind === 4).result
+    db.run(sql).map { data =>
+      val json = Json.parse(data.head.data.get)
+      val node = json.\("nodes").as[Seq[TempNode]]
+      val link = json.\("relationships").as[Seq[TempLink]]
+
+      val nodes = node.map { x =>
+        var cate = x.labels(0) match {
+          case "Company" => 0
+          case "Person" => 1
+          case _ => 2
+        }
+
+        if(x.id.equals("35368230")) cate = 2
+
+        NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
+      }
+
+      val index = nodes.zipWithIndex.toMap
+
+      val map = nodes.map(x => x.id -> x).toMap
+
+
+      val links = link.map { x =>
+        val relation = x.`type` match {
+          case "EMPLOY" => x.properties.role.getOrElse("任职")
+          case "INVEST" => "投资"
+          case _ => "投资"
+        }
+
+        LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
+      }
+
+      val merge = links.groupBy(x => (x.source, x.target)).map(x => LinkResult(x._1._1, x._1._2, x._2.map(_.relation).distinct.mkString("、")))
+
+      Ok(Json.obj("nodes" -> nodes, "links" -> merge))
+    }
   }
 
   def loginAuth[A](action: Action[A]): Action[A] = Action.async(action.parser) { request =>
@@ -178,8 +211,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
   }
 
   def getInterestedPeople: Action[AnyContent] = Action.async { implicit request =>
-    database.getInterestedPeople.map(data => getRandomList(data.length).map(data.apply))
-      .map(x => Ok(Json.toJson(x)))
+    database.getInterestedPeople.map(data => getRandomList(data.length).map(data.apply)).map(x => Ok(Json.toJson(x)))
   }
 
   def getRandomList(n: Int): List[Int] = (1 to n * 10)
@@ -210,11 +242,24 @@ class Application @Inject()(cc: MessagesControllerComponents,
   }
 
   def getSuspectedController(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    database.getSuspectedControllerById(id).map(x => Ok(Json.toJson(x)))
+    val company = database.getCompanyById(id)
+    val person = database.getSuspectedControllerById(id)
+
+    for {
+      c <- company
+      p <- person
+    } yield {
+      Ok(Json.obj("person" -> p, "company" -> c))
+    }
   }
 
   def getPersonalGraph(id: Int, kind: Int): Action[AnyContent] = Action.async { implicit request =>
     val sql = Tables.Temp.filter(x => x.id === id && x.kind === kind).result
     db.run(sql).map(x => Ok(x.head.data.get).as(JSON))
+  }
+
+  def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
+    val sql = Tables.ShortInfo.filter(_.key === key).result
+    db.run(sql).map(x => Ok(x.head.value.get).as(JSON))
   }
 }
