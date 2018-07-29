@@ -26,6 +26,7 @@ object Format {
   implicit lazy val NodesFormat: OFormat[Nodes] = Json.format[Nodes]
   implicit lazy val BossFormat: OFormat[Boss] = Json.format[Boss]
 
+  // 调试用
   implicit lazy val PropertyFormat: OFormat[Property] = Json.format[Property]
   implicit lazy val TempNodeFormat: OFormat[TempNode] = Json.format[TempNode]
   implicit lazy val NodeResultFormat: OFormat[NodeResult] = Json.format[NodeResult]
@@ -85,6 +86,8 @@ case class Links(source: Int, target: Int, value: String)
 
 case class Nodes(id: Int, name: String, category: Int)
 
+
+// 调试用
 case class Property(keyNo: String, name: String)
 
 case class TempNode(id: String, labels: Array[String], properties: Property)

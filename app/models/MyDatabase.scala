@@ -300,8 +300,8 @@ class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) 
 
     val links = relationBuffer.distinct.toList.map(x => Links(index(x.id), index(x.bid), x.value))
 
-    val data = listSet.map{x =>
-      if(x._2 != first_node._2)
+    val data = listSet.map { x =>
+      if (x._2 != first_node._2)
         Nodes(x._1, x._2, x._3)
       else
         Nodes(x._1, x._2, 2)
@@ -316,6 +316,7 @@ class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) 
     val shareholderInformationFuture = getShareholderInformationById(id)
 
     val companyFuture = getCompanyById(id)
+
     for {
       outboundInvestment <- outboundInvestmentFuture
       shareholderInformation <- shareholderInformationFuture
@@ -323,9 +324,12 @@ class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) 
     } yield {
       val z = 16
       ColorTree(company.get.name, Some(List(ColorTree("股东",
-        Option(shareholderInformation.map(x => ColorTree(x.name, None, Option(x.shareholding_ratio), List(x.name.length * z, 30)))) , None, List("股东".length * z, 30)),
+        Option(shareholderInformation.map(x => ColorTree(x.name, None, Option(x.shareholding_ratio),
+          List(x.name.length * z, 30)))), None, List("股东".length * z, 30)),
         ColorTree("对外投资",
-          Option(outboundInvestment.map(x => ColorTree(x.invested_enterprise, None, x.contribution, List(x.invested_enterprise.length * z, 30)))) , None, List("对外投资".length * z, 30)))), None ,List(company.get.name.length * z, 30))
+          Option(outboundInvestment.map(x => ColorTree(x.invested_enterprise, None, x.contribution,
+            List(x.invested_enterprise.length * z, 30)))), None, List("对外投资".length * z, 30)))),
+        None, List(company.get.name.length * z, 30))
     }
   }
 

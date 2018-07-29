@@ -35,46 +35,6 @@ class Application @Inject()(cc: MessagesControllerComponents,
     Future.successful(Ok("GG"))
   }
 
-  def getTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
-    val sql = Tables.Temp.filter(_.kind === 4).result
-    db.run(sql).map { data =>
-      val json = Json.parse(data.head.data.get)
-      val node = json.\("nodes").as[Seq[TempNode]]
-      val link = json.\("relationships").as[Seq[TempLink]]
-
-      val nodes = node.map { x =>
-        var cate = x.labels(0) match {
-          case "Company" => 0
-          case "Person" => 1
-          case _ => 2
-        }
-
-        if(x.id.equals("35368230")) cate = 2
-
-        NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
-      }
-
-      val index = nodes.zipWithIndex.toMap
-
-      val map = nodes.map(x => x.id -> x).toMap
-
-
-      val links = link.map { x =>
-        val relation = x.`type` match {
-          case "EMPLOY" => x.properties.role.getOrElse("任职")
-          case "INVEST" => "投资"
-          case _ => "投资"
-        }
-
-        LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
-      }
-
-      val merge = links.groupBy(x => (x.source, x.target)).map(x => LinkResult(x._1._1, x._1._2, x._2.map(_.relation).distinct.mkString("、")))
-
-      Ok(Json.obj("nodes" -> nodes, "links" -> merge))
-    }
-  }
-
   def loginAuth[A](action: Action[A]): Action[A] = Action.async(action.parser) { request =>
     request.headers.get("Authorization") match {
       case Some(token) =>
@@ -261,5 +221,92 @@ class Application @Inject()(cc: MessagesControllerComponents,
   def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
     val sql = Tables.ShortInfo.filter(_.key === key).result
     db.run(sql).map(x => Ok(x.head.value.get).as(JSON))
+  }
+
+  // 调试用
+ /* def getTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
+    val sql = Tables.Temp.filter(_.kind === 7).result
+    db.run(sql).map { data =>
+      val json = Json.parse(data.head.data.get).\("Result")
+      val node = json.\("nodes").as[Seq[TempNode]]
+      val link = json.\("relationships").as[Seq[TempLink]]
+
+      val nodes = node.map { x =>
+        var cate = x.labels(0) match {
+          case "Company" => 0
+          case "Person" => 1
+          case _ => 2
+        }
+
+        if(x.id.equals("35368230")) cate = 2
+
+        NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
+      }
+
+      val index = nodes.zipWithIndex.toMap
+
+      val map = nodes.map(x => x.id -> x).toMap
+
+
+      val links = link.map { x =>
+        val relation = x.`type` match {
+          case "EMPLOY" => x.properties.role.getOrElse("任职")
+          case "INVEST" => "投资"
+          case _ => "投资"
+        }
+
+        LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
+      }
+
+      val merge = links.groupBy(x => (x.source, x.target)).map(x => LinkResult(x._1._1, x._1._2, x._2.map(_.relation).distinct.mkString("、")))
+
+      Ok(Json.obj("nodes" -> nodes, "links" -> merge))
+    }
+  }*/
+
+  // 调试用
+  def getMultipleAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
+    val sql = Tables.Temp.filter(_.kind === 7).result
+    db.run(sql).map { data =>
+      val json = Json.parse(data.head.data.get)
+      val node = json.\("nodes").as[Seq[TempNode]].groupBy(_.id).map(x => x._2.head)
+      val link = json.\("links").as[Seq[TempLink]]
+
+      val nodes = node.map { x =>
+        val cate = x.labels(0) match {
+          case "Company" => 0
+          case "Person" => 1
+          case _ => 2
+        }
+
+        NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
+      }
+
+      val index = nodes.zipWithIndex.toMap
+
+      val map = nodes.map(x => x.id -> x).toMap
+
+
+      val links = link.distinct.map { x =>
+        val relation = x.`type` match {
+          case "EMPLOY" => x.properties.role.getOrElse("任职")
+          case "INVEST" => "投资"
+          case _ => "投资"
+        }
+
+        LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
+      }
+
+      val merge = links.groupBy(x => (x.source, x.target))
+        .map(x => LinkResult(x._1._1, x._1._2, x._2
+          .map(_.relation).distinct.mkString("、")))
+
+      Ok(Json.obj("nodes" -> nodes, "links" -> merge))
+    }
+  }
+
+  def putTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
+    println(request.body.asJson.get)
+    Future.successful(Ok)
   }
 }
