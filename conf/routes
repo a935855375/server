@@ -4,6 +4,8 @@
 
 GET         /                            controllers.Application.index
 
+GET         /test                        controllers.Api.getAllCompany
+
 POST        /login                       controllers.Application.login
 
 POST        /register                    controllers.Application.register
@@ -26,7 +28,7 @@ GET         /suspectedcontroller         controllers.Application.getSuspectedCon
 
 GET         /personalGraph               controllers.Application.getPersonalGraph(id: Int, kind: Int)
 
-GET         /companyShortInfo            controllers.Application.getCompanyShortInfo(key: String)
+GET         /companyShortInfo            controllers.Application.getCompanyShortInfo2(key: String)
 
 # GET         /tempAssociationgraph        controllers.Application.getTempAssociationGraph
 

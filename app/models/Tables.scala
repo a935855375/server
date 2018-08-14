@@ -310,47 +310,42 @@ trait Tables {
   /** Collection-like TableQuery object for table Company */
   lazy val Company = new TableQuery(tag => new Company(tag))
 
-  /** Entity class storing rows of table CompanyProfile
-   *  @param id Database column id SqlType(INT)
-   *  @param profile Database column profile SqlType(TEXT), Default(None) */
+
   case class CompanyProfileRow(id: Int, profile: Option[String] = None)
-  /** GetResult implicit for fetching CompanyProfileRow objects using plain SQL queries */
+
   implicit def GetResultCompanyProfileRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[CompanyProfileRow] = GR{
     prs => import prs._
     CompanyProfileRow.tupled((<<[Int], <<?[String]))
   }
-  /** Table description of table company_profile. Objects of this class serve as prototypes for rows in queries. */
+
   class CompanyProfile(_tableTag: Tag) extends profile.api.Table[CompanyProfileRow](_tableTag, Some("server"), "company_profile") {
     def * = (id, profile) <> (CompanyProfileRow.tupled, CompanyProfileRow.unapply)
-    /** Maps whole row to an option. Useful for outer joins. */
+
     def ? = (Rep.Some(id), profile).shaped.<>({r=>import r._; _1.map(_=> CompanyProfileRow.tupled((_1.get, _2)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
-    /** Database column id SqlType(INT) */
     val id: Rep[Int] = column[Int]("id")
-    /** Database column profile SqlType(TEXT), Default(None) */
+
     val profile: Rep[Option[String]] = column[Option[String]]("profile", O.Default(None))
   }
-  /** Collection-like TableQuery object for table CompanyProfile */
+
   lazy val CompanyProfile = new TableQuery(tag => new CompanyProfile(tag))
 
-  /** Entity class storing rows of table EnterpriseOne
-   *  @param id Database column id SqlType(INT), AutoInc, PrimaryKey
-   *  @param oneName Database column one_name SqlType(VARCHAR), Length(255,true) */
+
   case class EnterpriseOneRow(id: Int, oneName: String)
-  /** GetResult implicit for fetching EnterpriseOneRow objects using plain SQL queries */
+
   implicit def GetResultEnterpriseOneRow(implicit e0: GR[Int], e1: GR[String]): GR[EnterpriseOneRow] = GR{
     prs => import prs._
     EnterpriseOneRow.tupled((<<[Int], <<[String]))
   }
-  /** Table description of table enterprise_one. Objects of this class serve as prototypes for rows in queries. */
+
   class EnterpriseOne(_tableTag: Tag) extends profile.api.Table[EnterpriseOneRow](_tableTag, Some("server"), "enterprise_one") {
     def * = (id, oneName) <> (EnterpriseOneRow.tupled, EnterpriseOneRow.unapply)
-    /** Maps whole row to an option. Useful for outer joins. */
+
     def ? = (Rep.Some(id), Rep.Some(oneName)).shaped.<>({r=>import r._; _1.map(_=> EnterpriseOneRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
-    /** Database column id SqlType(INT), AutoInc, PrimaryKey */
+
     val id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
-    /** Database column one_name SqlType(VARCHAR), Length(255,true) */
+
     val oneName: Rep[String] = column[String]("one_name", O.Length(255,varying=true))
   }
   /** Collection-like TableQuery object for table EnterpriseOne */

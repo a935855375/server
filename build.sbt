@@ -22,3 +22,5 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0
 libraryDependencies += "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5"
 
 libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.3"
+
+libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"

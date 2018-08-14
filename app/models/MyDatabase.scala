@@ -234,11 +234,20 @@ class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) 
   }
 
   def getAssociationGraphById(id: Int) = Future {
+
+    // 创建待遍历队列
     val queue = mutable.Queue[Int]()
+
+    // 创建已遍历节点Set
     val set = mutable.Set[(Int, String, Int)]()
+
+    // 用于存储节点关系的buffer
     val relationBuffer = ListBuffer[Association]()
+
+    // 向队列中加入开始节点
     queue += id
 
+    // 查询开始节点的关系对象的主动和被动联系信息
     val first_node = db.withConnection { implicit conn =>
       val real = SQL(
         """
@@ -257,10 +266,18 @@ class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) 
         .as(associationInfoSample.single)
     }
 
+    // 标记开始节点已经被遍历
     set += first_node
 
+    /**
+      * 不断从队列中取出节点 将和该节点有关联的节点加入到队列
+      * 直到所有的节点关系被全部 遍历 循环结束
+      */
     while (queue.nonEmpty) {
+      // 从队列头取一个head节点
       val head = queue.dequeue()
+
+      // 查询head节点的关联信息
       val associations = db.withConnection { implicit conn =>
         SQL(
           """
@@ -279,35 +296,45 @@ class MyDatabase @Inject()(dbapi: DBApi)(implicit ec: DatabaseExecutionContext) 
           .as(associationParser.*)
       }
 
+      // 分离主动联系和被动联系关系
       val (first, second) = associations.partition(_.id == head)
 
+      // 保持所有的关联关系
       relationBuffer ++= first
       relationBuffer ++= second
 
+      // 如果是主动联系 则把被动联系方加入到待遍历队列 同时进行标记
       first.map(x => (x.bid, x.name_b, x.kind_b)).filterNot(set).foreach { x =>
         queue += x._1
         set += x
       }
+
+      // 如果是被动联系 则把主动联系方加入到待遍历队列 同时进行标记
       second.map(x => (x.id, x.name_a, x.kind_a)).filterNot(set).foreach { x =>
         queue += x._1
         set += x
       }
     }
 
+    // BFS完成 Set里面存储了所有的遍历节点
     val listSet = set.toList
 
+    // 给每个节点加上索引号 如 （1, a),(2, b),(3, c)
     val index = listSet.map(_._1).zipWithIndex.toMap
 
+    // 把每个关系节点映射为 带索引的关系模式 如(0, 1, "老板") 说明data数组里面的第0个元素和第一个元素的关系为老板
     val links = relationBuffer.distinct.toList.map(x => Links(index(x.id), index(x.bid), x.value))
 
-    val data = listSet.map { x =>
+    // 修改最初选择的节点的类型为2 表示该节点为起始节点 应该被重点标记
+    val nodes = listSet.map { x =>
       if (x._2 != first_node._2)
         Nodes(x._1, x._2, x._3)
       else
         Nodes(x._1, x._2, 2)
     }
 
-    (data, links)
+    // 返回节点信息和关系信息的元组
+    (nodes, links)
   }
 
   def getEquityStructureGraphById(id: Int): Future[ColorTree] = {
