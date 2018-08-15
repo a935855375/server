@@ -23,4 +23,6 @@ libraryDependencies += "com.jason-goodwin" %% "authentikat-jwt" % "0.4.5"
 
 libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.3"
 
+libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % "3.2.1"
+
 libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"

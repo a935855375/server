@@ -13,7 +13,7 @@ import slick.jdbc.JdbcProfile
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
-import models.Tables.profile.api._
+import models.OldTables$.profile.api._
 import org.jsoup.Jsoup
 import play.api.db.NamedDatabase
 
@@ -222,12 +222,12 @@ class Application @Inject()(cc: MessagesControllerComponents,
   }
 
   def getPersonalGraph(id: Int, kind: Int): Action[AnyContent] = Action.async { implicit request =>
-    val sql = Tables.Temp.filter(x => x.id === id && x.kind === kind).result
+    val sql = OldTables$.Temp.filter(x => x.id === id && x.kind === kind).result
     db.run(sql).map(x => Ok(x.head.data.get).as(JSON))
   }
 
   def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
-    val sql = Tables.ShortInfo.filter(_.key === key).result
+    val sql = OldTables$.ShortInfo.filter(_.key === key).result
     db.run(sql).map(x => Ok(x.head.value.get).as(JSON))
   }
 
@@ -290,7 +290,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
 
   // 调试用
   def getMultipleAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
-    val sql = Tables.Temp.filter(_.kind === 7).result
+    val sql =OldTables$.Temp.filter(_.kind === 7).result
     db.run(sql).map { data =>
       val json = Json.parse(data.head.data.get)
       val node = json.\("nodes").as[Seq[TempNode]].groupBy(_.id).map(x => x._2.head)
