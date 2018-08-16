@@ -15,6 +15,7 @@ import slick.jdbc.JdbcProfile
 
 import scala.concurrent.ExecutionContext
 import scala.collection.JavaConverters._
+import scala.util.Try
 
 class Crawler @Inject()(ws: WSClient,
                         config: Configuration,
@@ -90,10 +91,10 @@ class Crawler @Inject()(ws: WSClient,
       .get()
       .foreach { response =>
         val pages = parseInt(Jsoup.parse(response.body).select("#ajaxpage").last().ownText())
-        1 to pages foreach (page => forCompanyByKeyWord(key, page))
+        1 to math.min(10, pages) foreach (page => forCompanyByKeyWord(key, page))
       }
 
-  def forBaseInfo(url: String): Unit =
+  def forBaseInfo(url: String, id: Int): Unit =
     ws.url(s"https://www.qichacha.com$url")
       .addHttpHeaders(
         "User-Agent" -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36",
@@ -102,13 +103,20 @@ class Crawler @Inject()(ws: WSClient,
       .foreach { response =>
         val html = Jsoup.parse(response.body)
         // 公司简介
-        println(html.select(".m-t-sm.m-b-sm").html())
+        val introduction = if (html.select(".m-t-sm.m-b-sm").size() != 0)
+          Some(html.select(".m-t-sm.m-b-sm").html())
+        else
+          None
 
         // keyNo
-        if (html.select(".ba-table-base").size() > 1) {
+        val keyNo = if (html.select(".ba-table-base").size() > 1) {
           val url = html.select(".ba-table-base").get(1).child(0).attr("href")
-          println(url.substring(url.indexOf('?') + 1, url.indexOf('&')))
-        }
+          Some(url.substring(url.indexOf('=') + 1, url.indexOf('&')))
+        } else None
+
+        // 官方网站
+        val website = if (html.select(".webauth-template").size() == 0) None
+        else Some(html.select(".webauth-template").next().first().attr("href"))
 
         // 人物信息
         if (html.select(".bname").size() > 0) {
@@ -120,13 +128,13 @@ class Crawler @Inject()(ws: WSClient,
             if (data.isEmpty) {
               val PersonWithID = (Person returning Person.map(_.id)) += PersonRow(0, name, Some(ref), Some(count))
               db.run(PersonWithID).foreach { id =>
-                val q = for {c <- Company if c.ref === url} yield c.represent
-                val action = q.update(Some(id))
+                val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
+                val action = q.update(Some(id), introduction, keyNo, website)
                 db.run(action)
               }
             } else {
-              val q = for {c <- Company if c.ref === url} yield c.represent
-              val action = q.update(Some(data.head.id))
+              val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
+              val action = q.update(Some(data.head.id), introduction, keyNo, website)
               db.run(action)
             }
           }
@@ -145,20 +153,20 @@ class Crawler @Inject()(ws: WSClient,
           println(index)
         }
 
-        // 官方网站
-        val website = if (html.select(".webauth-template").size() == 0) None
-        else Some(html.select(".webauth-template").next().first().attr("href"))
-
-        println(website)
-
         // 股东信息
-        html.select("#Sockinfo").select("tr").asScala.tail.foreach { data =>
-          println(data.child(1).select("a").get(0).ownText())
-          if (data.child(1).select("a").size() > 1)
-            println(parseInt(data.child(1).select("a").get(1).ownText()))
-          println(data.child(2).ownText())
-          println(data.child(3).ownText())
-          println(data.child(4).ownText())
+        if (html.select("#Sockinfo").select("tr").size() > 0) {
+          val d = html.select("#Sockinfo").select("tr").asScala.tail.map { data =>
+            val name = data.child(1).select("a").get(0).ownText()
+            val ref = Try(data.child(1).select("a").get(0).attr("href")).map(Some(_)).getOrElse(None)
+            val count = if (data.child(1).select("a").size() > 1)
+              Some(parseInt(data.child(1).select("a").get(1).ownText()))
+            else None
+            val ratio = Some(data.child(2).ownText())
+            val contribution = Some(data.child(3).ownText().toDouble)
+            val date = Some(data.child(4).ownText())
+            ShareholderInformationRow(id, Some(name), ref, count, ratio, contribution, date)
+          }
+          db.run(ShareholderInformation ++= d)
         }
 
         // 对外投资
@@ -193,7 +201,107 @@ class Crawler @Inject()(ws: WSClient,
             println(data.child(3).html())
             println(data.child(4).html())
           }
+      }
 
+  def forBossInfo(url: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com$url")
+      .addHttpHeaders(
+        "User-Agent" -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36",
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        val html = Jsoup.parse(response.body)
+
+        // 担任法定代表人
+        if (html.select("#legal").select("tr").size() != 0) {
+          html.select("#legal").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            val ratio = tr.child(2).ownText()
+            val capital = tr.child(3).ownText()
+            val region = tr.child(4).ownText()
+            val kind = tr.child(5).ownText()
+            val status = tr.child(6).child(0).ownText()
+          }
+        }
+
+        // 对外投资
+        if (html.select("#invest").select("tr").size() != 0) {
+          html.select("#invest").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            val ratio = tr.child(2).ownText()
+            val capital = tr.child(3).ownText()
+            val region = tr.child(4).ownText()
+            val kind = tr.child(5).ownText()
+            val represent = if (tr.child(6).children().size() == 0) tr.child(6).ownText()
+            else tr.child(6).child(0).ownText()
+            val status = tr.child(7).child(0).ownText()
+          }
+        }
+
+        // 在外任职
+        if (html.select("#postOffice").select("tr").size() != 0) {
+          html.select("#postOffice").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            val position = tr.child(2).ownText()
+            val capital = tr.child(3).ownText()
+            val region = tr.child(4).ownText()
+            val kind = tr.child(5).ownText()
+            val represent = if (tr.child(6).children().size() == 0) tr.child(6).ownText()
+            else tr.child(6).child(0).ownText()
+            val status = tr.child(7).child(0).ownText()
+          }
+        }
+
+        // 历史担任法定代表人
+        if (html.select("#history").select("tr").size() != 0) {
+          html.select("#history").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            val capital = tr.child(2).ownText()
+            val region = tr.child(3).ownText()
+            val kind = tr.child(4).ownText()
+            val status = tr.child(5).ownText()
+          }
+        }
+
+        // 历史对外投资
+        if (html.select("#hisinvest").select("tr").size() != 0) {
+          html.select("#hisinvest").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            val capital = tr.child(2).ownText()
+            val represent = if (tr.child(3).children().size() == 0) tr.child(3).ownText()
+            else tr.child(3).child(0).ownText()
+            val status = tr.child(4).child(0).ownText()
+          }
+        }
+
+        // 历史在外任职
+        if (html.select("#postOffice").select("tr").size() != 0) {
+          html.select("#postOffice").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            /*val position = tr.child(2).ownText()
+            val capital = tr.child(3).ownText()
+            val represent = if (tr.child(4).children().size() == 0) tr.child(4).ownText()
+            else tr.child(4).child(0).ownText()
+            val status = tr.child(5).child(0).ownText()*/
+          }
+        }
+
+        // 控股企业
+        if (html.select("#holdcolist").select("tr").size() != 0) {
+          html.select("#holdcolist").select("tr").asScala.tail.foreach { tr =>
+            val name = tr.child(1).child(0).ownText()
+            val href = tr.child(1).child(0).attr("href")
+            val ratio = tr.child(2).ownText()
+            val chain = tr.child(3).html()
+            println(chain)
+          }
+        }
       }
 
 
