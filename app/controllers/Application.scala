@@ -16,13 +16,14 @@ import scala.util.Random
 import models.OldTables$.profile.api._
 import org.jsoup.Jsoup
 import play.api.db.NamedDatabase
+import service.AuthService
 
 // import scala.collection.JavaConverters._
 
 @Singleton
 class Application @Inject()(cc: MessagesControllerComponents,
                             database: MyDatabase,
-                            auth: Auth,
+                            auth: AuthService,
                             config: Configuration,
                             ws: WSClient,
                             @NamedDatabase("mysql") protected val dbConfigProvider: DatabaseConfigProvider)
@@ -123,7 +124,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
           "query" -> Json.obj("match" -> Json.obj("name" -> key)),
           "sort" -> Json.obj(s -> Json.obj("order" -> sc))))).get()
-          .map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
+          .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 2 =>
         ws.url(baseUrl + "data/company/" + key).delete().map(x => Ok(x.body))
       case 3 =>

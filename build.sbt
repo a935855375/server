@@ -26,3 +26,5 @@ libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.3"
 libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % "3.2.1"
 
 libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"
+
+libraryDependencies += "org.julienrf" %% "play-json-derived-codecs" % "4.0.1"

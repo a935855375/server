@@ -33,18 +33,19 @@ trait Tables {
    *  @param introduction Database column introduction SqlType(TEXT), Default(None)
    *  @param img Database column img SqlType(VARCHAR), Length(255,true), Default(None)
    *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
-   *  @param keyno Database column keyNo SqlType(VARCHAR), Length(255,true), Default(None) */
-  case class CompanyRow(id: Int, name: String, status: Option[String] = None, representname: Option[String] = None, represent: Option[Int] = None, capital: Option[String] = None, foundTime: Option[java.sql.Date] = None, mail: Option[String] = None, phone: Option[String] = None, addr: Option[String] = None, website: Option[String] = None, introduction: Option[String] = None, img: Option[String] = None, ref: Option[String] = None, keyno: Option[String] = None)
+   *  @param keyno Database column keyNo SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param money Database column money SqlType(DOUBLE), Default(Some(0.0)) */
+  case class CompanyRow(id: Int, name: String, status: Option[String] = None, representname: Option[String] = None, represent: Option[Int] = None, capital: Option[String] = None, foundTime: Option[java.sql.Date] = None, mail: Option[String] = None, phone: Option[String] = None, addr: Option[String] = None, website: Option[String] = None, introduction: Option[String] = None, img: Option[String] = None, ref: Option[String] = None, keyno: Option[String] = None, money: Option[Double] = Some(0.0))
   /** GetResult implicit for fetching CompanyRow objects using plain SQL queries */
-  implicit def GetResultCompanyRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]], e3: GR[Option[Int]], e4: GR[Option[java.sql.Date]]): GR[CompanyRow] = GR{
+  implicit def GetResultCompanyRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]], e3: GR[Option[Int]], e4: GR[Option[java.sql.Date]], e5: GR[Option[Double]]): GR[CompanyRow] = GR{
     prs => import prs._
-    CompanyRow.tupled((<<[Int], <<[String], <<?[String], <<?[String], <<?[Int], <<?[String], <<?[java.sql.Date], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+    CompanyRow.tupled((<<[Int], <<[String], <<?[String], <<?[String], <<?[Int], <<?[String], <<?[java.sql.Date], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[Double]))
   }
   /** Table description of table company. Objects of this class serve as prototypes for rows in queries. */
   class Company(_tableTag: Tag) extends profile.api.Table[CompanyRow](_tableTag, Some("data"), "company") {
-    def * = (id, name, status, representname, represent, capital, foundTime, mail, phone, addr, website, introduction, img, ref, keyno) <> (CompanyRow.tupled, CompanyRow.unapply)
+    def * = (id, name, status, representname, represent, capital, foundTime, mail, phone, addr, website, introduction, img, ref, keyno, money) <> (CompanyRow.tupled, CompanyRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(id), Rep.Some(name), status, representname, represent, capital, foundTime, mail, phone, addr, website, introduction, img, ref, keyno).shaped.<>({r=>import r._; _1.map(_=> CompanyRow.tupled((_1.get, _2.get, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(id), Rep.Some(name), status, representname, represent, capital, foundTime, mail, phone, addr, website, introduction, img, ref, keyno, money).shaped.<>({r=>import r._; _1.map(_=> CompanyRow.tupled((_1.get, _2.get, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column id SqlType(INT), AutoInc, PrimaryKey */
     val id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
@@ -76,6 +77,8 @@ trait Tables {
     val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
     /** Database column keyNo SqlType(VARCHAR), Length(255,true), Default(None) */
     val keyno: Rep[Option[String]] = column[Option[String]]("keyNo", O.Length(255,varying=true), O.Default(None))
+    /** Database column money SqlType(DOUBLE), Default(Some(0.0)) */
+    val money: Rep[Option[Double]] = column[Option[Double]]("money", O.Default(Some(0.0)))
   }
   /** Collection-like TableQuery object for table Company */
   lazy val Company = new TableQuery(tag => new Company(tag))

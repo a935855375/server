@@ -1,11 +1,11 @@
-package models
+package service
 
 import authentikat.jwt.{JsonWebToken, JwtClaimsSet, JwtHeader}
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
 
 @Singleton
-class Auth @Inject()(config: Configuration) {
+class AuthService @Inject()(config: Configuration) {
   final val JwtSecretKey: String = config.get[String]("jwt.secret.key")
   final val JwtSecretAlgorithm: String = config.get[String]("jwt.secret.algo")
 

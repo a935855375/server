@@ -16,7 +16,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
   extends MessagesAbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
   def getAllCompany: Action[AnyContent] = Action.async { implicit request =>
-    crawler.forBossInfo("/pl_p1910534b4ae98fea35ddbeb1d61cd44.html", 11)
+    crawler.forSearchPage("小米", 2)
     Future.successful(Ok)
   }
 }

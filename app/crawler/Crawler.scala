@@ -4,12 +4,14 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 import com.google.inject.Inject
+import models.Tables
 import models.Tables._
 import models.Tables.profile.api._
 import org.jsoup.Jsoup
 import play.api.Configuration
 import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import slick.jdbc.JdbcProfile
 
@@ -21,8 +23,10 @@ class Crawler @Inject()(ws: WSClient,
                         config: Configuration,
                         @NamedDatabase("server") protected val dbConfigProvider: DatabaseConfigProvider)
                        (implicit ec: ExecutionContext) extends HasDatabaseConfigProvider[JdbcProfile] {
+
   final val cookie = config.get[String]("crawler.cookie")
   final val agent = config.get[String]("crawler.agent")
+  final val baseUrl = config.get[String]("es.baseUrl")
 
   def forCompanyByKeyWord(key: String, page: Int): Unit =
     ws.url(s"https://www.qichacha.com/search_index?key=$key&ajaxflag=1&p=$page&")
@@ -79,7 +83,13 @@ class Crawler @Inject()(ws: WSClient,
     }.foreach { data =>
       db.run(Company.map(_.name).result).foreach { allData =>
         val set = allData.toSet
-        db.run(Company ++= data.filterNot(x => set(x.name)))
+        val CompanyWithId = Company returning Company.map(_.id) into ((cp, id) => cp.copy(id = id))
+        import util.Formats._
+        data.filterNot(x => set(x.name)).foreach { c =>
+          db.run(CompanyWithId += parseMoney(c)).foreach { cid =>
+            ws.url(baseUrl + "data/company/" + cid.id).put(Json.toJson(cid))
+          }
+        }
       }
     }
 
@@ -306,5 +316,15 @@ class Crawler @Inject()(ws: WSClient,
 
 
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt
+
+  def parseDouble(s: String): Double = s.filter(x => x.isDigit || x == '.').toDouble
+
+  def parseMoney(company: CompanyRow): Tables.CompanyRow = company.capital.get match {
+    case s: String if s.indexOf("人民币") != -1 => company.copy(money = Some(parseDouble(s)))
+    case s: String if s.indexOf("美元") != -1 => company.copy(money = Some(parseDouble(s) * 6.8982))
+    case s: String if s.indexOf("台币") != -1 => company.copy(money = Some(parseDouble(s) * 0.224))
+    case _ => company
+  }
+
 
 }
