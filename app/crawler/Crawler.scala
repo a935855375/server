@@ -72,13 +72,7 @@ class Crawler @Inject()(ws: WSClient,
         // 状态
         val status = company.child(2).child(0).text()
 
-        /*val personWithId = (Person returning Person.map(_.id)) into ((person, id) => person.copy(id = id))
-
-        val action = Person += PersonRow(0, represent._1, represent._2)
-
-        db.run(action)*/
-
-        CompanyRow(0, name, Some(status), Some(represent._1), None, Some(capital), Some(new Date(found_time.getTime)), Some(mail), Some(phone), Some(addr), None, None, Some(img), Some(ref))
+        CompanyRow(0, name, Some(status), Some(represent._1), None, Some(capital), Some(new Date(found_time.getTime)), Some(mail), Some(phone), Some(addr), img = Some(img), ref = Some(ref))
       }
     }.foreach { data =>
       db.run(Company.map(_.name).result).foreach { allData =>
@@ -180,37 +174,54 @@ class Crawler @Inject()(ws: WSClient,
         }
 
         // 对外投资
-        if (html.select("#touzilist").select("tr").size() > 0)
-          html.select("#touzilist").select("tr").asScala.tail.foreach { data =>
-            println(data.child(0).child(0).ownText())
-            println(data.child(1).child(0).ownText())
-            println(data.child(2).ownText())
-            println(data.child(3).ownText())
-            println(data.child(4).ownText())
-            println(data.child(5).child(0).ownText())
+        if (html.select("#touzilist").select("tr").size() > 0) {
+          val d = html.select("#touzilist").select("tr").asScala.tail.map { data =>
+            val name = data.child(0).child(0).text()
+            val href = data.child(0).child(0).attr("href")
+            val name2 = data.child(1).child(0).ownText()
+            val href2 = data.child(1).child(0).attr("href")
+            val capital = data.child(2).ownText()
+            val ratio = data.child(3).ownText()
+            val found_time = data.child(4).ownText()
+            val status = data.child(5).child(0).ownText()
+            OutboundInvestmentRow(id, Some(name), Some(href), Some(name2), Some(href2), Some(capital), Some(ratio), Some(found_time), Some(status))
           }
+          db.run(OutboundInvestment ++= d)
+        }
 
         // 主要人员
-        if (html.select("#Mainmember").select("tr").size() > 0)
-          html.select("#Mainmember").select("tr").asScala.tail.foreach { data =>
-            println(data.child(1).select("a").get(0).ownText())
-            println(parseInt(data.child(1).select("a").get(1).ownText()))
-            println(data.child(2).ownText())
+        if (html.select("#Mainmember").select("tr").size() > 0) {
+          val d = html.select("#Mainmember").select("tr").asScala.tail.map { data =>
+            val name = data.child(1).select("a").get(0).ownText()
+            val href = data.child(1).select("a").get(0).attr("href")
+            val count = Try(parseInt(data.child(1).select("a").get(1).ownText())).map(Some(_)).getOrElse(None)
+            val position = data.child(2).ownText()
+            MainPersonnelRow(id, Some(name), Some(href), count, Some(position))
           }
+          db.run(MainPersonnel ++= d)
+        }
 
         // 分支机构
-        html.select("#Subcom").select("span").forEach { data =>
-          println(data.ownText())
+        if (html.select("#Subcom").select("span").size() > 0) {
+          val d = html.select("#Subcom").select("span").asScala.map { data =>
+            val name = data.ownText()
+            val href = data.parent().attr("href")
+            BranchRow(id, Some(name), Some(href))
+          }
+          db.run(Branch ++= d)
         }
 
         // 变更记录
-        if (html.select("#Changelist").select("tr").size() > 0)
-          html.select("#Changelist").select("tr").asScala.tail.foreach { data =>
-            println(data.child(1).ownText())
-            println(data.child(2).html())
-            println(data.child(3).html())
-            println(data.child(4).html())
+        if (html.select("#Changelist").select("tr").size() > 0) {
+          val d = html.select("#Changelist").select("tr").asScala.tail.map { data =>
+            val date = data.child(1).ownText()
+            val project = data.child(2).html()
+            val before = data.child(3).html()
+            val after = data.child(4).html()
+            ChangeRecordRow(id, Some(date), Some(project), Some(before), Some(after))
           }
+          db.run(ChangeRecord ++= d)
+        }
       }
 
   def forBossInfo(url: String, id: Int): Unit =

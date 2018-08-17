@@ -30,6 +30,8 @@ class Application @Inject()(cc: MessagesControllerComponents,
                            (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
   final val baseUrl = config.get[String]("es.baseUrl")
+  final val cookie = config.get[String]("crawler.cookie")
+  final val agent = config.get[String]("crawler.agent")
 
   case class User(username: String, password: String)
 
@@ -110,8 +112,8 @@ class Application @Inject()(cc: MessagesControllerComponents,
     sort match {
       case 1 => s = "found_time"; sc = "asc"
       case 2 => s = "found_time"; sc = "desc"
-      case 3 => s = "capital"; sc = "asc"
-      case 4 => s = "capital"; sc = "desc"
+      case 3 => s = "money"; sc = "asc"
+      case 4 => s = "money"; sc = "desc"
       case _ => s = "id"; sc = "asc"
     }
     kind match {
@@ -121,9 +123,10 @@ class Application @Inject()(cc: MessagesControllerComponents,
           "sort" -> Json.obj(s -> Json.obj("order" -> sc))
         ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 1 =>
-        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+        // 查找公司
+        ws.url(baseUrl + "data/company/_search").withBody(Json.obj(
           "query" -> Json.obj("match" -> Json.obj("name" -> key)),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc))))).get()
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100)).get()
           .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 2 =>
         ws.url(baseUrl + "data/company/" + key).delete().map(x => Ok(x.body))
@@ -235,8 +238,8 @@ class Application @Inject()(cc: MessagesControllerComponents,
   def getCompanyShortInfo2(key: String): Action[AnyContent] = Action.async { implicit request =>
     ws.url(s"https://www.qichacha.com/more_findRelationsDetail?keyNo=$key")
       .addHttpHeaders(
-        "User-Agent" -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36",
-        "Cookie" -> "UM_distinctid=163ec752d68e3-0f8cde2302ebb9-183e6952-1fa400-163ec752d6c845; zg_did=%7B%22did%22%3A%20%22163ec752da229f-02374e40db1186-183e6952-1fa400-163ec752da3e1e%22%7D; acw_tc=AQAAAGh71hSx/QcAY0FM2vCTImTFRzQ0; _uab_collina=152868049866614828164468; PHPSESSID=kh4h6c56fioj6pt1gpu8pbnmh6; CNZZDATA1254842228=1467089437-1528678839-%7C1533697292; Hm_lvt_3456bee468c83cc63fb5147f119f1075=1532961130,1532961146,1532999527,1533700988; hasShow=1; _umdata=A502B1276E6D5FEFF6695553F653401E3013E055714536A6FD927B8A542DBF54F370B3E0A38A2F9BCD43AD3E795C914CFE8A3E5A81FA2865894685088D5A0843; Hm_lpvt_3456bee468c83cc63fb5147f119f1075=1533701019; zg_de1d1a35bfa24ce29bbf2c7eb17e6c4f=%7B%22sid%22%3A%201533700987676%2C%22updated%22%3A%201533701053381%2C%22info%22%3A%201533700987680%2C%22superProperty%22%3A%20%22%7B%7D%22%2C%22platform%22%3A%20%22%7B%7D%22%2C%22utm%22%3A%20%22%7B%7D%22%2C%22referrerDomain%22%3A%20%22www.baidu.com%22%2C%22cuid%22%3A%20%2298553b777c7239746cd4812bc09dd4a6%22%7D")
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
       .get().map(x => Ok(x.json))
   }
 
@@ -291,7 +294,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
 
   // 调试用
   def getMultipleAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
-    val sql =OldTables$.Temp.filter(_.kind === 7).result
+    val sql = OldTables$.Temp.filter(_.kind === 7).result
     db.run(sql).map { data =>
       val json = Json.parse(data.head.data.get)
       val node = json.\("nodes").as[Seq[TempNode]].groupBy(_.id).map(x => x._2.head)
