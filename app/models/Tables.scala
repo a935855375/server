@@ -14,15 +14,92 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(Branch.schema, ChangeRecord.schema, Company.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, Branch.schema, ChangeRecord.schema, Company.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
+  /** Entity class storing rows of table BasicInfo
+   *  @param cid Database column cid SqlType(INT)
+   *  @param openStatus Database column open_status SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param paidCapital Database column paid_capital SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param socialCreditCode Database column social_credit_code SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param taxpayerIdentificationNumber Database column taxpayer_identification_number SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param registrationNumber Database column registration_number SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param organizationCode Database column organization_code SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param typeOfCompany Database column type_of_company SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param industry Database column industry SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param dateOfApproval Database column date_of_approval SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param registrationAuthority Database column registration_authority SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param region Database column region SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param englishName Database column english_name SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param nameUsedBefore Database column name_used_before SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param numberOfParticipants Database column number_of_participants SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param personnelScale Database column personnel_scale SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param timeLimitForBusiness Database column time_limit_for_business SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param enterpriseAddress Database column enterprise_address SqlType(VARCHAR), Length(255,true), Default(Some(-))
+   *  @param scopeOfOperation Database column scope_of_operation SqlType(TEXT), Default(None) */
+  case class BasicInfoRow(cid: Int, openStatus: Option[String] = Some("-"), paidCapital: Option[String] = Some("-"), socialCreditCode: Option[String] = Some("-"), taxpayerIdentificationNumber: Option[String] = Some("-"), registrationNumber: Option[String] = Some("-"), organizationCode: Option[String] = Some("-"), typeOfCompany: Option[String] = Some("-"), industry: Option[String] = Some("-"), dateOfApproval: Option[String] = Some("-"), registrationAuthority: Option[String] = Some("-"), region: Option[String] = Some("-"), englishName: Option[String] = Some("-"), nameUsedBefore: Option[String] = Some("-"), numberOfParticipants: Option[String] = Some("-"), personnelScale: Option[String] = Some("-"), timeLimitForBusiness: Option[String] = Some("-"), enterpriseAddress: Option[String] = Some("-"), scopeOfOperation: Option[String] = None)
+  /** GetResult implicit for fetching BasicInfoRow objects using plain SQL queries */
+  implicit def GetResultBasicInfoRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BasicInfoRow] = GR{
+    prs => import prs._
+    BasicInfoRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table basic_info. Objects of this class serve as prototypes for rows in queries. */
+  class BasicInfo(_tableTag: Tag) extends profile.api.Table[BasicInfoRow](_tableTag, Some("data"), "basic_info") {
+    def * = (cid, openStatus, paidCapital, socialCreditCode, taxpayerIdentificationNumber, registrationNumber, organizationCode, typeOfCompany, industry, dateOfApproval, registrationAuthority, region, englishName, nameUsedBefore, numberOfParticipants, personnelScale, timeLimitForBusiness, enterpriseAddress, scopeOfOperation) <> (BasicInfoRow.tupled, BasicInfoRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(cid), openStatus, paidCapital, socialCreditCode, taxpayerIdentificationNumber, registrationNumber, organizationCode, typeOfCompany, industry, dateOfApproval, registrationAuthority, region, englishName, nameUsedBefore, numberOfParticipants, personnelScale, timeLimitForBusiness, enterpriseAddress, scopeOfOperation).shaped.<>({r=>import r._; _1.map(_=> BasicInfoRow.tupled((_1.get, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column cid SqlType(INT) */
+    val cid: Rep[Int] = column[Int]("cid")
+    /** Database column open_status SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val openStatus: Rep[Option[String]] = column[Option[String]]("open_status", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column paid_capital SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val paidCapital: Rep[Option[String]] = column[Option[String]]("paid_capital", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column social_credit_code SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val socialCreditCode: Rep[Option[String]] = column[Option[String]]("social_credit_code", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column taxpayer_identification_number SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val taxpayerIdentificationNumber: Rep[Option[String]] = column[Option[String]]("taxpayer_identification_number", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column registration_number SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val registrationNumber: Rep[Option[String]] = column[Option[String]]("registration_number", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column organization_code SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val organizationCode: Rep[Option[String]] = column[Option[String]]("organization_code", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column type_of_company SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val typeOfCompany: Rep[Option[String]] = column[Option[String]]("type_of_company", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column industry SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val industry: Rep[Option[String]] = column[Option[String]]("industry", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column date_of_approval SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val dateOfApproval: Rep[Option[String]] = column[Option[String]]("date_of_approval", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column registration_authority SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val registrationAuthority: Rep[Option[String]] = column[Option[String]]("registration_authority", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column region SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val region: Rep[Option[String]] = column[Option[String]]("region", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column english_name SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val englishName: Rep[Option[String]] = column[Option[String]]("english_name", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column name_used_before SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val nameUsedBefore: Rep[Option[String]] = column[Option[String]]("name_used_before", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column number_of_participants SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val numberOfParticipants: Rep[Option[String]] = column[Option[String]]("number_of_participants", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column personnel_scale SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val personnelScale: Rep[Option[String]] = column[Option[String]]("personnel_scale", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column time_limit_for_business SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val timeLimitForBusiness: Rep[Option[String]] = column[Option[String]]("time_limit_for_business", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column enterprise_address SqlType(VARCHAR), Length(255,true), Default(Some(-)) */
+    val enterpriseAddress: Rep[Option[String]] = column[Option[String]]("enterprise_address", O.Length(255,varying=true), O.Default(Some("-")))
+    /** Database column scope_of_operation SqlType(TEXT), Default(None) */
+    val scopeOfOperation: Rep[Option[String]] = column[Option[String]]("scope_of_operation", O.Default(None))
+
+    /** Uniqueness Index over (cid) (database name basic_info_cid_uindex) */
+    val index1 = index("basic_info_cid_uindex", cid, unique=true)
+  }
+  /** Collection-like TableQuery object for table BasicInfo */
+  lazy val BasicInfo = new TableQuery(tag => new BasicInfo(tag))
+
   /** Entity class storing rows of table Branch
-   *  @param id Database column id SqlType(INT)
+   *  @param cid Database column cid SqlType(INT)
    *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
    *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
-  case class BranchRow(id: Int, name: Option[String] = None, ref: Option[String] = None)
+  case class BranchRow(cid: Int, name: Option[String] = None, ref: Option[String] = None)
   /** GetResult implicit for fetching BranchRow objects using plain SQL queries */
   implicit def GetResultBranchRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BranchRow] = GR{
     prs => import prs._
@@ -30,12 +107,12 @@ trait Tables {
   }
   /** Table description of table branch. Objects of this class serve as prototypes for rows in queries. */
   class Branch(_tableTag: Tag) extends profile.api.Table[BranchRow](_tableTag, Some("data"), "branch") {
-    def * = (id, name, ref) <> (BranchRow.tupled, BranchRow.unapply)
+    def * = (cid, name, ref) <> (BranchRow.tupled, BranchRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(id), name, ref).shaped.<>({r=>import r._; _1.map(_=> BranchRow.tupled((_1.get, _2, _3)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(cid), name, ref).shaped.<>({r=>import r._; _1.map(_=> BranchRow.tupled((_1.get, _2, _3)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
-    /** Database column id SqlType(INT) */
-    val id: Rep[Int] = column[Int]("id")
+    /** Database column cid SqlType(INT) */
+    val cid: Rep[Int] = column[Int]("cid")
     /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
     val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
     /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
@@ -224,18 +301,19 @@ trait Tables {
    *  @param id Database column id SqlType(INT), AutoInc, PrimaryKey
    *  @param name Database column name SqlType(VARCHAR), Length(255,true)
    *  @param addr Database column addr SqlType(VARCHAR), Length(255,true), Default(None)
-   *  @param count Database column count SqlType(INT), Default(None) */
-  case class PersonRow(id: Int, name: String, addr: Option[String] = None, count: Option[Int] = None)
+   *  @param count Database column count SqlType(INT), Default(None)
+   *  @param avator Database column avator SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class PersonRow(id: Int, name: String, addr: Option[String] = None, count: Option[Int] = None, avator: Option[String] = None)
   /** GetResult implicit for fetching PersonRow objects using plain SQL queries */
   implicit def GetResultPersonRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]], e3: GR[Option[Int]]): GR[PersonRow] = GR{
     prs => import prs._
-    PersonRow.tupled((<<[Int], <<[String], <<?[String], <<?[Int]))
+    PersonRow.tupled((<<[Int], <<[String], <<?[String], <<?[Int], <<?[String]))
   }
   /** Table description of table person. Objects of this class serve as prototypes for rows in queries. */
   class Person(_tableTag: Tag) extends profile.api.Table[PersonRow](_tableTag, Some("data"), "person") {
-    def * = (id, name, addr, count) <> (PersonRow.tupled, PersonRow.unapply)
+    def * = (id, name, addr, count, avator) <> (PersonRow.tupled, PersonRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(id), Rep.Some(name), addr, count).shaped.<>({r=>import r._; _1.map(_=> PersonRow.tupled((_1.get, _2.get, _3, _4)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(id), Rep.Some(name), addr, count, avator).shaped.<>({r=>import r._; _1.map(_=> PersonRow.tupled((_1.get, _2.get, _3, _4, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column id SqlType(INT), AutoInc, PrimaryKey */
     val id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
@@ -245,6 +323,8 @@ trait Tables {
     val addr: Rep[Option[String]] = column[Option[String]]("addr", O.Length(255,varying=true), O.Default(None))
     /** Database column count SqlType(INT), Default(None) */
     val count: Rep[Option[Int]] = column[Option[Int]]("count", O.Default(None))
+    /** Database column avator SqlType(VARCHAR), Length(255,true), Default(None) */
+    val avator: Rep[Option[String]] = column[Option[String]]("avator", O.Length(255,varying=true), O.Default(None))
   }
   /** Collection-like TableQuery object for table Person */
   lazy val Person = new TableQuery(tag => new Person(tag))

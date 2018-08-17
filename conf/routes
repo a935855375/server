@@ -12,6 +12,8 @@ POST        /register                    controllers.Application.register
 
 GET         /search                      controllers.Application.query(key: String, kind:Int ?= 0, sort: Int ?= 0)
 
+GET         /companyinfo2                controllers.Api.getCompanyBaseInfo(id: Int)
+
 GET         /companyinfo                 controllers.Application.getCompanyInfo(id :Int)
 
 GET         /interestedpeople            controllers.Application.getInterestedPeople

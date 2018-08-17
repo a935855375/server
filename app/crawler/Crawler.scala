@@ -124,13 +124,14 @@ class Crawler @Inject()(ws: WSClient,
 
         // 人物信息
         if (html.select(".bname").size() > 0) {
-          val name = html.select(".bname").first().ownText()
+          val name = html.select(".bname").text()
           val ref = html.select(".bname").first().attr("href")
           val count = html.select(".btouzi").first().child(0).ownText().toInt
+          val avator = html.select(".bheadimg").attr("src")
 
           db.run(Person.filter(_.addr === ref).result).foreach { data =>
             if (data.isEmpty) {
-              val PersonWithID = (Person returning Person.map(_.id)) += PersonRow(0, name, Some(ref), Some(count))
+              val PersonWithID = (Person returning Person.map(_.id)) += PersonRow(0, name, Some(ref), Some(count), Some(avator))
               db.run(PersonWithID).foreach { id =>
                 val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
                 val action = q.update(Some(id), introduction, keyNo, website)
@@ -152,15 +153,40 @@ class Crawler @Inject()(ws: WSClient,
             html.select("#Cominfo").select("table").get(1)
 
           val index = table.select("tr").asScala.flatMap { tr =>
-            tr.children().asScala.map(_.ownText()).sliding(2, 2).map(x => x.head -> x(1))
+            tr.children().asScala.map(_.text).sliding(2, 2).map(x => x.head -> x(1))
           }.toMap
-          println(index)
+
+          var c = BasicInfoRow(id)
+          index foreach { x =>
+            x._1 match {
+              case "经营状态：" => c = c.copy(openStatus = Some(x._2))
+              case "实缴资本：" => c = c.copy(paidCapital = Some(x._2))
+              case "统一社会信用代码：" => c = c.copy(socialCreditCode = Some(x._2))
+              case "纳税人识别号：" => c = c.copy(taxpayerIdentificationNumber = Some(x._2))
+              case "注册号：" => c = c.copy(registrationNumber = Some(x._2))
+              case "组织机构代码：" => c = c.copy(organizationCode = Some(x._2))
+              case "公司类型：" => c = c.copy(typeOfCompany = Some(x._2))
+              case "所属行业：" => c = c.copy(industry = Some(x._2))
+              case "核准日期：" => c = c.copy(dateOfApproval = Some(x._2))
+              case "登记机关：" => c = c.copy(registrationAuthority = Some(x._2))
+              case "所属地区：" => c = c.copy(region = Some(x._2))
+              case "英文名：" => c = c.copy(englishName = Some(x._2))
+              case "曾用名" => c = c.copy(nameUsedBefore = Some(x._2))
+              case "参保人数" => c = c.copy(numberOfParticipants = Some(x._2))
+              case "人员规模" => c = c.copy(personnelScale = Some(x._2))
+              case "营业期限" => c = c.copy(timeLimitForBusiness = Some(x._2))
+              case "企业地址：" => c = c.copy(enterpriseAddress = Some(x._2))
+              case "经营范围：" => c = c.copy(scopeOfOperation = Some(x._2))
+              case _ =>
+            }
+          }
+          db.run(BasicInfo += c)
         }
 
         // 股东信息
         if (html.select("#Sockinfo").select("tr").size() > 0) {
           val d = html.select("#Sockinfo").select("tr").asScala.tail.map { data =>
-            val name = data.child(1).select("a").get(0).ownText()
+            val name = data.child(1).select("a").get(0).text()
             val ref = Try(data.child(1).select("a").get(0).attr("href")).map(Some(_)).getOrElse(None)
             val count = if (data.child(1).select("a").size() > 1)
               Some(parseInt(data.child(1).select("a").get(1).ownText()))
@@ -192,7 +218,7 @@ class Crawler @Inject()(ws: WSClient,
         // 主要人员
         if (html.select("#Mainmember").select("tr").size() > 0) {
           val d = html.select("#Mainmember").select("tr").asScala.tail.map { data =>
-            val name = data.child(1).select("a").get(0).ownText()
+            val name = data.child(1).select("a").get(0).text()
             val href = data.child(1).select("a").get(0).attr("href")
             val count = Try(parseInt(data.child(1).select("a").get(1).ownText())).map(Some(_)).getOrElse(None)
             val position = data.child(2).ownText()
@@ -202,10 +228,10 @@ class Crawler @Inject()(ws: WSClient,
         }
 
         // 分支机构
-        if (html.select("#Subcom").select("span").size() > 0) {
-          val d = html.select("#Subcom").select("span").asScala.map { data =>
-            val name = data.ownText()
-            val href = data.parent().attr("href")
+        if (html.select("#Subcom").select("td").size() > 0) {
+          val d = html.select("#Subcom").select("a").asScala.map { data =>
+            val name = data.text()
+            val href = data.attr("href")
             BranchRow(id, Some(name), Some(href))
           }
           db.run(Branch ++= d)
