@@ -12,4 +12,5 @@ object Formats {
   implicit lazy val BranchFormat: OFormat[Tables.BranchRow] = derived.oformat()
   implicit lazy val ShareholderInformationFormat: OFormat[Tables.ShareholderInformationRow] = derived.oformat()
   implicit lazy val BasicInfoFormat: OFormat[Tables.BasicInfoRow] = derived.oformat()
+  implicit lazy val BossInfoFormat: OFormat[Tables.PersonRow] = derived.oformat()
 }

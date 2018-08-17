@@ -36,6 +36,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
         val branchFuture = db.run(Branch.filter(_.cid === id).result)
         val shareholder_informationFuture = db.run(ShareholderInformation.filter(_.cid === id).result)
         val basic_infoFuture = db.run(BasicInfo.filter(_.cid === id).result.head)
+        val boss_infoFuture = db.run(Person.filter(_.id === c.represent.get).result.head)
 
         for {
           main_personnel <- main_personnelFuture
@@ -44,6 +45,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
           branch <- branchFuture
           shareholder_information <- shareholder_informationFuture
           basic_info <- basic_infoFuture
+          boss_info <- boss_infoFuture
         } yield {
           val json = Json.obj(
             "status" -> true,
@@ -53,7 +55,8 @@ class Api @Inject()(cc: MessagesControllerComponents,
             "branch" -> branch,
             "shareholder_information" -> shareholder_information,
             "company" -> c,
-            "base_info" -> basic_info
+            "base_info" -> basic_info,
+            "boss_info" -> boss_info
           )
           Ok(json)
         }
