@@ -2,6 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import crawler.Crawler
+import models.Children
 import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
@@ -89,6 +90,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
         } yield {
           val json = Json.obj(
             "status" -> true,
+            "person" -> person,
             "boss_history_investment" -> boss_history_investment,
             "boss_history_position" -> boss_history_position,
             "boss_history_represent" -> boss_history_represent,
@@ -100,6 +102,29 @@ class Api @Inject()(cc: MessagesControllerComponents,
           Ok(json)
         }
       }
+    }
+  }
+
+  def getBossGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    val personFuture = db.run(Person.filter(_.id === id).result.head)
+    val representFuture = db.run(BossRepresent.filter(_.bid === id).result)
+    val positionFuture = db.run(BossPosition.filter(_.bid === id).result)
+    val investmentFuture = db.run(BossInvestment.filter(_.bid === id).result)
+
+    for {
+      person <- personFuture
+      represent <- representFuture
+      position <- positionFuture
+      investment <- investmentFuture
+    } yield {
+      val r = represent.map(x => Children(x.name.get, None, None))
+      val i = investment.map(x => Children(x.name.get, x.ratio, None))
+      val p = position.map(x => Children(x.name.get, x.position, None))
+      val data = Children(person.name, None, Some(Seq(Children("担任法定代表人", None, Some(r)),
+        Children("对外投资", None, Some(i)),
+        Children("在外任职", None, Some(p)))))
+
+      Ok(Json.toJson(data))
     }
   }
 }

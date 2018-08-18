@@ -136,6 +136,7 @@ class Crawler @Inject()(ws: WSClient,
                 val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
                 val action = q.update(Some(id), introduction, keyNo, website)
                 db.run(action)
+                println("哈哈哈哈")
                 forBossInfo(ref, id)
               }
             } else {
@@ -258,7 +259,7 @@ class Crawler @Inject()(ws: WSClient,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
-        println(response.body)
+        println("抓取boss id = " + id)
         val html = Jsoup.parse(response.body)
 
         val introduction = if (html.select("#peopleModal").size() != 0)

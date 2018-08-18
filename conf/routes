@@ -16,6 +16,8 @@ GET         /companyinfo                     controllers.Api.getCompanyBaseInfo(
 
 GET         /bossinfo                        controllers.Api.getBossInfo(id: Int)
 
+GET         /bossgraph                       controllers.Api.getBossGraph(id: Int)
+
 GET         /interestedpeople                controllers.Application.getInterestedPeople
 
 GET         /enterprisegraph                 controllers.Application.getEnterpriseGraph(id: Int)
