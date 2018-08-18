@@ -9,19 +9,26 @@ import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesCon
 import slick.jdbc.JdbcProfile
 import models.Tables._
 import models.Tables.profile.api._
+import play.api.Configuration
 import play.api.libs.json.Json
+import play.api.libs.ws.WSClient
 import util.Formats._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class Api @Inject()(cc: MessagesControllerComponents,
                     crawler: Crawler,
+                    config: Configuration,
+                    ws: WSClient,
                     @NamedDatabase("server") protected val dbConfigProvider: DatabaseConfigProvider)
                    (implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
+  final val cookie = config.get[String]("crawler.cookie")
+  final val agent = config.get[String]("crawler.agent")
+
   def getAllCompany: Action[AnyContent] = Action.async { implicit request =>
-    crawler.forSearchPage("小米", 2)
+    crawler.forSearchPage("苏州朗动网络科技有限公司", 2)
     Future.successful(Ok)
   }
 
@@ -127,4 +134,16 @@ class Api @Inject()(cc: MessagesControllerComponents,
       Ok(Json.toJson(data))
     }
   }
+
+  def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 0).result.headOption).map {
+      case Some(data) =>
+        Ok(data.data.get).as(JSON)
+      case None =>
+        db.run(Company.filter(_.id === id).result.head)
+          .foreach(x => crawler.forEquityStructureGraph(x.keyno.get, id))
+        Ok("GG")
+    }
+  }
 }
+

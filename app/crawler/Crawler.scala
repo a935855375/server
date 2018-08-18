@@ -94,7 +94,7 @@ class Crawler @Inject()(ws: WSClient,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
-        val pages = parseInt(Jsoup.parse(response.body).select("#ajaxpage").last().ownText())
+        val pages = Try(parseInt(Jsoup.parse(response.body).select("#ajaxpage").last().ownText())).getOrElse(1)
         1 to math.min(10, pages) foreach (page => forCompanyByKeyWord(key, page))
       }
 
@@ -105,6 +105,7 @@ class Crawler @Inject()(ws: WSClient,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
+
         val html = Jsoup.parse(response.body)
         // 公司简介
         val introduction = if (html.select(".m-t-sm.m-b-sm").size() != 0)
@@ -118,6 +119,11 @@ class Crawler @Inject()(ws: WSClient,
           Some(url.substring(url.indexOf('=') + 1, url.indexOf('&')))
         } else None
 
+        keyNo match {
+          case Some(key) => forEquityStructureGraph(key, id)
+          case None =>
+        }
+
         // 官方网站
         val website = if (html.select(".webauth-template").size() == 0) None
         else Some(html.select(".webauth-template").next().first().attr("href"))
@@ -127,7 +133,10 @@ class Crawler @Inject()(ws: WSClient,
           val name = html.select(".bname").text()
           val ref = html.select(".bname").first().attr("href")
           val count = html.select(".btouzi").first().child(0).ownText().toInt
-          val avator = html.select(".bheadimg").attr("src")
+          val avator = html.select(".bheadimg").attr("src") match {
+            case s: String if s.startsWith("/") => s"https://www.qichacha.com$s"
+            case s => s
+          }
 
           db.run(Person.filter(_.addr === ref).result).foreach { data =>
             if (data.isEmpty) {
@@ -388,6 +397,19 @@ class Crawler @Inject()(ws: WSClient,
         }
       }
 
+  def forEquityStructureGraph(key: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com/cms_guquanakzr?keyNo=$key")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { res =>
+        val data = Json.parse(res.body
+          .replace("CompanyName", "name")
+          .replace("DetailList", "children")
+          .replace("Name", "name")).toString()
+        db.run(CompanyGraph += CompanyGraphRow(id, 0, Some(data)))
+      }
 
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt
 

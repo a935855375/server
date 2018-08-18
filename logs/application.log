@@ -287,3 +287,661 @@
 2018-08-18 16:24:33,578 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
 2018-08-18 16:24:33,578 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
 2018-08-18 16:24:33,578 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-18 17:01:01,210 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown initiated...
+2018-08-18 17:01:01,212 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown completed.
+2018-08-18 17:01:01,213 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 17:01:01,213 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-18 17:01:01,214 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-18 17:01:01,214 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown initiated...
+2018-08-18 17:01:01,215 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown completed.
+2018-08-18 17:01:01,225 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2018-08-18 17:01:01,225 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-13 - Shutdown initiated...
+2018-08-18 17:01:01,226 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-13 - Shutdown completed.
+2018-08-18 17:01:01,428 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-18 17:01:01,432 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-72 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 17:01:01,433 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-72 - Creating Pool for datasource 'default'
+2018-08-18 17:01:01,433 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-72 - HikariPool-14 - Starting...
+2018-08-18 17:01:01,437 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-72 - HikariPool-14 - Start completed.
+2018-08-18 17:01:01,464 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-72 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 17:01:01,465 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-72 - Application started (Dev)
+2018-08-18 17:01:04,671 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 17:01:04,671 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-18 17:01:04,671 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-18 17:27:57,095 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-20 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 17:27:57,095 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-20 - db - Starting...
+2018-08-18 17:27:57,096 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-20 - db - Start completed.
+2018-08-18 17:27:57,124 [ERROR] from application in application-akka.actor.default-dispatcher-20 - 
+
+! @791gl6k96 - Internal server error, for (GET) [/personalGraph?id=32&kind=2] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[UnsupportedOperationException: empty.head]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.UnsupportedOperationException: empty.head
+	at scala.collection.immutable.Vector.head(Vector.scala:185)
+	at controllers.Application.$anonfun$getPersonalGraph$3(Application.scala:230)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	... 13 common frames omitted
+2018-08-18 17:27:58,762 [ERROR] from application in application-akka.actor.default-dispatcher-20 - 
+
+! @791gl6mkb - Internal server error, for (GET) [/personalGraph?id=32&kind=3] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[UnsupportedOperationException: empty.head]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:125)
+	at play.filters.cors.AbstractCORSPolicy$$anonfun$1.applyOrElse(AbstractCORSPolicy.scala:123)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at play.api.libs.streams.Execution$trampoline$.execute(Execution.scala:70)
+	at scala.concurrent.impl.CallbackRunnable.executeWithValue(Promise.scala:68)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.$anonfun$tryComplete$1$adapted(Promise.scala:284)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete(Promise.scala:284)
+	at scala.concurrent.Promise.complete(Promise.scala:49)
+	at scala.concurrent.Promise.complete$(Promise.scala:48)
+	at scala.concurrent.impl.Promise$DefaultPromise.complete(Promise.scala:183)
+	at scala.concurrent.impl.Promise.$anonfun$transform$1(Promise.scala:29)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.lang.UnsupportedOperationException: empty.head
+	at scala.collection.immutable.Vector.head(Vector.scala:185)
+	at controllers.Application.$anonfun$getPersonalGraph$3(Application.scala:230)
+	at scala.util.Success.$anonfun$map$1(Try.scala:251)
+	at scala.util.Success.map(Try.scala:209)
+	at scala.concurrent.Future.$anonfun$map$1(Future.scala:288)
+	at scala.concurrent.impl.Promise.liftedTree1$1(Promise.scala:29)
+	... 13 common frames omitted
+2018-08-18 19:29:33,548 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-127 - 
+
+! @791hb5nkl - Internal server error, for (GET) [/bossinfo?id=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[class Api needs to be abstract, since method get is not defined]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-18 19:32:22,141 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-132 - 
+
+! @791hbfd7a - Internal server error, for (GET) [/bossinfo?id=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[not found: value url]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-18 19:32:32,887 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-132 - 
+
+! @791hbg34j - Internal server error, for (GET) [/bossinfo?id=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[not found: value url]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-18 19:33:26,383 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-132 - 
+
+! @791hbj487 - Internal server error, for (GET) [/bossinfo?id=1] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[not found: value url]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:34)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.$anonfun$taskFailureHandler$1(PlayReload.scala:33)
+	at scala.Option.map(Option.scala:146)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:28)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:24)
+	at play.sbt.run.PlayReload$.$anonfun$compile$3(PlayReload.scala:51)
+	at scala.util.Either$LeftProjection.map(Either.scala:573)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:51)
+	at play.sbt.run.PlayRun$.$anonfun$playRunTask$4(PlayRun.scala:76)
+	at play.runsupport.Reloader.$anonfun$reload$1(Reloader.scala:412)
+	at play.runsupport.Reloader$$anon$5.run(Reloader.scala:50)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:55)
+	at play.runsupport.Reloader.reload(Reloader.scala:412)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:123)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:137)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-18 19:33:54,867 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-27 - db - Shutdown initiated...
+2018-08-18 19:33:54,868 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-27 - db - Shutdown completed.
+2018-08-18 19:33:54,869 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-27 - db - Shutdown initiated...
+2018-08-18 19:33:54,870 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-27 - db - Shutdown completed.
+2018-08-18 19:33:54,873 [INFO] from application in application-akka.actor.default-dispatcher-27 - Shutting down connection pool.
+2018-08-18 19:33:54,873 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-27 - HikariPool-14 - Shutdown initiated...
+2018-08-18 19:33:54,874 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-27 - HikariPool-14 - Shutdown completed.
+2018-08-18 19:33:55,067 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-130 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 19:33:55,067 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-130 - Creating Pool for datasource 'default'
+2018-08-18 19:33:55,068 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-130 - HikariPool-15 - Starting...
+2018-08-18 19:33:55,073 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-130 - HikariPool-15 - Start completed.
+2018-08-18 19:33:55,096 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-18 19:33:55,122 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-130 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 19:33:55,123 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-130 - Application started (Dev)
+2018-08-18 19:34:35,724 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:34:35,724 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-18 19:34:35,725 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-18 19:34:35,725 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-18 19:34:35,725 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-18 19:34:35,725 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:34:35,725 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-18 19:34:35,725 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-18 19:34:35,725 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-18 19:34:35,726 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-18 19:34:35,733 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-08-18 19:34:35,733 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-15 - Shutdown initiated...
+2018-08-18 19:34:35,735 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-15 - Shutdown completed.
+2018-08-18 19:34:35,905 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-18 19:34:35,908 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-130 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 19:34:35,909 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-130 - Creating Pool for datasource 'default'
+2018-08-18 19:34:35,909 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-130 - HikariPool-16 - Starting...
+2018-08-18 19:34:35,913 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-130 - HikariPool-16 - Start completed.
+2018-08-18 19:34:35,932 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-130 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 19:34:35,932 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-130 - Application started (Dev)
+2018-08-18 19:35:24,371 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:35:24,371 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-18 19:35:24,371 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-18 19:35:24,372 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-18 19:35:24,372 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-18 19:35:24,372 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:35:24,372 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-18 19:35:24,373 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-18 19:35:24,373 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-18 19:35:24,373 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-18 19:35:24,375 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-08-18 19:35:24,375 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-16 - Shutdown initiated...
+2018-08-18 19:35:24,376 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-16 - Shutdown completed.
+2018-08-18 19:35:24,514 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-128 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 19:35:24,514 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-128 - Creating Pool for datasource 'default'
+2018-08-18 19:35:24,514 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-128 - HikariPool-17 - Starting...
+2018-08-18 19:35:24,518 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-128 - HikariPool-17 - Start completed.
+2018-08-18 19:35:24,535 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-18 19:35:24,551 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-128 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 19:35:24,551 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-128 - Application started (Dev)
+2018-08-18 19:36:45,104 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:36:45,104 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-18 19:36:45,104 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-18 19:36:45,104 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-18 19:36:45,105 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-18 19:36:45,105 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:36:45,105 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-18 19:36:45,105 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-18 19:36:45,105 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-18 19:36:45,105 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-18 19:36:45,112 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2018-08-18 19:36:45,112 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-17 - Shutdown initiated...
+2018-08-18 19:36:45,114 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-17 - Shutdown completed.
+2018-08-18 19:36:45,239 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-133 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 19:36:45,239 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-133 - Creating Pool for datasource 'default'
+2018-08-18 19:36:45,240 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-133 - HikariPool-18 - Starting...
+2018-08-18 19:36:45,243 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-133 - HikariPool-18 - Start completed.
+2018-08-18 19:36:45,260 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-18 19:36:45,277 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-133 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 19:36:45,277 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-133 - Application started (Dev)
+2018-08-18 19:37:11,397 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:37:11,397 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-18 19:37:11,398 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-18 19:37:11,398 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown initiated...
+2018-08-18 19:37:11,398 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown completed.
+2018-08-18 19:37:11,398 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 19:37:11,398 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-18 19:37:11,399 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-18 19:37:11,399 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown initiated...
+2018-08-18 19:37:11,399 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Shutdown completed.
+2018-08-18 19:37:11,407 [INFO] from application in application-akka.actor.default-dispatcher-5 - Shutting down connection pool.
+2018-08-18 19:37:11,407 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - HikariPool-18 - Shutdown initiated...
+2018-08-18 19:37:11,408 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - HikariPool-18 - Shutdown completed.
+2018-08-18 19:37:11,540 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-128 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 19:37:11,540 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-128 - Creating Pool for datasource 'default'
+2018-08-18 19:37:11,541 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-128 - HikariPool-19 - Starting...
+2018-08-18 19:37:11,543 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-128 - HikariPool-19 - Start completed.
+2018-08-18 19:37:11,561 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-18 19:37:11,582 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-128 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 19:37:11,583 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-128 - Application started (Dev)
+2018-08-18 20:04:47,166 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-131 - 
+
+! @791hfm2h3 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.routes.RoutesCompilationException: Compilation error[Using different overloaded methods is not allowed. If you are using a single method in combination with default parameters, make sure you declare them all explicitly.]
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutes$5(RoutesCompiler.scala:165)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at play.sbt.routes.RoutesCompiler$.compileRoutes(RoutesCompiler.scala:163)
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutesFiles$1(RoutesCompiler.scala:141)
+	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:40)
+	at sbt.std.Transform$$anon$4.work(System.scala:67)
+	at sbt.Execute.$anonfun$submit$2(Execute.scala:269)
+	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+	at sbt.Execute.work(Execute.scala:278)
+	at sbt.Execute.$anonfun$submit$1(Execute.scala:269)
+	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:178)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:37)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-18 20:04:47,570 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-134 - 
+
+! @791hfm4e8 - Internal server error, for (GET) [/interestedpeople] ->
+ 
+play.sbt.routes.RoutesCompilationException: Compilation error[Using different overloaded methods is not allowed. If you are using a single method in combination with default parameters, make sure you declare them all explicitly.]
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutes$5(RoutesCompiler.scala:165)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at play.sbt.routes.RoutesCompiler$.compileRoutes(RoutesCompiler.scala:163)
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutesFiles$1(RoutesCompiler.scala:141)
+	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:40)
+	at sbt.std.Transform$$anon$4.work(System.scala:67)
+	at sbt.Execute.$anonfun$submit$2(Execute.scala:269)
+	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+	at sbt.Execute.work(Execute.scala:278)
+	at sbt.Execute.$anonfun$submit$1(Execute.scala:269)
+	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:178)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:37)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-18 20:05:36,817 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-131 - 
+
+! @791hfop99 - Internal server error, for (GET) [/search?key=%E5%B0%8F%E7%B1%B3&kind=1] ->
+ 
+play.sbt.routes.RoutesCompilationException: Compilation error[Using different overloaded methods is not allowed. If you are using a single method in combination with default parameters, make sure you declare them all explicitly.]
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutes$5(RoutesCompiler.scala:165)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at play.sbt.routes.RoutesCompiler$.compileRoutes(RoutesCompiler.scala:163)
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutesFiles$1(RoutesCompiler.scala:141)
+	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:40)
+	at sbt.std.Transform$$anon$4.work(System.scala:67)
+	at sbt.Execute.$anonfun$submit$2(Execute.scala:269)
+	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+	at sbt.Execute.work(Execute.scala:278)
+	at sbt.Execute.$anonfun$submit$1(Execute.scala:269)
+	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:178)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:37)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-18 20:05:37,107 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-135 - 
+
+! @791hfp00n - Internal server error, for (GET) [/interestedpeople] ->
+ 
+play.sbt.routes.RoutesCompilationException: Compilation error[Using different overloaded methods is not allowed. If you are using a single method in combination with default parameters, make sure you declare them all explicitly.]
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutes$5(RoutesCompiler.scala:165)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at play.sbt.routes.RoutesCompiler$.compileRoutes(RoutesCompiler.scala:163)
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutesFiles$1(RoutesCompiler.scala:141)
+	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:40)
+	at sbt.std.Transform$$anon$4.work(System.scala:67)
+	at sbt.Execute.$anonfun$submit$2(Execute.scala:269)
+	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+	at sbt.Execute.work(Execute.scala:278)
+	at sbt.Execute.$anonfun$submit$1(Execute.scala:269)
+	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:178)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:37)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-18 20:05:59,592 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-131 - 
+
+! @791hg069c - Internal server error, for (GET) [/] ->
+ 
+play.sbt.routes.RoutesCompilationException: Compilation error[Using different overloaded methods is not allowed. If you are using a single method in combination with default parameters, make sure you declare them all explicitly.]
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutes$5(RoutesCompiler.scala:165)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.immutable.List.foreach(List.scala:389)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.immutable.List.map(List.scala:295)
+	at play.sbt.routes.RoutesCompiler$.compileRoutes(RoutesCompiler.scala:163)
+	at play.sbt.routes.RoutesCompiler$.$anonfun$compileRoutesFiles$1(RoutesCompiler.scala:141)
+	at scala.Function1.$anonfun$compose$1(Function1.scala:44)
+	at sbt.internal.util.$tilde$greater.$anonfun$$u2219$1(TypeFunctions.scala:40)
+	at sbt.std.Transform$$anon$4.work(System.scala:67)
+	at sbt.Execute.$anonfun$submit$2(Execute.scala:269)
+	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:16)
+	at sbt.Execute.work(Execute.scala:278)
+	at sbt.Execute.$anonfun$submit$1(Execute.scala:269)
+	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:178)
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:37)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-18 20:07:00,871 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:07:00,872 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-18 20:07:00,872 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-18 20:07:00,872 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-18 20:07:00,873 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-18 20:07:00,873 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:07:00,873 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-18 20:07:00,874 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-18 20:07:00,874 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-18 20:07:00,874 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-18 20:07:00,881 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2018-08-18 20:07:00,881 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-19 - Shutdown initiated...
+2018-08-18 20:07:00,882 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - HikariPool-19 - Shutdown completed.
+2018-08-18 20:07:01,039 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-141 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 20:07:01,039 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-141 - Creating Pool for datasource 'default'
+2018-08-18 20:07:01,039 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-141 - HikariPool-20 - Starting...
+2018-08-18 20:07:01,044 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-141 - HikariPool-20 - Start completed.
+2018-08-18 20:07:01,060 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-18 20:07:01,079 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-141 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 20:07:01,080 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-141 - Application started (Dev)
+2018-08-18 20:07:27,640 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:07:27,641 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-18 20:07:27,641 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-18 20:46:48,401 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-18 20:46:48,402 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-18 20:46:48,403 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:46:48,403 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-18 20:46:48,403 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-18 20:46:48,403 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-18 20:46:48,404 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-18 20:46:48,413 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2018-08-18 20:46:48,413 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-20 - Shutdown initiated...
+2018-08-18 20:46:48,414 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-8 - HikariPool-20 - Shutdown completed.
+2018-08-18 20:46:48,619 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-18 20:46:48,622 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-151 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 20:46:48,622 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-151 - Creating Pool for datasource 'default'
+2018-08-18 20:46:48,623 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-151 - HikariPool-21 - Starting...
+2018-08-18 20:46:48,626 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-151 - HikariPool-21 - Start completed.
+2018-08-18 20:46:48,644 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-151 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 20:46:48,644 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-151 - Application started (Dev)
+2018-08-18 20:46:53,547 [ERROR] from akka.dispatch.Dispatcher in application-akka.actor.default-dispatcher-4 - null
+java.lang.NullPointerException: null
+	at crawler.Crawler.$anonfun$forSearchPage$1(Crawler.scala:97)
+	at crawler.Crawler.$anonfun$forSearchPage$1$adapted(Crawler.scala:96)
+	at scala.util.Success.foreach(Try.scala:249)
+	at scala.concurrent.Future.$anonfun$foreach$1$adapted(Future.scala:225)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-18 20:49:58,579 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:49:58,579 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-18 20:49:58,580 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-18 20:49:58,580 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-18 20:49:58,580 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-18 20:49:58,580 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:49:58,580 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-18 20:49:58,580 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-18 20:49:58,581 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-18 20:49:58,581 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-18 20:49:58,582 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-08-18 20:49:58,582 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-21 - Shutdown initiated...
+2018-08-18 20:49:58,583 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-21 - Shutdown completed.
+2018-08-18 20:49:58,716 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-169 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-18 20:49:58,716 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-169 - Creating Pool for datasource 'default'
+2018-08-18 20:49:58,716 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-169 - HikariPool-22 - Starting...
+2018-08-18 20:49:58,720 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-169 - HikariPool-22 - Start completed.
+2018-08-18 20:49:58,738 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-18 20:49:58,758 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-169 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-18 20:49:58,758 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-169 - Application started (Dev)
+2018-08-18 20:49:59,452 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-18 20:49:59,453 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-18 20:49:59,453 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-18 20:50:17,708 [ERROR] from akka.dispatch.Dispatcher in application-akka.actor.default-dispatcher-5 - For input string: "-"
+java.lang.NumberFormatException: For input string: "-"
+	at sun.misc.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2043)
+	at sun.misc.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.lang.Double.parseDouble(Double.java:538)
+	at scala.collection.immutable.StringLike.toDouble(StringLike.scala:318)
+	at scala.collection.immutable.StringLike.toDouble$(StringLike.scala:318)
+	at scala.collection.immutable.StringOps.toDouble(StringOps.scala:29)
+	at crawler.Crawler.$anonfun$forBaseInfo$14(Crawler.scala:206)
+	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
+	at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:59)
+	at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:52)
+	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)
+	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
+	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
+	at scala.collection.AbstractTraversable.map(Traversable.scala:104)
+	at crawler.Crawler.$anonfun$forBaseInfo$1(Crawler.scala:199)
+	at scala.util.Success.foreach(Try.scala:249)
+	at scala.concurrent.Future.$anonfun$foreach$1$adapted(Future.scala:225)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)

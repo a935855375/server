@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -504,6 +504,34 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Company */
   lazy val Company = new TableQuery(tag => new Company(tag))
+
+  /** Entity class storing rows of table CompanyGraph
+   *  @param cid Database column cid SqlType(INT)
+   *  @param `type` Database column type SqlType(INT)
+   *  @param data Database column data SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+  case class CompanyGraphRow(cid: Int, `type`: Int, data: Option[String] = None)
+  /** GetResult implicit for fetching CompanyGraphRow objects using plain SQL queries */
+  implicit def GetResultCompanyGraphRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[CompanyGraphRow] = GR{
+    prs => import prs._
+    CompanyGraphRow.tupled((<<[Int], <<[Int], <<?[String]))
+  }
+  /** Table description of table company_graph. Objects of this class serve as prototypes for rows in queries.
+   *  NOTE: The following names collided with Scala keywords and were escaped: type */
+  class CompanyGraph(_tableTag: Tag) extends profile.api.Table[CompanyGraphRow](_tableTag, Some("data"), "company_graph") {
+    def * = (cid, `type`, data) <> (CompanyGraphRow.tupled, CompanyGraphRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(cid), Rep.Some(`type`), data).shaped.<>({r=>import r._; _1.map(_=> CompanyGraphRow.tupled((_1.get, _2.get, _3)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column cid SqlType(INT) */
+    val cid: Rep[Int] = column[Int]("cid")
+    /** Database column type SqlType(INT)
+     *  NOTE: The name was escaped because it collided with a Scala keyword. */
+    val `type`: Rep[Int] = column[Int]("type")
+    /** Database column data SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+    val data: Rep[Option[String]] = column[Option[String]]("data", O.Length(2147483647,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table CompanyGraph */
+  lazy val CompanyGraph = new TableQuery(tag => new CompanyGraph(tag))
 
   /** Entity class storing rows of table MainPersonnel
    *  @param cid Database column cid SqlType(INT)

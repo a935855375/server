@@ -26,7 +26,7 @@ GET         /investmentgraph                 controllers.Application.getInvestme
 
 GET         /associationgraph                controllers.Application.getAssociationGraph(id: Int)
 
-GET         /equitystructuregraph            controllers.Application.getEquityStructureGraph(id: Int)
+GET         /equitystructuregraph            controllers.Api.getEquityStructureGraph(id: Int)
 
 GET         /suspectedcontroller             controllers.Application.getSuspectedController(id: Int)
 
