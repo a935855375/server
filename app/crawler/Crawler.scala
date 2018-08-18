@@ -203,7 +203,7 @@ class Crawler @Inject()(ws: WSClient,
               Some(parseInt(data.child(1).select("a").get(1).ownText()))
             else None
             val ratio = Some(data.child(2).ownText())
-            val contribution = Some(data.child(3).ownText().toDouble)
+            val contribution = Some(data.child(3).text())
             val date = Some(data.child(4).ownText())
             ShareholderInformationRow(id, Some(name), ref, count, ratio, contribution, date)
           }
@@ -409,6 +409,28 @@ class Crawler @Inject()(ws: WSClient,
           .replace("DetailList", "children")
           .replace("Name", "name")).toString()
         db.run(CompanyGraph += CompanyGraphRow(id, 0, Some(data)))
+      }
+
+  def forEnterpriseGraph(key: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com/cms_businessmap?keyNo=$key")
+    .addHttpHeaders(
+      "User-Agent" -> agent,
+      "Cookie" -> cookie)
+    .get()
+    .foreach { res =>
+      val data = Json.parse(res.body).toString()
+      db.run(CompanyGraph += CompanyGraphRow(id, 1, Some(data)))
+    }
+
+  def forInvestmentGraph(key: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com/cms_map?keyNo=$key&upstreamCount=4&downstreamCount=4")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { res =>
+        val data = Json.parse(res.body).toString()
+        db.run(CompanyGraph += CompanyGraphRow(id, 2, Some(data)))
       }
 
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt

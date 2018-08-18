@@ -20,9 +20,9 @@ GET         /bossgraph                       controllers.Api.getBossGraph(id: In
 
 GET         /interestedpeople                controllers.Application.getInterestedPeople
 
-GET         /enterprisegraph                 controllers.Application.getEnterpriseGraph(id: Int)
+GET         /enterprisegraph                 controllers.Api.getEnterpriseGraph(id: Int)
 
-GET         /investmentgraph                 controllers.Application.getInvestmentGraph(id: Int)
+GET         /investmentgraph                 controllers.Api.getInvestmentGraph(id: Int)
 
 GET         /associationgraph                controllers.Application.getAssociationGraph(id: Int)
 

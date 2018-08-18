@@ -653,13 +653,13 @@ trait Tables {
    *  @param shareholderRef Database column shareholder_ref SqlType(VARCHAR), Length(255,true), Default(None)
    *  @param count Database column count SqlType(INT), Default(None)
    *  @param ratio Database column ratio SqlType(VARCHAR), Length(255,true), Default(None)
-   *  @param contribution Database column contribution SqlType(DOUBLE), Default(None)
+   *  @param contribution Database column contribution SqlType(VARCHAR), Length(255,true), Default(None)
    *  @param date Database column date SqlType(VARCHAR), Length(255,true), Default(None) */
-  case class ShareholderInformationRow(cid: Int, shareholderName: Option[String] = None, shareholderRef: Option[String] = None, count: Option[Int] = None, ratio: Option[String] = None, contribution: Option[Double] = None, date: Option[String] = None)
+  case class ShareholderInformationRow(cid: Int, shareholderName: Option[String] = None, shareholderRef: Option[String] = None, count: Option[Int] = None, ratio: Option[String] = None, contribution: Option[String] = None, date: Option[String] = None)
   /** GetResult implicit for fetching ShareholderInformationRow objects using plain SQL queries */
-  implicit def GetResultShareholderInformationRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[Option[Int]], e3: GR[Option[Double]]): GR[ShareholderInformationRow] = GR{
+  implicit def GetResultShareholderInformationRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[Option[Int]]): GR[ShareholderInformationRow] = GR{
     prs => import prs._
-    ShareholderInformationRow.tupled((<<[Int], <<?[String], <<?[String], <<?[Int], <<?[String], <<?[Double], <<?[String]))
+    ShareholderInformationRow.tupled((<<[Int], <<?[String], <<?[String], <<?[Int], <<?[String], <<?[String], <<?[String]))
   }
   /** Table description of table shareholder_information. Objects of this class serve as prototypes for rows in queries. */
   class ShareholderInformation(_tableTag: Tag) extends profile.api.Table[ShareholderInformationRow](_tableTag, Some("data"), "shareholder_information") {
@@ -677,8 +677,8 @@ trait Tables {
     val count: Rep[Option[Int]] = column[Option[Int]]("count", O.Default(None))
     /** Database column ratio SqlType(VARCHAR), Length(255,true), Default(None) */
     val ratio: Rep[Option[String]] = column[Option[String]]("ratio", O.Length(255,varying=true), O.Default(None))
-    /** Database column contribution SqlType(DOUBLE), Default(None) */
-    val contribution: Rep[Option[Double]] = column[Option[Double]]("contribution", O.Default(None))
+    /** Database column contribution SqlType(VARCHAR), Length(255,true), Default(None) */
+    val contribution: Rep[Option[String]] = column[Option[String]]("contribution", O.Length(255,varying=true), O.Default(None))
     /** Database column date SqlType(VARCHAR), Length(255,true), Default(None) */
     val date: Rep[Option[String]] = column[Option[String]]("date", O.Length(255,varying=true), O.Default(None))
   }

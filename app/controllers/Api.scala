@@ -145,5 +145,27 @@ class Api @Inject()(cc: MessagesControllerComponents,
         Ok("GG")
     }
   }
+
+  def getEnterpriseGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 1).result.headOption).map {
+      case Some(data) =>
+        Ok(data.data.get).as(JSON)
+      case None =>
+        db.run(Company.filter(_.id === id).result.head)
+          .foreach(x => crawler.forEnterpriseGraph(x.keyno.get, id))
+        Ok("GG")
+    }
+  }
+
+  def getInvestmentGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 2).result.headOption).map {
+      case Some(data) =>
+        Ok(data.data.get).as(JSON)
+      case None =>
+        db.run(Company.filter(_.id === id).result.head)
+          .foreach(x => crawler.forInvestmentGraph(x.keyno.get, id))
+        Ok("GG")
+    }
+  }
 }
 
