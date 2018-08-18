@@ -65,9 +65,41 @@ class Api @Inject()(cc: MessagesControllerComponents,
   }
 
   def getBossInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    db.run(Person.filter(_.id === id).result.head).foreach { person =>
-      crawler.forBossInfo(person.addr.get, person.id)
+    db.run(Person.filter(_.id === id).result.head).flatMap { person =>
+      if (!person.flag.get) {
+        crawler.forBossInfo(person.addr.get, person.id)
+        Future.successful(Ok(Json.obj("status" -> false)))
+      } else {
+        val boss_history_investmentFuture = db.run(BossHistoryInvestment.filter(_.bid === id).result)
+        val boss_history_positionFuture = db.run(BossHistoryPosition.filter(_.bid === id).result)
+        val boss_history_representFuture = db.run(BossHistoryRepresent.filter(_.bid === id).result)
+        val boss_holding_companyFuture = db.run(BossHoldingCompany.filter(_.bid === id).result)
+        val boss_investmentFuture = db.run(BossInvestment.filter(_.bid === id).result)
+        val boss_positionFuture = db.run(BossPosition.filter(_.bid === id).result)
+        val boss_representFuture = db.run(BossRepresent.filter(_.bid === id).result)
+
+        for {
+          boss_history_investment <- boss_history_investmentFuture
+          boss_history_position <- boss_history_positionFuture
+          boss_history_represent <- boss_history_representFuture
+          boss_holding_company <- boss_holding_companyFuture
+          boss_investment <- boss_investmentFuture
+          boss_position <- boss_positionFuture
+          boss_represent <- boss_representFuture
+        } yield {
+          val json = Json.obj(
+            "status" -> true,
+            "boss_history_investment" -> boss_history_investment,
+            "boss_history_position" -> boss_history_position,
+            "boss_history_represent" -> boss_history_represent,
+            "boss_holding_company" -> boss_holding_company,
+            "boss_investment" -> boss_investment,
+            "boss_position" -> boss_position,
+            "boss_represent" -> boss_represent
+          )
+          Ok(json)
+        }
+      }
     }
-    Future.successful(Ok)
   }
 }

@@ -586,18 +586,20 @@ trait Tables {
    *  @param name Database column name SqlType(VARCHAR), Length(255,true)
    *  @param addr Database column addr SqlType(VARCHAR), Length(255,true), Default(None)
    *  @param count Database column count SqlType(INT), Default(None)
-   *  @param avator Database column avator SqlType(VARCHAR), Length(255,true), Default(None) */
-  case class PersonRow(id: Int, name: String, addr: Option[String] = None, count: Option[Int] = None, avator: Option[String] = None)
+   *  @param avator Database column avator SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param introduction Database column introduction SqlType(TEXT), Default(None)
+   *  @param flag Database column flag SqlType(BIT), Default(Some(false)) */
+  case class PersonRow(id: Int, name: String, addr: Option[String] = None, count: Option[Int] = None, avator: Option[String] = None, introduction: Option[String] = None, flag: Option[Boolean] = Some(false))
   /** GetResult implicit for fetching PersonRow objects using plain SQL queries */
-  implicit def GetResultPersonRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]], e3: GR[Option[Int]]): GR[PersonRow] = GR{
+  implicit def GetResultPersonRow(implicit e0: GR[Int], e1: GR[String], e2: GR[Option[String]], e3: GR[Option[Int]], e4: GR[Option[Boolean]]): GR[PersonRow] = GR{
     prs => import prs._
-    PersonRow.tupled((<<[Int], <<[String], <<?[String], <<?[Int], <<?[String]))
+    PersonRow.tupled((<<[Int], <<[String], <<?[String], <<?[Int], <<?[String], <<?[String], <<?[Boolean]))
   }
   /** Table description of table person. Objects of this class serve as prototypes for rows in queries. */
   class Person(_tableTag: Tag) extends profile.api.Table[PersonRow](_tableTag, Some("data"), "person") {
-    def * = (id, name, addr, count, avator) <> (PersonRow.tupled, PersonRow.unapply)
+    def * = (id, name, addr, count, avator, introduction, flag) <> (PersonRow.tupled, PersonRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(id), Rep.Some(name), addr, count, avator).shaped.<>({r=>import r._; _1.map(_=> PersonRow.tupled((_1.get, _2.get, _3, _4, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(id), Rep.Some(name), addr, count, avator, introduction, flag).shaped.<>({r=>import r._; _1.map(_=> PersonRow.tupled((_1.get, _2.get, _3, _4, _5, _6, _7)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column id SqlType(INT), AutoInc, PrimaryKey */
     val id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
@@ -609,6 +611,10 @@ trait Tables {
     val count: Rep[Option[Int]] = column[Option[Int]]("count", O.Default(None))
     /** Database column avator SqlType(VARCHAR), Length(255,true), Default(None) */
     val avator: Rep[Option[String]] = column[Option[String]]("avator", O.Length(255,varying=true), O.Default(None))
+    /** Database column introduction SqlType(TEXT), Default(None) */
+    val introduction: Rep[Option[String]] = column[Option[String]]("introduction", O.Default(None))
+    /** Database column flag SqlType(BIT), Default(Some(false)) */
+    val flag: Rep[Option[Boolean]] = column[Option[Boolean]]("flag", O.Default(Some(false)))
   }
   /** Collection-like TableQuery object for table Person */
   lazy val Person = new TableQuery(tag => new Person(tag))

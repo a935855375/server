@@ -261,6 +261,12 @@ class Crawler @Inject()(ws: WSClient,
         println(response.body)
         val html = Jsoup.parse(response.body)
 
+        val introduction = if (html.select("#peopleModal").size() != 0)
+          Some(html.select("#peopleModal").select("section").text())
+        else None
+
+        db.run(Person.filter(_.id === id).map(x => (x.introduction, x.flag)).update((introduction, Some(true))))
+
         // 担任法定代表人
         if (html.select("#legal").select("tr").size() != 0) {
           val d = html.select("#legal").select("tr").asScala.tail.map { tr =>
