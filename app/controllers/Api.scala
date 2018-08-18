@@ -63,4 +63,11 @@ class Api @Inject()(cc: MessagesControllerComponents,
       }
     }
   }
+
+  def getBossInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(Person.filter(_.id === id).result.head).foreach { person =>
+      crawler.forBossInfo(person.addr.get, person.id)
+    }
+    Future.successful(Ok)
+  }
 }

@@ -101,7 +101,7 @@ class Crawler @Inject()(ws: WSClient,
   def forBaseInfo(url: String, id: Int): Unit =
     ws.url(s"https://www.qichacha.com$url")
       .addHttpHeaders(
-        "User-Agent" -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36",
+        "User-Agent" -> agent,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
@@ -136,6 +136,7 @@ class Crawler @Inject()(ws: WSClient,
                 val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
                 val action = q.update(Some(id), introduction, keyNo, website)
                 db.run(action)
+                forBossInfo(ref, id)
               }
             } else {
               val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
@@ -257,11 +258,12 @@ class Crawler @Inject()(ws: WSClient,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
+        println(response.body)
         val html = Jsoup.parse(response.body)
 
         // 担任法定代表人
         if (html.select("#legal").select("tr").size() != 0) {
-          html.select("#legal").select("tr").asScala.tail.foreach { tr =>
+          val d = html.select("#legal").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).ownText()
             val href = tr.child(1).child(0).attr("href")
             val ratio = tr.child(2).ownText()
@@ -269,12 +271,15 @@ class Crawler @Inject()(ws: WSClient,
             val region = tr.child(4).ownText()
             val kind = tr.child(5).ownText()
             val status = tr.child(6).child(0).ownText()
+
+            BossRepresentRow(id, Some(name), Some(href), Some(ratio), Some(capital), Some(region), Some(kind), Some(status))
           }
+          db.run(BossRepresent ++= d)
         }
 
         // 对外投资
         if (html.select("#invest").select("tr").size() != 0) {
-          html.select("#invest").select("tr").asScala.tail.foreach { tr =>
+          val d = html.select("#invest").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).ownText()
             val href = tr.child(1).child(0).attr("href")
             val ratio = tr.child(2).ownText()
@@ -286,12 +291,15 @@ class Crawler @Inject()(ws: WSClient,
             val represent_href = if (tr.child(6).children().size() == 0) None
             else Some(tr.child(6).child(0).attr("href"))
             val status = tr.child(7).child(0).ownText()
+
+            BossInvestmentRow(id, Some(name), Some(href), Some(ratio), Some(capital), Some(region), Some(kind), Some(represent), represent_href, Some(status))
           }
+          db.run(BossInvestment ++= d)
         }
 
         // 在外任职
         if (html.select("#postOffice").select("tr").size() != 0) {
-          html.select("#postOffice").select("tr").asScala.tail.foreach { tr =>
+          val d = html.select("#postOffice").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).ownText()
             val href = tr.child(1).child(0).attr("href")
             val position = tr.child(2).ownText()
@@ -303,24 +311,30 @@ class Crawler @Inject()(ws: WSClient,
             val represent_href = if (tr.child(6).children().size() == 0) None
             else Some(tr.child(6).child(0).attr("href"))
             val status = tr.child(7).child(0).ownText()
+
+            BossPositionRow(id, Some(name), Some(href), Some(position), Some(capital), Some(region), Some(kind), Some(represent), represent_href, Some(status))
           }
+          db.run(BossPosition ++= d)
         }
 
         // 历史担任法定代表人
         if (html.select("#history").select("tr").size() != 0) {
-          html.select("#history").select("tr").asScala.tail.foreach { tr =>
+          val d = html.select("#history").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).ownText()
             val href = tr.child(1).child(0).attr("href")
             val capital = tr.child(2).ownText()
             val region = tr.child(3).ownText()
             val kind = tr.child(4).ownText()
-            val status = tr.child(5).ownText()
+            val status = tr.child(5).text()
+
+            BossHistoryRepresentRow(id, Some(name), Some(href), Some(capital), Some(region), Some(kind), Some(status))
           }
+          db.run(BossHistoryRepresent ++= d)
         }
 
         // 历史对外投资
-        if (html.select("#hisinvest").select("tr").size() != 0) {
-          html.select("#hisinvest").select("tr").asScala.tail.foreach { tr =>
+        if (html.select("[name=hisinvest]").select("tr").size() != 0) {
+          val d = html.select("[name=hisinvest]").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).ownText()
             val href = tr.child(1).child(0).attr("href")
             val capital = tr.child(2).ownText()
@@ -329,12 +343,15 @@ class Crawler @Inject()(ws: WSClient,
             val represent_href = if (tr.child(3).children().size() == 0) None
             else Some(tr.child(3).child(0).attr("href"))
             val status = tr.child(4).child(0).ownText()
+
+            BossHistoryInvestmentRow(id, Some(name), Some(href), Some(capital), Some(represent), represent_href, Some(status))
           }
+          db.run(BossHistoryInvestment ++= d)
         }
 
         // 历史在外任职
-        if (html.select("#postOffice").select("tr").size() != 0) {
-          html.select("#postOffice").select("tr").asScala.tail.foreach { tr =>
+        if (html.select("#hispostOffice").select("tr").size() != 0) {
+          val d = html.select("#hispostOffice").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).text()
             val href = tr.child(1).child(0).attr("href")
             val position = tr.child(2).ownText()
@@ -343,19 +360,24 @@ class Crawler @Inject()(ws: WSClient,
             else tr.child(4).child(0).ownText()
             val represent_href = if (tr.child(4).children().size() == 0) None
             else Some(tr.child(4).child(0).attr("href"))
-            val status = tr.child(5).child(0).ownText()
+            val status = tr.child(5).text()
+
+            BossHistoryPositionRow(id, Some(name), Some(href), Some(position), Some(capital), Some(represent), represent_href, Some(status))
           }
+          db.run(BossHistoryPosition ++= d)
         }
 
         // 控股企业
         if (html.select("#holdcolist").select("tr").size() != 0) {
-          html.select("#holdcolist").select("tr").asScala.tail.foreach { tr =>
+          val d = html.select("#holdcolist").select("tr").asScala.tail.map { tr =>
             val name = tr.child(1).child(0).ownText()
             val href = tr.child(1).child(0).attr("href")
             val ratio = tr.child(2).ownText()
             val chain = tr.child(3).html()
-            println(chain)
+
+            BossHoldingCompanyRow(id, Some(name), Some(href), Some(ratio), Some(chain))
           }
+          db.run(BossHoldingCompany ++= d)
         }
       }
 

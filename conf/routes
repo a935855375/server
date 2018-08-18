@@ -14,6 +14,8 @@ GET         /search                          controllers.Application.query(key: 
 
 GET         /companyinfo                     controllers.Api.getCompanyBaseInfo(id: Int)
 
+GET         /bossinfo                        controllers.Api.getBossInfo(id: Int)
+
 GET         /interestedpeople                controllers.Application.getInterestedPeople
 
 GET         /enterprisegraph                 controllers.Application.getEnterpriseGraph(id: Int)
