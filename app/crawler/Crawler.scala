@@ -253,7 +253,7 @@ class Crawler @Inject()(ws: WSClient,
   def forBossInfo(url: String, id: Int): Unit =
     ws.url(s"https://www.qichacha.com$url")
       .addHttpHeaders(
-        "User-Agent" -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36",
+        "User-Agent" -> agent,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
@@ -283,6 +283,8 @@ class Crawler @Inject()(ws: WSClient,
             val kind = tr.child(5).ownText()
             val represent = if (tr.child(6).children().size() == 0) tr.child(6).ownText()
             else tr.child(6).child(0).ownText()
+            val represent_href = if (tr.child(6).children().size() == 0) None
+            else Some(tr.child(6).child(0).attr("href"))
             val status = tr.child(7).child(0).ownText()
           }
         }
@@ -298,6 +300,8 @@ class Crawler @Inject()(ws: WSClient,
             val kind = tr.child(5).ownText()
             val represent = if (tr.child(6).children().size() == 0) tr.child(6).ownText()
             else tr.child(6).child(0).ownText()
+            val represent_href = if (tr.child(6).children().size() == 0) None
+            else Some(tr.child(6).child(0).attr("href"))
             val status = tr.child(7).child(0).ownText()
           }
         }
@@ -322,6 +326,8 @@ class Crawler @Inject()(ws: WSClient,
             val capital = tr.child(2).ownText()
             val represent = if (tr.child(3).children().size() == 0) tr.child(3).ownText()
             else tr.child(3).child(0).ownText()
+            val represent_href = if (tr.child(3).children().size() == 0) None
+            else Some(tr.child(3).child(0).attr("href"))
             val status = tr.child(4).child(0).ownText()
           }
         }
@@ -329,13 +335,15 @@ class Crawler @Inject()(ws: WSClient,
         // 历史在外任职
         if (html.select("#postOffice").select("tr").size() != 0) {
           html.select("#postOffice").select("tr").asScala.tail.foreach { tr =>
-            val name = tr.child(1).child(0).ownText()
+            val name = tr.child(1).child(0).text()
             val href = tr.child(1).child(0).attr("href")
-            /*val position = tr.child(2).ownText()
+            val position = tr.child(2).ownText()
             val capital = tr.child(3).ownText()
             val represent = if (tr.child(4).children().size() == 0) tr.child(4).ownText()
             else tr.child(4).child(0).ownText()
-            val status = tr.child(5).child(0).ownText()*/
+            val represent_href = if (tr.child(4).children().size() == 0) None
+            else Some(tr.child(4).child(0).attr("href"))
+            val status = tr.child(5).child(0).ownText()
           }
         }
 

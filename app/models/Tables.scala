@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, Branch.schema, ChangeRecord.schema, Company.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -94,6 +94,284 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table BasicInfo */
   lazy val BasicInfo = new TableQuery(tag => new BasicInfo(tag))
+
+  /** Entity class storing rows of table BossHistoryInvestment
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param capital Database column capital SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param represent Database column represent SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param representRef Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class BossHistoryInvestmentRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, capital: Option[String] = None, represent: Option[String] = None, representRef: Option[String] = None, status: Option[String] = None)
+  /** GetResult implicit for fetching BossHistoryInvestmentRow objects using plain SQL queries */
+  implicit def GetResultBossHistoryInvestmentRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossHistoryInvestmentRow] = GR{
+    prs => import prs._
+    BossHistoryInvestmentRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_history_investment. Objects of this class serve as prototypes for rows in queries. */
+  class BossHistoryInvestment(_tableTag: Tag) extends profile.api.Table[BossHistoryInvestmentRow](_tableTag, Some("data"), "boss_history_investment") {
+    def * = (bid, name, ref, capital, represent, representRef, status) <> (BossHistoryInvestmentRow.tupled, BossHistoryInvestmentRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, capital, represent, representRef, status).shaped.<>({r=>import r._; _1.map(_=> BossHistoryInvestmentRow.tupled((_1.get, _2, _3, _4, _5, _6, _7)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column capital SqlType(VARCHAR), Length(255,true), Default(None) */
+    val capital: Rep[Option[String]] = column[Option[String]]("capital", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent SqlType(VARCHAR), Length(255,true), Default(None) */
+    val represent: Rep[Option[String]] = column[Option[String]]("represent", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val representRef: Rep[Option[String]] = column[Option[String]]("represent_ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossHistoryInvestment */
+  lazy val BossHistoryInvestment = new TableQuery(tag => new BossHistoryInvestment(tag))
+
+  /** Entity class storing rows of table BossHistoryPosition
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param position Database column position SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param capital Database column capital SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param represent Database column represent SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param representRef Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class BossHistoryPositionRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, position: Option[String] = None, capital: Option[String] = None, represent: Option[String] = None, representRef: Option[String] = None, status: Option[String] = None)
+  /** GetResult implicit for fetching BossHistoryPositionRow objects using plain SQL queries */
+  implicit def GetResultBossHistoryPositionRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossHistoryPositionRow] = GR{
+    prs => import prs._
+    BossHistoryPositionRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_history_position. Objects of this class serve as prototypes for rows in queries. */
+  class BossHistoryPosition(_tableTag: Tag) extends profile.api.Table[BossHistoryPositionRow](_tableTag, Some("data"), "boss_history_position") {
+    def * = (bid, name, ref, position, capital, represent, representRef, status) <> (BossHistoryPositionRow.tupled, BossHistoryPositionRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, position, capital, represent, representRef, status).shaped.<>({r=>import r._; _1.map(_=> BossHistoryPositionRow.tupled((_1.get, _2, _3, _4, _5, _6, _7, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column position SqlType(VARCHAR), Length(255,true), Default(None) */
+    val position: Rep[Option[String]] = column[Option[String]]("position", O.Length(255,varying=true), O.Default(None))
+    /** Database column capital SqlType(VARCHAR), Length(255,true), Default(None) */
+    val capital: Rep[Option[String]] = column[Option[String]]("capital", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent SqlType(VARCHAR), Length(255,true), Default(None) */
+    val represent: Rep[Option[String]] = column[Option[String]]("represent", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val representRef: Rep[Option[String]] = column[Option[String]]("represent_ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossHistoryPosition */
+  lazy val BossHistoryPosition = new TableQuery(tag => new BossHistoryPosition(tag))
+
+  /** Entity class storing rows of table BossHistoryRepresent
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param capital Database column capital SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param kind Database column kind SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class BossHistoryRepresentRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, capital: Option[String] = None, kind: Option[String] = None, status: Option[String] = None)
+  /** GetResult implicit for fetching BossHistoryRepresentRow objects using plain SQL queries */
+  implicit def GetResultBossHistoryRepresentRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossHistoryRepresentRow] = GR{
+    prs => import prs._
+    BossHistoryRepresentRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_history_represent. Objects of this class serve as prototypes for rows in queries. */
+  class BossHistoryRepresent(_tableTag: Tag) extends profile.api.Table[BossHistoryRepresentRow](_tableTag, Some("data"), "boss_history_represent") {
+    def * = (bid, name, ref, capital, kind, status) <> (BossHistoryRepresentRow.tupled, BossHistoryRepresentRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, capital, kind, status).shaped.<>({r=>import r._; _1.map(_=> BossHistoryRepresentRow.tupled((_1.get, _2, _3, _4, _5, _6)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column capital SqlType(VARCHAR), Length(255,true), Default(None) */
+    val capital: Rep[Option[String]] = column[Option[String]]("capital", O.Length(255,varying=true), O.Default(None))
+    /** Database column kind SqlType(VARCHAR), Length(255,true), Default(None) */
+    val kind: Rep[Option[String]] = column[Option[String]]("kind", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossHistoryRepresent */
+  lazy val BossHistoryRepresent = new TableQuery(tag => new BossHistoryRepresent(tag))
+
+  /** Entity class storing rows of table BossHoldingCompany
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ratio Database column ratio SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param chain Database column chain SqlType(TEXT), Default(None) */
+  case class BossHoldingCompanyRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, ratio: Option[String] = None, chain: Option[String] = None)
+  /** GetResult implicit for fetching BossHoldingCompanyRow objects using plain SQL queries */
+  implicit def GetResultBossHoldingCompanyRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossHoldingCompanyRow] = GR{
+    prs => import prs._
+    BossHoldingCompanyRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_holding_company. Objects of this class serve as prototypes for rows in queries. */
+  class BossHoldingCompany(_tableTag: Tag) extends profile.api.Table[BossHoldingCompanyRow](_tableTag, Some("data"), "boss_holding_company") {
+    def * = (bid, name, ref, ratio, chain) <> (BossHoldingCompanyRow.tupled, BossHoldingCompanyRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, ratio, chain).shaped.<>({r=>import r._; _1.map(_=> BossHoldingCompanyRow.tupled((_1.get, _2, _3, _4, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column ratio SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ratio: Rep[Option[String]] = column[Option[String]]("ratio", O.Length(255,varying=true), O.Default(None))
+    /** Database column chain SqlType(TEXT), Default(None) */
+    val chain: Rep[Option[String]] = column[Option[String]]("chain", O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossHoldingCompany */
+  lazy val BossHoldingCompany = new TableQuery(tag => new BossHoldingCompany(tag))
+
+  /** Entity class storing rows of table BossInvestment
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ratio Database column ratio SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param capital Database column capital SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param region Database column region SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param kind Database column kind SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param represent Database column represent SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param representRef Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class BossInvestmentRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, ratio: Option[String] = None, capital: Option[String] = None, region: Option[String] = None, kind: Option[String] = None, represent: Option[String] = None, representRef: Option[String] = None, status: Option[String] = None)
+  /** GetResult implicit for fetching BossInvestmentRow objects using plain SQL queries */
+  implicit def GetResultBossInvestmentRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossInvestmentRow] = GR{
+    prs => import prs._
+    BossInvestmentRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_investment. Objects of this class serve as prototypes for rows in queries. */
+  class BossInvestment(_tableTag: Tag) extends profile.api.Table[BossInvestmentRow](_tableTag, Some("data"), "boss_investment") {
+    def * = (bid, name, ref, ratio, capital, region, kind, represent, representRef, status) <> (BossInvestmentRow.tupled, BossInvestmentRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, ratio, capital, region, kind, represent, representRef, status).shaped.<>({r=>import r._; _1.map(_=> BossInvestmentRow.tupled((_1.get, _2, _3, _4, _5, _6, _7, _8, _9, _10)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column ratio SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ratio: Rep[Option[String]] = column[Option[String]]("ratio", O.Length(255,varying=true), O.Default(None))
+    /** Database column capital SqlType(VARCHAR), Length(255,true), Default(None) */
+    val capital: Rep[Option[String]] = column[Option[String]]("capital", O.Length(255,varying=true), O.Default(None))
+    /** Database column region SqlType(VARCHAR), Length(255,true), Default(None) */
+    val region: Rep[Option[String]] = column[Option[String]]("region", O.Length(255,varying=true), O.Default(None))
+    /** Database column kind SqlType(VARCHAR), Length(255,true), Default(None) */
+    val kind: Rep[Option[String]] = column[Option[String]]("kind", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent SqlType(VARCHAR), Length(255,true), Default(None) */
+    val represent: Rep[Option[String]] = column[Option[String]]("represent", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val representRef: Rep[Option[String]] = column[Option[String]]("represent_ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossInvestment */
+  lazy val BossInvestment = new TableQuery(tag => new BossInvestment(tag))
+
+  /** Entity class storing rows of table BossPosition
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param capital Database column capital SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param region Database column region SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param kind Database column kind SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param represent Database column represent SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param representRef Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class BossPositionRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, capital: Option[String] = None, region: Option[String] = None, kind: Option[String] = None, represent: Option[String] = None, representRef: Option[String] = None, status: Option[String] = None)
+  /** GetResult implicit for fetching BossPositionRow objects using plain SQL queries */
+  implicit def GetResultBossPositionRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossPositionRow] = GR{
+    prs => import prs._
+    BossPositionRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_position. Objects of this class serve as prototypes for rows in queries. */
+  class BossPosition(_tableTag: Tag) extends profile.api.Table[BossPositionRow](_tableTag, Some("data"), "boss_position") {
+    def * = (bid, name, ref, capital, region, kind, represent, representRef, status) <> (BossPositionRow.tupled, BossPositionRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, capital, region, kind, represent, representRef, status).shaped.<>({r=>import r._; _1.map(_=> BossPositionRow.tupled((_1.get, _2, _3, _4, _5, _6, _7, _8, _9)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column capital SqlType(VARCHAR), Length(255,true), Default(None) */
+    val capital: Rep[Option[String]] = column[Option[String]]("capital", O.Length(255,varying=true), O.Default(None))
+    /** Database column region SqlType(VARCHAR), Length(255,true), Default(None) */
+    val region: Rep[Option[String]] = column[Option[String]]("region", O.Length(255,varying=true), O.Default(None))
+    /** Database column kind SqlType(VARCHAR), Length(255,true), Default(None) */
+    val kind: Rep[Option[String]] = column[Option[String]]("kind", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent SqlType(VARCHAR), Length(255,true), Default(None) */
+    val represent: Rep[Option[String]] = column[Option[String]]("represent", O.Length(255,varying=true), O.Default(None))
+    /** Database column represent_ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val representRef: Rep[Option[String]] = column[Option[String]]("represent_ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossPosition */
+  lazy val BossPosition = new TableQuery(tag => new BossPosition(tag))
+
+  /** Entity class storing rows of table BossRepresent
+   *  @param bid Database column bid SqlType(INT)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ratio Database column ratio SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param capital Database column capital SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param region Database column region SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param kind Database column kind SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class BossRepresentRow(bid: Int, name: Option[String] = None, ref: Option[String] = None, ratio: Option[String] = None, capital: Option[String] = None, region: Option[String] = None, kind: Option[String] = None, status: Option[String] = None)
+  /** GetResult implicit for fetching BossRepresentRow objects using plain SQL queries */
+  implicit def GetResultBossRepresentRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BossRepresentRow] = GR{
+    prs => import prs._
+    BossRepresentRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table boss_represent. Objects of this class serve as prototypes for rows in queries. */
+  class BossRepresent(_tableTag: Tag) extends profile.api.Table[BossRepresentRow](_tableTag, Some("data"), "boss_represent") {
+    def * = (bid, name, ref, ratio, capital, region, kind, status) <> (BossRepresentRow.tupled, BossRepresentRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), name, ref, ratio, capital, region, kind, status).shaped.<>({r=>import r._; _1.map(_=> BossRepresentRow.tupled((_1.get, _2, _3, _4, _5, _6, _7, _8)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column ratio SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ratio: Rep[Option[String]] = column[Option[String]]("ratio", O.Length(255,varying=true), O.Default(None))
+    /** Database column capital SqlType(VARCHAR), Length(255,true), Default(None) */
+    val capital: Rep[Option[String]] = column[Option[String]]("capital", O.Length(255,varying=true), O.Default(None))
+    /** Database column region SqlType(VARCHAR), Length(255,true), Default(None) */
+    val region: Rep[Option[String]] = column[Option[String]]("region", O.Length(255,varying=true), O.Default(None))
+    /** Database column kind SqlType(VARCHAR), Length(255,true), Default(None) */
+    val kind: Rep[Option[String]] = column[Option[String]]("kind", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BossRepresent */
+  lazy val BossRepresent = new TableQuery(tag => new BossRepresent(tag))
 
   /** Entity class storing rows of table Branch
    *  @param cid Database column cid SqlType(INT)
