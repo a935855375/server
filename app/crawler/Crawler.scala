@@ -487,6 +487,17 @@ class Crawler @Inject()(ws: WSClient,
         data
       }
 
+  def forSecondEquityStructureGraph(key: String, id: Int): Future[JsValue] =
+    ws.url(s"https://www.qichacha.com/cms_guquanmap2?keyNo=$key")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { res =>
+        val data = Json.parse(res.body)
+        db.run(CompanyGraph += CompanyGraphRow(id, 4, Some(data.toString())))
+        data
+      }
 
   def forCompanyShortInfo(key: String): Future[JsValue] =
     ws.url(s"https://www.qichacha.com/more_findRelationsDetail?keyNo=$key")

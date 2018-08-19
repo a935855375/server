@@ -2077,3 +2077,118 @@ Caused by: play.api.libs.json.JsResultException: JsResultException(errors:List((
     play.filters.cors.CORSFilter
 
 2018-08-19 16:43:08,607 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-178 - Application started (Dev)
+2018-08-19 17:03:54,292 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:03:54,293 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-19 17:03:54,293 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-19 17:03:54,293 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-19 17:03:54,293 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-19 17:03:54,293 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:03:54,293 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-19 17:03:54,294 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-19 17:03:54,294 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-19 17:03:54,294 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-19 17:03:54,295 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2018-08-19 17:03:54,296 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-53 - Shutdown initiated...
+2018-08-19 17:03:54,297 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - HikariPool-53 - Shutdown completed.
+2018-08-19 17:03:54,474 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-183 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-19 17:03:54,474 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-183 - Creating Pool for datasource 'default'
+2018-08-19 17:03:54,474 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-183 - HikariPool-54 - Starting...
+2018-08-19 17:03:54,478 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-183 - HikariPool-54 - Start completed.
+2018-08-19 17:03:54,492 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-19 17:03:54,510 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-183 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-19 17:03:54,510 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-183 - Application started (Dev)
+2018-08-19 17:03:54,526 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:03:54,526 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-19 17:03:54,527 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-19 17:06:51,866 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-6 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:06:51,867 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Starting...
+2018-08-19 17:06:51,867 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Start completed.
+2018-08-19 17:16:22,554 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-19 17:16:22,556 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-19 17:16:22,557 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-19 17:16:22,558 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-19 17:16:22,567 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-08-19 17:16:22,567 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-54 - Shutdown initiated...
+2018-08-19 17:16:22,569 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-54 - Shutdown completed.
+2018-08-19 17:16:22,907 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-19 17:16:22,912 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-199 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-19 17:16:22,914 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-199 - Creating Pool for datasource 'default'
+2018-08-19 17:16:22,915 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-199 - HikariPool-55 - Starting...
+2018-08-19 17:16:22,924 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-199 - HikariPool-55 - Start completed.
+2018-08-19 17:16:22,956 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-199 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-19 17:16:22,957 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-199 - Application started (Dev)
+2018-08-19 17:16:22,978 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:16:22,978 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-19 17:16:22,979 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-19 17:21:53,231 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:21:53,231 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-19 17:21:53,232 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-19 17:21:53,232 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-19 17:21:53,232 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-19 17:21:53,232 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-19 17:21:53,233 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-19 17:21:53,236 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-08-19 17:21:53,237 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-55 - Shutdown initiated...
+2018-08-19 17:21:53,238 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-55 - Shutdown completed.
+2018-08-19 17:21:53,436 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-204 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-19 17:21:53,436 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-204 - Creating Pool for datasource 'default'
+2018-08-19 17:21:53,436 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-204 - HikariPool-56 - Starting...
+2018-08-19 17:21:53,440 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-204 - HikariPool-56 - Start completed.
+2018-08-19 17:21:53,455 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-19 17:21:53,481 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-204 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-19 17:21:53,481 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-204 - Application started (Dev)
+2018-08-19 17:21:53,489 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:21:53,490 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-19 17:21:53,490 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-19 17:25:02,033 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-19 17:25:02,034 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-19 17:25:02,035 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:25:02,035 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-19 17:25:02,036 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-19 17:25:02,036 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-19 17:25:02,036 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-19 17:25:02,050 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2018-08-19 17:25:02,050 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-56 - Shutdown initiated...
+2018-08-19 17:25:02,051 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - HikariPool-56 - Shutdown completed.
+2018-08-19 17:25:02,247 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-203 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-19 17:25:02,248 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-203 - Creating Pool for datasource 'default'
+2018-08-19 17:25:02,248 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-203 - HikariPool-57 - Starting...
+2018-08-19 17:25:02,252 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-203 - HikariPool-57 - Start completed.
+2018-08-19 17:25:02,269 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-19 17:25:02,289 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-203 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-19 17:25:02,289 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-203 - Application started (Dev)
+2018-08-19 17:25:02,295 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:25:02,295 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-19 17:25:02,295 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-19 17:29:32,476 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-19 17:29:32,477 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-19 17:29:32,478 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-19 17:29:32,478 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-19 17:29:32,478 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-19 17:29:32,479 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-19 17:29:32,479 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-19 17:29:32,492 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2018-08-19 17:29:32,492 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-57 - Shutdown initiated...
+2018-08-19 17:29:32,493 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - HikariPool-57 - Shutdown completed.
+2018-08-19 17:29:32,620 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-202 - Database [default] initialized at jdbc:mysql://localhost:3306/server?characterEncoding=UTF8&useSSL=false
+2018-08-19 17:29:32,621 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-202 - Creating Pool for datasource 'default'
+2018-08-19 17:29:32,621 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-202 - HikariPool-58 - Starting...
+2018-08-19 17:29:32,624 [INFO] from com.zaxxer.hikari.HikariDataSource in play-dev-mode-akka.actor.default-dispatcher-202 - HikariPool-58 - Start completed.
+2018-08-19 17:29:32,640 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-19 17:29:32,658 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-202 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-19 17:29:32,658 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-202 - Application started (Dev)

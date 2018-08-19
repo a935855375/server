@@ -5,16 +5,12 @@ import javax.inject.Singleton
 import models.Format._
 import models._
 import play.api.Configuration
-import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.{JsArray, Json, OFormat}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
-import slick.jdbc.JdbcProfile
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
-import models.OldTables$.profile.api._
-import play.api.db.NamedDatabase
 import service.AuthService
 
 // import scala.collection.JavaConverters._
@@ -24,9 +20,8 @@ class Application @Inject()(cc: MessagesControllerComponents,
                             database: MyDatabase,
                             auth: AuthService,
                             config: Configuration,
-                            ws: WSClient,
-                            @NamedDatabase("mysql") protected val dbConfigProvider: DatabaseConfigProvider)
-                           (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
+                            ws: WSClient)
+                           (implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
   final val baseUrl = config.get[String]("es.baseUrl")
 
@@ -220,10 +215,5 @@ class Application @Inject()(cc: MessagesControllerComponents,
     } yield {
       Ok(Json.obj("person" -> p, "company" -> c))
     }
-  }
-
-  def getPersonalGraph(id: Int, kind: Int): Action[AnyContent] = Action.async { implicit request =>
-    val sql = OldTables$.Temp.filter(x => x.id === id && x.kind === kind).result
-    db.run(sql).map(x => Ok(x.head.data.get).as(JSON))
   }
 }

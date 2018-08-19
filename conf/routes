@@ -2,41 +2,37 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET         /                                controllers.Application.index
+GET         /                                  controllers.Application.index
 
-GET         /test                            controllers.Api.test
+GET         /test                              controllers.Api.test
 
-POST        /login                           controllers.Application.login
+POST        /login                             controllers.Application.login
 
-POST        /register                        controllers.Application.register
+POST        /register                          controllers.Application.register
 
-GET         /search                          controllers.Application.query(key: String, kind:Int ?= 0, sort: Int ?= 0)
+GET         /search                            controllers.Application.query(key: String, kind:Int ?= 0, sort: Int ?= 0)
 
-GET         /companyinfo                     controllers.Api.getCompanyBaseInfo(id: Int)
+GET         /companyinfo                       controllers.Api.getCompanyBaseInfo(id: Int)
 
-GET         /bossinfo                        controllers.Api.getBossInfo(id: Int)
+GET         /bossinfo                          controllers.Api.getBossInfo(id: Int)
 
-GET         /bossgraph                       controllers.Api.getBossGraph(id: Int)
+GET         /bossgraph                         controllers.Api.getBossGraph(id: Int)
 
-GET         /interestedpeople                controllers.Application.getInterestedPeople
+GET         /interestedpeople                  controllers.Application.getInterestedPeople
 
-GET         /enterprisegraph                 controllers.Api.getEnterpriseGraph(id: Int)
+GET         /enterprisegraph                   controllers.Api.getEnterpriseGraph(id: Int)
 
-GET         /investmentgraph                 controllers.Api.getInvestmentGraph(id: Int)
+GET         /investmentgraph                   controllers.Api.getInvestmentGraph(id: Int)
 
-GET         /associationgraph                controllers.Api.getAssociationGraph(id: Int)
+GET         /associationgraph                  controllers.Api.getAssociationGraph(id: Int)
 
-GET         /equitystructuregraph            controllers.Api.getEquityStructureGraph(id: Int)
+GET         /equitystructuregraph              controllers.Api.getEquityStructureGraph(id: Int)
 
-GET         /personalGraph                   controllers.Application.getPersonalGraph(id: Int, kind: Int)
+GET         /secondequitystructuregraph        controllers.Api.getSecondEquityStructureGraph(id: Int)
 
-GET         /companyShortInfo                controllers.Api.getCompanyShortInfo(key: String)
+GET         /companyShortInfo                  controllers.Api.getCompanyShortInfo(key: String)
 
-GET         /multipleAssociationGraph        controllers.Api.getMultipleAssociationGraph(nodes: String)
-
-# GET         /tempAssociationgraph        controllers.Application.getTempAssociationGraph
-
-#POST        /tempAssociationgraph            controllers.Application.putTempAssociationGraph
+GET         /multipleAssociationGraph          controllers.Api.getMultipleAssociationGraph(nodes: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /*file                           controllers.Assets.at(path="/public", file)
+GET         /*file                             controllers.Assets.at(path="/public", file)

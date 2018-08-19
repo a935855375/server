@@ -175,6 +175,16 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
+  def getSecondEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 4).result.headOption).flatMap {
+      case Some(json) =>
+        Future.successful(Ok(json.data.get).as(JSON))
+      case None =>
+        db.run(Company.filter(_.id === id).result.head)
+          .flatMap(x => crawler.forSecondEquityStructureGraph(x.keyno.get, id).map(Ok(_)))
+    }
+  }
+
   def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
     db.run(ShortInfo.filter(x => x.key === key).result.headOption).flatMap {
       case Some(json) =>
