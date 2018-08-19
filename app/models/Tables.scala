@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(BasicInfo.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, MainPersonnel.schema, OutboundInvestment.schema, Person.schema, ShareholderInformation.schema, ShortInfo.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -684,4 +684,27 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table ShareholderInformation */
   lazy val ShareholderInformation = new TableQuery(tag => new ShareholderInformation(tag))
+
+  /** Entity class storing rows of table ShortInfo
+   *  @param key Database column key SqlType(VARCHAR), Length(255,true)
+   *  @param info Database column info SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+  case class ShortInfoRow(key: String, info: Option[String] = None)
+  /** GetResult implicit for fetching ShortInfoRow objects using plain SQL queries */
+  implicit def GetResultShortInfoRow(implicit e0: GR[String], e1: GR[Option[String]]): GR[ShortInfoRow] = GR{
+    prs => import prs._
+    ShortInfoRow.tupled((<<[String], <<?[String]))
+  }
+  /** Table description of table short_info. Objects of this class serve as prototypes for rows in queries. */
+  class ShortInfo(_tableTag: Tag) extends profile.api.Table[ShortInfoRow](_tableTag, Some("data"), "short_info") {
+    def * = (key, info) <> (ShortInfoRow.tupled, ShortInfoRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(key), info).shaped.<>({r=>import r._; _1.map(_=> ShortInfoRow.tupled((_1.get, _2)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column key SqlType(VARCHAR), Length(255,true) */
+    val key: Rep[String] = column[String]("key", O.Length(255,varying=true))
+    /** Database column info SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+    val info: Rep[Option[String]] = column[Option[String]]("info", O.Length(2147483647,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table ShortInfo */
+  lazy val ShortInfo = new TableQuery(tag => new ShortInfo(tag))
 }

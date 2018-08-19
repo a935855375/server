@@ -136,47 +136,58 @@ class Api @Inject()(cc: MessagesControllerComponents,
   }
 
   def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 0).result.headOption).map {
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 0).result.headOption).flatMap {
       case Some(json) =>
-        Ok(json.data.get).as(JSON)
+        Future.successful(Ok(json.data.get).as(JSON))
       case None =>
         db.run(Company.filter(_.id === id).result.head)
-          .foreach(x => crawler.forEquityStructureGraph(x.keyno.get, id))
-        Ok("GG")
+          .flatMap(x => crawler.forEquityStructureGraph(x.keyno.get, id).map(Ok(_)))
     }
   }
 
   def getEnterpriseGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 1).result.headOption).map {
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 1).result.headOption).flatMap {
       case Some(json) =>
-        Ok(json.data.get).as(JSON)
+        Future.successful(Ok(json.data.get).as(JSON))
       case None =>
         db.run(Company.filter(_.id === id).result.head)
-          .foreach(x => crawler.forEnterpriseGraph(x.keyno.get, id))
-        Ok("GG")
+          .flatMap(x => crawler.forEnterpriseGraph(x.keyno.get, id).map(Ok(_)))
     }
   }
 
   def getInvestmentGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 2).result.headOption).map {
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 2).result.headOption).flatMap {
       case Some(json) =>
-        Ok(json.data.get).as(JSON)
+        Future.successful(Ok(json.data.get).as(JSON))
       case None =>
         db.run(Company.filter(_.id === id).result.head)
-          .foreach(x => crawler.forInvestmentGraph(x.keyno.get, id))
-        Ok("GG")
+          .flatMap(x => crawler.forInvestmentGraph(x.keyno.get, id).map(Ok(_)))
     }
   }
 
   def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
-    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 3).result.headOption).map {
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 3).result.headOption).flatMap {
       case Some(json) =>
-        Ok(json.data.get).as(JSON)
+        Future.successful(Ok(json.data.get).as(JSON))
       case None =>
         db.run(Company.filter(_.id === id).result.head)
-          .foreach(x => crawler.forAssociationGraph(x.keyno.get, id))
-        Ok("GG")
+          .flatMap(x => crawler.forAssociationGraph(x.keyno.get, id).map(Ok(_)))
     }
+  }
+
+  def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
+    db.run(ShortInfo.filter(x => x.key === key).result.headOption).flatMap {
+      case Some(json) =>
+        Future.successful(Ok(json.info.get).as(JSON))
+      case None =>
+        crawler.forCompanyShortInfo(key).map(Ok(_))
+    }
+  }
+
+  def test: Action[AnyContent] = Action.async { implicit request =>
+    ws.url("http://localhost:9200/data/company/_search").withBody(Json.obj(
+      "query" -> Json.obj("match" -> Json.obj("name" -> "小米")),
+      "size" -> 100)).get().map(x => Ok(Json.prettyPrint(x.json)))
   }
 }
 

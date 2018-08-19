@@ -11,11 +11,11 @@ import org.jsoup.Jsoup
 import play.api.Configuration
 import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsObject, JsValue, Json}
 import play.api.libs.ws.WSClient
 import slick.jdbc.JdbcProfile
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import scala.collection.JavaConverters._
 import scala.util.Try
 import util.Formats._
@@ -398,50 +398,53 @@ class Crawler @Inject()(ws: WSClient,
         }
       }
 
-  def forEquityStructureGraph(key: String, id: Int): Unit =
+  def forEquityStructureGraph(key: String, id: Int): Future[JsValue] =
     ws.url(s"https://www.qichacha.com/cms_guquanakzr?keyNo=$key")
       .addHttpHeaders(
         "User-Agent" -> agent,
         "Cookie" -> cookie)
       .get()
-      .foreach { res =>
+      .map { res =>
         val data = Json.parse(res.body
           .replace("CompanyName", "name")
           .replace("DetailList", "children")
-          .replace("Name", "name")).toString()
-        db.run(CompanyGraph += CompanyGraphRow(id, 0, Some(data)))
+          .replace("Name", "name"))
+        db.run(CompanyGraph += CompanyGraphRow(id, 0, Some(data.toString())))
+        data
       }
 
-  def forEnterpriseGraph(key: String, id: Int): Unit =
+  def forEnterpriseGraph(key: String, id: Int): Future[JsValue] =
     ws.url(s"https://www.qichacha.com/cms_businessmap?keyNo=$key")
       .addHttpHeaders(
         "User-Agent" -> agent,
         "Cookie" -> cookie)
       .get()
-      .foreach { res =>
-        val data = Json.parse(res.body).toString()
-        db.run(CompanyGraph += CompanyGraphRow(id, 1, Some(data)))
+      .map { res =>
+        val data = Json.parse(res.body)
+        db.run(CompanyGraph += CompanyGraphRow(id, 1, Some(data.toString())))
+        data
       }
 
-  def forInvestmentGraph(key: String, id: Int): Unit =
+  def forInvestmentGraph(key: String, id: Int): Future[JsValue] =
     ws.url(s"https://www.qichacha.com/cms_map?keyNo=$key&upstreamCount=4&downstreamCount=4")
       .addHttpHeaders(
         "User-Agent" -> agent,
         "Cookie" -> cookie)
       .get()
-      .foreach { res =>
-        val data = Json.parse(res.body).toString()
-        db.run(CompanyGraph += CompanyGraphRow(id, 2, Some(data)))
+      .map { res =>
+        val data = Json.parse(res.body)
+        db.run(CompanyGraph += CompanyGraphRow(id, 2, Some(data.toString())))
+        data
       }
 
 
-  def forAssociationGraph(key: String, id: Int): Unit =
+  def forAssociationGraph(key: String, id: Int): Future[JsObject] =
     ws.url(s"https://www.qichacha.com/company_muhouAction?keyNo=$key")
       .addHttpHeaders(
         "User-Agent" -> agent,
         "Cookie" -> cookie)
       .get()
-      .foreach { res =>
+      .map { res =>
         val json = res.json.\("success").\("results")(0).\("data")(0).\("graph")
         val node = json.\("nodes").as[Seq[TempNode]].groupBy(_.id).map(x => x._2.head)
         val link = json.\("relationships").as[Seq[TempLink]]
@@ -477,10 +480,26 @@ class Crawler @Inject()(ws: WSClient,
           .map(x => LinkResult(x._1._1, x._1._2, x._2
             .map(_.relation).distinct.mkString("、")))
 
-        val data = Json.obj("nodes" -> nodes, "links" -> merge).toString
+        val data = Json.obj("nodes" -> nodes, "links" -> merge)
 
-        db.run(CompanyGraph += CompanyGraphRow(id, 3, Some(data)))
+        db.run(CompanyGraph += CompanyGraphRow(id, 3, Some(data.toString)))
+
+        data
       }
+
+
+  def forCompanyShortInfo(key: String): Future[JsValue] =
+    ws.url(s"https://www.qichacha.com/more_findRelationsDetail?keyNo=$key")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { res =>
+        val data = Json.parse(res.body)
+        db.run(ShortInfo += ShortInfoRow(key, Some(data.toString())))
+        data
+      }
+
 
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt
 

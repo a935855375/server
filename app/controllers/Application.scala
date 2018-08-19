@@ -107,14 +107,14 @@ class Application @Inject()(cc: MessagesControllerComponents,
   }
 
   def query(key: String, kind: Int, sort: Int): Action[AnyContent] = Action.async { implicit request =>
-    var sc: String = "asc"
+    var sc: String = "desc"
     var s: String = "id"
     sort match {
-      case 1 => s = "found_time"; sc = "asc"
-      case 2 => s = "found_time"; sc = "desc"
+      case 1 => s = "foundTime"; sc = "asc"
+      case 2 => s = "foundTime"; sc = "desc"
       case 3 => s = "money"; sc = "asc"
       case 4 => s = "money"; sc = "desc"
-      case _ => s = "id"; sc = "asc"
+      case _ => s = "_score"; sc = "desc"
     }
     kind match {
       case 0 =>
@@ -230,18 +230,6 @@ class Application @Inject()(cc: MessagesControllerComponents,
     db.run(sql).map(x => Ok(x.head.data.get).as(JSON))
   }
 
-  def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
-    val sql = OldTables$.ShortInfo.filter(_.key === key).result
-    db.run(sql).map(x => Ok(x.head.value.get).as(JSON))
-  }
-
-  def getCompanyShortInfo2(key: String): Action[AnyContent] = Action.async { implicit request =>
-    ws.url(s"https://www.qichacha.com/more_findRelationsDetail?keyNo=$key")
-      .addHttpHeaders(
-        "User-Agent" -> agent,
-        "Cookie" -> cookie)
-      .get().map(x => Ok(x.json))
-  }
 
   def getCompanyTest: Action[AnyContent] = Action.async { implicit request =>
     ws.url("https://www.qichacha.com/search_index?key=%25E5%25B0%258F%25E7%25B1%25B3")
@@ -250,91 +238,4 @@ class Application @Inject()(cc: MessagesControllerComponents,
         "Cookie" -> "UM_distinctid=163ec752d68e3-0f8cde2302ebb9-183e6952-1fa400-163ec752d6c845; zg_did=%7B%22did%22%3A%20%22163ec752da229f-02374e40db1186-183e6952-1fa400-163ec752da3e1e%22%7D; acw_tc=AQAAAGh71hSx/QcAY0FM2vCTImTFRzQ0; _uab_collina=152868049866614828164468; PHPSESSID=kh4h6c56fioj6pt1gpu8pbnmh6; CNZZDATA1254842228=1467089437-1528678839-%7C1533697292; Hm_lvt_3456bee468c83cc63fb5147f119f1075=1532961130,1532961146,1532999527,1533700988; hasShow=1; _umdata=A502B1276E6D5FEFF6695553F653401E3013E055714536A6FD927B8A542DBF54F370B3E0A38A2F9BCD43AD3E795C914CFE8A3E5A81FA2865894685088D5A0843; Hm_lpvt_3456bee468c83cc63fb5147f119f1075=1533701019; zg_de1d1a35bfa24ce29bbf2c7eb17e6c4f=%7B%22sid%22%3A%201533700987676%2C%22updated%22%3A%201533701053381%2C%22info%22%3A%201533700987680%2C%22superProperty%22%3A%20%22%7B%7D%22%2C%22platform%22%3A%20%22%7B%7D%22%2C%22utm%22%3A%20%22%7B%7D%22%2C%22referrerDomain%22%3A%20%22www.baidu.com%22%2C%22cuid%22%3A%20%2298553b777c7239746cd4812bc09dd4a6%22%7D")
       .get().map { x => println(Jsoup.parse(x.body).select("#ajaxpage").last().text()); Ok("GG") }
   }
-
-  // 调试用
-  /* def getTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
-     val sql = Tables.Temp.filter(_.kind === 7).result
-     db.run(sql).map { data =>
-       val json = Json.parse(data.head.data.get).\("Result")
-       val node = json.\("nodes").as[Seq[TempNode]]
-       val link = json.\("relationships").as[Seq[TempLink]]
-
-       val nodes = node.map { x =>
-         var cate = x.labels(0) match {
-           case "Company" => 0
-           case "Person" => 1
-           case _ => 2
-         }
-
-         if(x.id.equals("35368230")) cate = 2
-
-         NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
-       }
-
-       val index = nodes.zipWithIndex.toMap
-
-       val map = nodes.map(x => x.id -> x).toMap
-
-
-       val links = link.map { x =>
-         val relation = x.`type` match {
-           case "EMPLOY" => x.properties.role.getOrElse("任职")
-           case "INVEST" => "投资"
-           case _ => "投资"
-         }
-
-         LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
-       }
-
-       val merge = links.groupBy(x => (x.source, x.target)).map(x => LinkResult(x._1._1, x._1._2, x._2.map(_.relation).distinct.mkString("、")))
-
-       Ok(Json.obj("nodes" -> nodes, "links" -> merge))
-     }
-   }*/
-
-  // 调试用
-  /*def getMultipleAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
-    val sql = OldTables$.Temp.filter(_.kind === 7).result
-    db.run(sql).map { data =>
-      val json = Json.parse(data.head.data.get)
-      val node = json.\("nodes").as[Seq[TempNode]].groupBy(_.id).map(x => x._2.head)
-      val link = json.\("links").as[Seq[TempLink]]
-
-      val nodes = node.map { x =>
-        val cate = x.labels(0) match {
-          case "Company" => 0
-          case "Person" => 1
-          case _ => 2
-        }
-
-        NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
-      }
-
-      val index = nodes.zipWithIndex.toMap
-
-      val map = nodes.map(x => x.id -> x).toMap
-
-
-      val links = link.distinct.map { x =>
-        val relation = x.`type` match {
-          case "EMPLOY" => x.properties.role.getOrElse("任职")
-          case "INVEST" => "投资"
-          case _ => "投资"
-        }
-
-        LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
-      }
-
-      val merge = links.groupBy(x => (x.source, x.target))
-        .map(x => LinkResult(x._1._1, x._1._2, x._2
-          .map(_.relation).distinct.mkString("、")))
-
-      Ok(Json.obj("nodes" -> nodes, "links" -> merge))
-    }
-  }*/
-
-  /*def putTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
-    println(request.body.asJson.get)
-    Future.successful(Ok)
-  }*/
 }
