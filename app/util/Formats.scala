@@ -1,7 +1,7 @@
 package util
 
 import julienrf.json.derived
-import models.{Children, Tables}
+import models._
 import play.api.libs.json.{Json, OFormat}
 
 object Formats {
@@ -23,4 +23,13 @@ object Formats {
   implicit lazy val boss_representFormat: OFormat[Tables.BossRepresentRow] = derived.oformat()
 
   implicit lazy val ChildrenFormat: OFormat[Children] = Json.format[Children]
+
+
+  implicit lazy val PropertyFormat: OFormat[Property] = Json.format[Property]
+  implicit lazy val TempNodeFormat: OFormat[TempNode] = Json.format[TempNode]
+  implicit lazy val NodeResultFormat: OFormat[NodeResult] = Json.format[NodeResult]
+
+  implicit lazy val Property2Format: OFormat[Property2] = Json.format[Property2]
+  implicit lazy val TempLinkFormat: OFormat[TempLink] = Json.format[TempLink]
+  implicit lazy val LinkResultFormat: OFormat[LinkResult] = Json.format[LinkResult]
 }

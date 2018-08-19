@@ -137,8 +137,8 @@ class Api @Inject()(cc: MessagesControllerComponents,
 
   def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 0).result.headOption).map {
-      case Some(data) =>
-        Ok(data.data.get).as(JSON)
+      case Some(json) =>
+        Ok(json.data.get).as(JSON)
       case None =>
         db.run(Company.filter(_.id === id).result.head)
           .foreach(x => crawler.forEquityStructureGraph(x.keyno.get, id))
@@ -148,8 +148,8 @@ class Api @Inject()(cc: MessagesControllerComponents,
 
   def getEnterpriseGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 1).result.headOption).map {
-      case Some(data) =>
-        Ok(data.data.get).as(JSON)
+      case Some(json) =>
+        Ok(json.data.get).as(JSON)
       case None =>
         db.run(Company.filter(_.id === id).result.head)
           .foreach(x => crawler.forEnterpriseGraph(x.keyno.get, id))
@@ -159,11 +159,22 @@ class Api @Inject()(cc: MessagesControllerComponents,
 
   def getInvestmentGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 2).result.headOption).map {
-      case Some(data) =>
-        Ok(data.data.get).as(JSON)
+      case Some(json) =>
+        Ok(json.data.get).as(JSON)
       case None =>
         db.run(Company.filter(_.id === id).result.head)
           .foreach(x => crawler.forInvestmentGraph(x.keyno.get, id))
+        Ok("GG")
+    }
+  }
+
+  def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 3).result.headOption).map {
+      case Some(json) =>
+        Ok(json.data.get).as(JSON)
+      case None =>
+        db.run(Company.filter(_.id === id).result.head)
+          .foreach(x => crawler.forAssociationGraph(x.keyno.get, id))
         Ok("GG")
     }
   }

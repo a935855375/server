@@ -4,9 +4,9 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 import com.google.inject.Inject
-import models.Tables
 import models.Tables._
 import models.Tables.profile.api._
+import models.{LinkResult, NodeResult, TempLink, TempNode}
 import org.jsoup.Jsoup
 import play.api.Configuration
 import play.api.db.NamedDatabase
@@ -18,6 +18,7 @@ import slick.jdbc.JdbcProfile
 import scala.concurrent.ExecutionContext
 import scala.collection.JavaConverters._
 import scala.util.Try
+import util.Formats._
 
 class Crawler @Inject()(ws: WSClient,
                         config: Configuration,
@@ -413,14 +414,14 @@ class Crawler @Inject()(ws: WSClient,
 
   def forEnterpriseGraph(key: String, id: Int): Unit =
     ws.url(s"https://www.qichacha.com/cms_businessmap?keyNo=$key")
-    .addHttpHeaders(
-      "User-Agent" -> agent,
-      "Cookie" -> cookie)
-    .get()
-    .foreach { res =>
-      val data = Json.parse(res.body).toString()
-      db.run(CompanyGraph += CompanyGraphRow(id, 1, Some(data)))
-    }
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { res =>
+        val data = Json.parse(res.body).toString()
+        db.run(CompanyGraph += CompanyGraphRow(id, 1, Some(data)))
+      }
 
   def forInvestmentGraph(key: String, id: Int): Unit =
     ws.url(s"https://www.qichacha.com/cms_map?keyNo=$key&upstreamCount=4&downstreamCount=4")
@@ -433,11 +434,59 @@ class Crawler @Inject()(ws: WSClient,
         db.run(CompanyGraph += CompanyGraphRow(id, 2, Some(data)))
       }
 
+
+  def forAssociationGraph(key: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com/company_muhouAction?keyNo=$key")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { res =>
+        val json = res.json.\("success").\("results")(0).\("data")(0).\("graph")
+        val node = json.\("nodes").as[Seq[TempNode]].groupBy(_.id).map(x => x._2.head)
+        val link = json.\("relationships").as[Seq[TempLink]]
+
+        val nodes = node.map { x =>
+          var cate = x.labels(0) match {
+            case "Company" => 0
+            case "Person" => 1
+            case _ => 2
+          }
+
+          if (x.properties.keyNo == key) cate = 2
+
+          NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
+        }
+
+        val index = nodes.zipWithIndex.toMap
+
+        val map = nodes.map(x => x.id -> x).toMap
+
+
+        val links = link.distinct.map { x =>
+          val relation = x.`type` match {
+            case "EMPLOY" => x.properties.role.getOrElse("任职")
+            case "INVEST" => "投资"
+            case _ => "投资"
+          }
+
+          LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
+        }
+
+        val merge = links.groupBy(x => (x.source, x.target))
+          .map(x => LinkResult(x._1._1, x._1._2, x._2
+            .map(_.relation).distinct.mkString("、")))
+
+        val data = Json.obj("nodes" -> nodes, "links" -> merge).toString
+
+        db.run(CompanyGraph += CompanyGraphRow(id, 3, Some(data)))
+      }
+
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt
 
   def parseDouble(s: String): Double = s.filter(x => x.isDigit || x == '.').toDouble
 
-  def parseMoney(company: CompanyRow): Tables.CompanyRow = company.capital.get match {
+  def parseMoney(company: CompanyRow): CompanyRow = company.capital.get match {
     case s: String if s.indexOf("人民币") != -1 => company.copy(money = Some(parseDouble(s)))
     case s: String if s.indexOf("美元") != -1 => company.copy(money = Some(parseDouble(s) * 6.8982))
     case s: String if s.indexOf("台币") != -1 => company.copy(money = Some(parseDouble(s) * 0.224))

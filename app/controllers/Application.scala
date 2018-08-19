@@ -293,7 +293,7 @@ class Application @Inject()(cc: MessagesControllerComponents,
    }*/
 
   // 调试用
-  def getMultipleAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
+  /*def getMultipleAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
     val sql = OldTables$.Temp.filter(_.kind === 7).result
     db.run(sql).map { data =>
       val json = Json.parse(data.head.data.get)
@@ -331,10 +331,10 @@ class Application @Inject()(cc: MessagesControllerComponents,
 
       Ok(Json.obj("nodes" -> nodes, "links" -> merge))
     }
-  }
+  }*/
 
-  def putTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
+  /*def putTempAssociationGraph: Action[AnyContent] = Action.async { implicit request =>
     println(request.body.asJson.get)
     Future.successful(Ok)
-  }
+  }*/
 }
