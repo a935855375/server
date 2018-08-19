@@ -28,17 +28,15 @@ GET         /associationgraph                controllers.Api.getAssociationGraph
 
 GET         /equitystructuregraph            controllers.Api.getEquityStructureGraph(id: Int)
 
-GET         /suspectedcontroller             controllers.Application.getSuspectedController(id: Int)
-
 GET         /personalGraph                   controllers.Application.getPersonalGraph(id: Int, kind: Int)
 
 GET         /companyShortInfo                controllers.Api.getCompanyShortInfo(key: String)
 
+GET         /multipleAssociationGraph        controllers.Api.getMultipleAssociationGraph(nodes: String)
+
 # GET         /tempAssociationgraph        controllers.Application.getTempAssociationGraph
 
 #POST        /tempAssociationgraph            controllers.Application.putTempAssociationGraph
-
-#GET         /multipleAssociationGraph        controllers.Application.getMultipleAssociationGraph
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /*file                           controllers.Assets.at(path="/public", file)

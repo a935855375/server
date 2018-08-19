@@ -184,6 +184,10 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
+  def getMultipleAssociationGraph(nodes: String): Action[AnyContent] = Action.async { implicit request =>
+    crawler.forMultipleAssociationGraph(nodes).map(Ok(_))
+  }
+
   def test: Action[AnyContent] = Action.async { implicit request =>
     ws.url("http://localhost:9200/data/company/_search").withBody(Json.obj(
       "query" -> Json.obj("match" -> Json.obj("name" -> "小米")),

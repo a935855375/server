@@ -11,7 +11,7 @@ import org.jsoup.Jsoup
 import play.api.Configuration
 import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.libs.json.{JsObject, JsValue, Json}
+import play.api.libs.json.{JsArray, JsObject, JsValue, Json}
 import play.api.libs.ws.WSClient
 import slick.jdbc.JdbcProfile
 
@@ -498,6 +498,54 @@ class Crawler @Inject()(ws: WSClient,
         val data = Json.parse(res.body)
         db.run(ShortInfo += ShortInfoRow(key, Some(data.toString())))
         data
+      }
+
+
+  def forMultipleAssociationGraph(url: String): Future[JsObject] =
+    ws.url(s"https://www.qichacha.com/more_findRelations2?nodes=$url")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { res =>
+        val data = res.json.\("Result").\("results")(0).\("data")
+        val array = data.get.asInstanceOf[JsArray].value
+        val node = array.flatMap(json => json.\("graph").\("nodes").as[Seq[TempNode]]).groupBy(_.id).map(x => x._2.head)
+        val link = array.flatMap(json => json.\("graph").\("relationships").as[Seq[TempLink]]).distinct
+
+        val highlight = url.split(",").flatMap(_.split("_")).toSet
+
+        val nodes = node.map { x =>
+          var cate = x.labels(0) match {
+            case "Company" => 0
+            case "Person" => 1
+            case _ => 2
+          }
+
+          if(highlight(x.properties.keyNo) || highlight(x.properties.name)) cate = 2
+
+          NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
+        }
+
+        val index = nodes.zipWithIndex.toMap
+
+        val map = nodes.map(x => x.id -> x).toMap
+
+        val links = link.distinct.map { x =>
+          val relation = x.`type` match {
+            case "EMPLOY" => x.properties.role.getOrElse("任职")
+            case "INVEST" => "投资"
+            case _ => "投资"
+          }
+
+          LinkResult(index(map(x.startNode)), index(map(x.endNode)), relation)
+        }
+
+        val merge = links.groupBy(x => (x.source, x.target))
+          .map(x => LinkResult(x._1._1, x._1._2, x._2
+            .map(_.relation).distinct.mkString("、")))
+
+        Json.obj("nodes" -> nodes, "links" -> merge)
       }
 
 
