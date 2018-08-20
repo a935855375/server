@@ -2,13 +2,13 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET         /                                  controllers.Application.index
+GET         /                                  controllers.Api.index
 
-GET         /test                              controllers.Api.test
+#GET         /test                              controllers.Api.test
 
-POST        /login                             controllers.Application.login
+POST        /login                             controllers.Api.login
 
-POST        /register                          controllers.Application.register
+POST        /register                          controllers.Api.register
 
 GET         /search                            controllers.Application.query(key: String, kind:Int ?= 0, sort: Int ?= 0)
 
@@ -22,7 +22,7 @@ GET         /bossinfo                          controllers.Api.getBossInfo(id: I
 
 GET         /bossgraph                         controllers.Api.getBossGraph(id: Int)
 
-GET         /interestedpeople                  controllers.Application.getInterestedPeople
+GET         /interestedpeople                  controllers.Api.getInterestedPeople
 
 GET         /enterprisegraph                   controllers.Api.getEnterpriseGraph(id: Int)
 

@@ -4,9 +4,10 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 import com.google.inject.Inject
+import models.Entities.{LinkResult, NodeResult}
 import models.Tables._
 import models.Tables.profile.api._
-import models.{LinkResult, NodeResult, TempLink, TempNode}
+import models.Entities._
 import org.jsoup.Jsoup
 import play.api.Configuration
 import play.api.db.NamedDatabase

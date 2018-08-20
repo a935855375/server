@@ -2,31 +2,128 @@ package controllers
 
 import com.google.inject.Inject
 import crawler.Crawler
-import models.Children
 import models.Tables._
 import models.Tables.profile.api._
+import models.Entities._
+import models.Tables
 import play.api.Configuration
 import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsArray, Json}
 import play.api.libs.ws.WSClient
-import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
+import play.api.mvc._
+import service.AuthService
 import slick.jdbc.JdbcProfile
 import util.Formats._
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Random
 
 class Api @Inject()(cc: MessagesControllerComponents,
                     crawler: Crawler,
+                    auth: AuthService,
                     config: Configuration,
                     ws: WSClient,
                     @NamedDatabase("server") protected val dbConfigProvider: DatabaseConfigProvider)
                    (implicit ec: ExecutionContext)
   extends MessagesAbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
-  final val cookie = config.get[String]("crawler.cookie")
-  final val agent = config.get[String]("crawler.agent")
   final lazy val baseUrl = config.get[String]("es.baseUrl")
+
+  def index: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok("GG"))
+  }
+
+  def loginAuth[A](action: Action[A]): Action[A] = Action.async(action.parser) { request =>
+    request.headers.get("Authorization") match {
+      case Some(token) =>
+        if (auth.isValidToken(token))
+          action(request)
+        else
+          Future.successful(Unauthorized("Invalid credential"))
+      case None =>
+        Future.successful(Forbidden("Only Authorized requests allowed"))
+    }
+  }
+
+  def authLogin(implicit ec: ExecutionContext): ActionRefiner[Request, UserRequest] = new ActionRefiner[Request, UserRequest] {
+    override protected def refine[A](request: Request[A]): Future[Either[Result, UserRequest[A]]] = {
+      Future.successful {
+        request.headers.get("Authorization") match {
+          case Some(token) =>
+            if (auth.isValidToken(token)) {
+              val username = Json.parse(auth.decodePayload(token).get).\("subject").as[String]
+              Right(new UserRequest(username, request))
+            } else
+              Left(Unauthorized("Invalid credential"))
+          case None =>
+            Left(Forbidden("Only Authorized requests allowed"))
+        }
+      }
+    }
+
+    override protected def executionContext: ExecutionContext = ec
+  }
+
+  def query(key: String, kind: Int, sort: Int): Action[AnyContent] = Action.async { implicit request =>
+    var sc: String = "desc"
+    var s: String = "id"
+    sort match {
+      case 1 => s = "foundTime"; sc = "asc"
+      case 2 => s = "foundTime"; sc = "desc"
+      case 3 => s = "money"; sc = "asc"
+      case 4 => s = "money"; sc = "desc"
+      case _ => s = "_score"; sc = "desc"
+    }
+    kind match {
+      case 0 =>
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("multi_match" -> Json.obj("query" -> key, "fields" -> Json.arr("name", "represent"))),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc))
+        ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
+      case 1 =>
+        // 查找公司
+        ws.url(baseUrl + "data/company/_search").withBody(Json.obj(
+          "query" -> Json.obj("match" -> Json.obj("name" -> key)),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100)).get()
+          .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
+      case 2 =>
+        ws.url(baseUrl + "data/company/" + key).delete().map(x => Ok(x.body))
+      case 4 =>
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("match" -> Json.obj("name" -> key))))).get()
+          .map(x => Ok(Json.parse(x.body)))
+      case _ => Future.successful(Ok)
+    }
+  }
+
+  def login: Action[AnyContent] = Action.async { request =>
+    val user = request.body.asJson.get.as[UserBean]
+    db.run(Tables.User.filter(x => x.username === user.username && x.password === user.password).result.headOption).map {
+      case Some(u) =>
+        val jwt = auth.createToken(Json.toJson(Token(u.username, 1800)).toString())
+        val token = LoginRes(0, Some(jwt), Some(1800), u.nickname)
+        Ok(Json.toJson(token))
+      case None =>
+        Ok(Json.toJson(LoginRes(1, None, None, None)))
+    }
+  }
+
+  def register: Action[AnyContent] = Action.async { implicit request =>
+    val registerInput = request.body.asJson.get.as[RegisterInput]
+    db.run(Tables.User.filter(x => x.username === registerInput.username || x.mail === registerInput.mail).result.headOption).flatMap {
+      case Some(u) =>
+        if (u.username.equals(registerInput.username))
+          Future.successful(Ok(Json.toJson(CommonRes(1, "此用户名已被其他用户注册。"))).as(JSON))
+        else
+          Future.successful(Ok(Json.toJson(CommonRes(2, "此e-mail地址已被其他用户注册。"))).as(JSON))
+      case None =>
+        db.run(Tables.User += UserRow(0, registerInput.username, registerInput.password, None, registerInput.mail)).map {
+          case 1 => Ok(Json.toJson(CommonRes(0, "注册成功！")))
+          case _ => Ok(Json.toJson(CommonRes(3, "未知错误。")))
+        }
+    }
+  }
 
   def getAllCompany: Action[AnyContent] = Action.async { implicit request =>
     crawler.forSearchPage("苏州朗动网络科技有限公司", 2)
@@ -281,10 +378,21 @@ class Api @Inject()(cc: MessagesControllerComponents,
     db.run(c.result).map(x => Ok(Json.toJson(x.zipWithIndex.map(z => Json.obj("id" -> (z._2 + 1).toString, "itemName" -> z._1)))))
   }
 
-  def test: Action[AnyContent] = Action.async { implicit request =>
+  def getInterestedPeople: Action[AnyContent] = Action.async { implicit request =>
+    db.run(InterestedPeople.result).map(data => getRandomList(data.length).map(data.apply)).map(x => Ok(Json.toJson(x)))
+  }
+
+  def getRandomList(n: Int): List[Int] = (1 to n * 10)
+    .map(_ => Random.nextInt(n))
+    .++(0 until n)
+    .groupBy(x => x)
+    .mapValues(_.size).toList
+    .sortBy(_._2).map(_._1)
+
+  /*def test: Action[AnyContent] = Action.async { implicit request =>
     ws.url("http://localhost:9200/data/company/_search").withBody(Json.obj(
       "query" -> Json.obj("match" -> Json.obj("name" -> "小米")),
       "size" -> 100)).get().map(x => Ok(x.json))
-  }
+  }*/
 }
 
