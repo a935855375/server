@@ -14,6 +14,10 @@ GET         /search                            controllers.Application.query(key
 
 GET         /companyinfo                       controllers.Api.getCompanyBaseInfo(id: Int)
 
+GET         /legalaction                       controllers.Api.getLegalAction(id: Int)
+
+GET         /operatingconditions               controllers.Api.getOperatingConditions(id: Int)
+
 GET         /bossinfo                          controllers.Api.getBossInfo(id: Int)
 
 GET         /bossgraph                         controllers.Api.getBossGraph(id: Int)
@@ -33,6 +37,10 @@ GET         /secondequitystructuregraph        controllers.Api.getSecondEquitySt
 GET         /companyShortInfo                  controllers.Api.getCompanyShortInfo(key: String)
 
 GET         /multipleAssociationGraph          controllers.Api.getMultipleAssociationGraph(nodes: String)
+
+GET         /hintcompany                       controllers.Api.getHintCompany(name: String)
+
+GET         /hintboss                          controllers.Api.getHintBoss(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /*file                             controllers.Assets.at(path="/public", file)

@@ -32,4 +32,19 @@ object Formats {
   implicit lazy val Property2Format: OFormat[Property2] = Json.format[Property2]
   implicit lazy val TempLinkFormat: OFormat[TempLink] = Json.format[TempLink]
   implicit lazy val LinkResultFormat: OFormat[LinkResult] = Json.format[LinkResult]
+
+  implicit lazy val RefereeFormat: OFormat[Tables.RefereeRow] = derived.oformat()
+  implicit lazy val CourtNoticeFormat: OFormat[Tables.CourtNoticeRow] = derived.oformat()
+  implicit lazy val OpeningNoticeFormat: OFormat[Tables.OpeningNoticeRow] = derived.oformat()
+
+  implicit lazy val AdministrativeLicenseIcRowFormat: OFormat[Tables.AdministrativeLicenseIcRow] = derived.oformat()
+  implicit lazy val AdministrativeLicenseChRowFormat: OFormat[Tables.AdministrativeLicenseChRow] = derived.oformat()
+  implicit lazy val TaxCreditRowFormat: OFormat[Tables.TaxCreditRow] = derived.oformat()
+  implicit lazy val ProductInformationRowFormat: OFormat[Tables.ProductInformationRow] = derived.oformat()
+  implicit lazy val FinancingInformationRowFormat: OFormat[Tables.FinancingInformationRow] = derived.oformat()
+  implicit lazy val BiddingInformationRowFormat: OFormat[Tables.BiddingInformationRow] = derived.oformat()
+  implicit lazy val RecruitmentRowFormat: OFormat[Tables.RecruitmentRow] = derived.oformat()
+  implicit lazy val PublicNumberRowFormat: OFormat[Tables.PublicNumberRow] = derived.oformat()
+  implicit lazy val NewsLyricsRowFormat: OFormat[Tables.NewsLyricsRow] = derived.oformat()
+
 }

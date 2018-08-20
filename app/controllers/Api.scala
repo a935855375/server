@@ -3,15 +3,15 @@ package controllers
 import com.google.inject.Inject
 import crawler.Crawler
 import models.Children
-import play.api.db.NamedDatabase
-import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
-import slick.jdbc.JdbcProfile
 import models.Tables._
 import models.Tables.profile.api._
 import play.api.Configuration
+import play.api.db.NamedDatabase
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
+import play.api.mvc.{Action, AnyContent, MessagesAbstractController, MessagesControllerComponents}
+import slick.jdbc.JdbcProfile
 import util.Formats._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -26,6 +26,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
 
   final val cookie = config.get[String]("crawler.cookie")
   final val agent = config.get[String]("crawler.agent")
+  final lazy val baseUrl = config.get[String]("es.baseUrl")
 
   def getAllCompany: Action[AnyContent] = Action.async { implicit request =>
     crawler.forSearchPage("苏州朗动网络科技有限公司", 2)
@@ -68,6 +69,75 @@ class Api @Inject()(cc: MessagesControllerComponents,
           )
           Ok(json)
         }
+      }
+    }
+  }
+
+  def getLegalAction(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(Company.filter(_.id === id).result.head).flatMap { c =>
+      val RefereeFuture = db.run(Referee.filter(_.cid === id).result)
+      val CourtNoticeFuture = db.run(CourtNotice.filter(_.cid === id).result)
+      val OpeningNoticeFuture = db.run(OpeningNotice.filter(_.cid === id).result)
+
+      for {
+        referee <- RefereeFuture
+        courtNotice <- CourtNoticeFuture
+        openingNotice <- OpeningNoticeFuture
+      } yield {
+        val length = referee.size + courtNotice.size + openingNotice.size
+        if (length == 0) crawler.forLegalAction(c.keyno.get, c.name, c.id)
+        val json = Json.obj(
+          "status" -> true,
+          "referee" -> referee,
+          "courtNotice" -> courtNotice,
+          "openingNotice" -> openingNotice,
+        )
+        Ok(json)
+      }
+    }
+  }
+
+  def getOperatingConditions(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    db.run(Company.filter(_.id === id).result.head).flatMap { c =>
+      val AdministrativeLicenseIcFuture = db.run(AdministrativeLicenseIc.filter(_.cid === id).result)
+      val AdministrativeLicenseChFuture = db.run(AdministrativeLicenseCh.filter(_.cid === id).result)
+      val TaxCreditFuture = db.run(TaxCredit.filter(_.cid === id).result)
+      val ProductInformationFuture = db.run(ProductInformation.filter(_.cid === id).result)
+      val FinancingInformationFuture = db.run(FinancingInformation.filter(_.cid === id).result)
+      val BiddingInformationFuture = db.run(BiddingInformation.filter(_.cid === id).result)
+      val RecruitmentFuture = db.run(Recruitment.filter(_.cid === id).result)
+      val PublicNumberFuture = db.run(PublicNumber.filter(_.cid === id).result)
+      val NewsLyricsFuture = db.run(NewsLyrics.filter(_.cid === id).result)
+
+      for {
+        administrativeLicenseIc <- AdministrativeLicenseIcFuture
+        administrativeLicenseCh <- AdministrativeLicenseChFuture
+        taxCredit <- TaxCreditFuture
+        productInformation <- ProductInformationFuture
+        financingInformation <- FinancingInformationFuture
+        biddingInformation <- BiddingInformationFuture
+        recruitment <- RecruitmentFuture
+        publicNumber <- PublicNumberFuture
+        newsLyrics <- NewsLyricsFuture
+      } yield {
+        val length = administrativeLicenseIc.size + administrativeLicenseCh.size + taxCredit.size
+        +productInformation.size + financingInformation.size
+        +biddingInformation.size + recruitment.size
+        +publicNumber.size + newsLyrics.size
+        if (length == 0) crawler.forOperatingConditions(c.keyno.get, c.name, c.id)
+        val json = Json.obj(
+          "status" -> true,
+          "administrativeLicenseIc" -> administrativeLicenseIc,
+          "administrativeLicenseCh" -> administrativeLicenseCh,
+          "taxCredit" -> taxCredit,
+          "productInformation" -> productInformation,
+          "financingInformation" -> financingInformation,
+          "biddingInformation" -> biddingInformation,
+          "recruitment" -> recruitment,
+          "publicNumber" -> publicNumber,
+          "newsLyrics" -> newsLyrics,
+        )
+        Ok(json)
       }
     }
   }
@@ -198,10 +268,23 @@ class Api @Inject()(cc: MessagesControllerComponents,
     crawler.forMultipleAssociationGraph(nodes).map(Ok(_))
   }
 
+  def getHintCompany(name: String): Action[AnyContent] = Action.async { implicit request =>
+    db.run(Company.filter(x => x.keyno.isDefined && x.name.like(s"%$name%"))
+      .sortBy(_.money.desc).take(7).result)
+      .map(x => Ok(Json.toJson(x)))
+  }
+
+  def getHintBoss(id: Int): Action[AnyContent] = Action.async { implicit request =>
+    val a = MainPersonnel.filter(_.cid === id).map(_.name)
+    val b = ShareholderInformation.filter(_.cid === id).map(_.shareholderName)
+    val c = a.union(b)
+    db.run(c.result).map(x => Ok(Json.toJson(x.zipWithIndex.map(z => Json.obj("id" -> (z._2 + 1).toString, "itemName" -> z._1)))))
+  }
+
   def test: Action[AnyContent] = Action.async { implicit request =>
     ws.url("http://localhost:9200/data/company/_search").withBody(Json.obj(
       "query" -> Json.obj("match" -> Json.obj("name" -> "小米")),
-      "size" -> 100)).get().map(x => Ok(Json.prettyPrint(x.json)))
+      "size" -> 100)).get().map(x => Ok(x.json))
   }
 }
 

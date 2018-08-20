@@ -262,6 +262,180 @@ class Crawler @Inject()(ws: WSClient,
         }
       }
 
+  def forLegalAction(key: String, companyName: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com/company_getinfos?unique=$key&companyname=$companyName&tab=susong")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        println(response.body)
+        val html = Jsoup.parse(response.body)
+
+        //裁判文书 referee
+        if (html.select("#wenshulist").select("tr").size() > 0) {
+          val d = html.select("#wenshulist").select("tr").asScala.tail.map { tr =>
+            val name = tr.child(1).text()
+            val date = tr.child(2).text()
+            val num = tr.child(3).text()
+            val identity = tr.child(4).html()
+            val court = tr.child(5).text()
+            RefereeRow(id, Some(name), Some(date), Some(num), Some(identity), Some(court))
+          }
+          db.run(Referee ++= d)
+        }
+
+        //法院公告 court_notice
+        if (html.select("#gonggaolist").select("tr").size() > 0) {
+          val d = html.select("#gonggaolist").select("tr").asScala.tail.map { tr =>
+            val party = tr.child(1).text()
+            val `type` = tr.child(2).text()
+            val announcer = tr.child(3).text()
+            val date = tr.child(4).html()
+            val content = tr.child(5).text()
+            CourtNoticeRow(id, Some(party), Some(`type`), Some(announcer), Some(date), Some(content))
+          }
+          db.run(CourtNotice ++= d)
+        }
+
+        //开庭公告 opening_notice
+        if (html.select("#noticelist").select("tr").size() > 0) {
+          val d = html.select("#noticelist").select("tr").asScala.tail.map { tr =>
+            val num = tr.child(1).text()
+            val date = tr.child(2).text()
+            val cause = tr.child(3).text()
+            val source = tr.child(4).html()
+            val target = tr.child(5).text()
+            OpeningNoticeRow(id, Some(num), Some(date), Some(cause), Some(source), Some(target))
+          }
+          db.run(OpeningNotice ++= d)
+        }
+      }
+
+  def forOperatingConditions(key: String, companyName: String, id: Int): Unit =
+    ws.url(s"https://www.qichacha.com/company_getinfos?unique=$key&companyname=$companyName&tab=run")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        val html = Jsoup.parse(response.body)
+        //行政许可 [工商局] administrative_license_ic
+        if (html.select("#permissionlist").select("tr").size() > 0) {
+          val d = html.select("#permissionlist").select("tr").asScala.tail.filter(_.children().size() > 0).map { tr =>
+            val num = tr.child(1).text()
+            val file_name = tr.child(2).text()
+            val dateFrom = tr.child(3).text()
+            val dateTo = tr.child(4).text()
+            val authority = tr.child(5).text()
+            val content = tr.child(6).text()
+            AdministrativeLicenseIcRow(id, Some(num), Some(file_name), Some(dateFrom), Some(dateTo), Some(authority), Some(content))
+          }
+          db.run(AdministrativeLicenseIc ++= d)
+        }
+
+        //行政许可 [信用中国] administrative_license_ch
+        if (html.select("#permissionlist").next().select("tr").size() > 0) {
+          val d = html.select("#permissionlist").next().select("tr").asScala.tail.filter(_.children().size() > 0).map { tr =>
+            val project = tr.child(1).text()
+            val region = tr.child(2).text()
+            val date = tr.child(3).text()
+            val content = tr.child(4).text()
+            AdministrativeLicenseChRow(id, Some(project), Some(region), Some(date), Some(content))
+          }
+          db.run(AdministrativeLicenseCh ++= d)
+        }
+
+        //税务信用 tax_credit
+        if (html.select("#taxCreditList").select("tr").size() > 0) {
+          val d = html.select("#taxCreditList").select("tr").asScala.tail.filter(_.children().size() > 0).map { tr =>
+            val year = tr.child(1).text()
+            val code = tr.child(2).text()
+            val level = tr.child(3).text()
+            val unit = tr.child(4).text()
+            TaxCreditRow(id, Some(year), Some(code), Some(level), Some(unit))
+          }
+          db.run(TaxCredit ++= d)
+        }
+
+        //产品信息  product_information
+        if (html.select("#productlist").select("tr").size() > 0) {
+          val d = html.select("#productlist").select("tr").asScala.tail.map { tr =>
+            val src = tr.child(1).child(0).attr("src")
+            val name = tr.child(2).text()
+            val financing = tr.child(3).text()
+            val found_time = tr.child(4).text()
+            val region = tr.child(5).text()
+            val introduction = tr.child(6).text()
+            ProductInformationRow(id, Some(src), Some(name), Some(financing), Some(found_time), Some(region), Some(introduction))
+          }
+          db.run(ProductInformation ++= d)
+        }
+
+        //融资信息  financing_information
+        if (html.select("#financingList").select("tr").size() > 0) {
+          val d = html.select("#financingList").select("tr").asScala.tail.map { tr =>
+            val date = tr.child(1).text()
+            val name = tr.child(2).text()
+            val level = tr.child(3).text()
+            val moneny = tr.child(4).text()
+            val source = tr.child(5).text()
+            FinancingInformationRow(id, Some(date), Some(name), Some(level), Some(moneny), Some(source))
+          }
+          db.run(FinancingInformation ++= d)
+        }
+
+        //招投标信息  bidding_information
+        if (html.select("#tenderlist").select("tr").size() > 0) {
+          val d = html.select("#tenderlist").select("tr").asScala.tail.map { tr =>
+            val desc = tr.child(1).text()
+            val date = tr.child(2).text()
+            val region = tr.child(3).text()
+            val kind = tr.child(4).text()
+            BiddingInformationRow(id, Some(desc), Some(date), Some(region), Some(kind))
+          }
+          db.run(BiddingInformation ++= d)
+        }
+
+        //招聘  recruitment
+        if (html.select("#joblist").select("tr").size() > 0) {
+          val d = html.select("#joblist").select("tr").asScala.tail.map { tr =>
+            val date = tr.child(1).text()
+            val position = tr.child(2).text()
+            val money = tr.child(3).text()
+            val education = tr.child(4).text()
+            val experience = tr.child(5).text()
+            val city = tr.child(6).text()
+            RecruitmentRow(id, Some(date), Some(position), Some(money), Some(education), Some(experience), Some(city))
+          }
+          db.run(Recruitment ++= d)
+        }
+
+        //微信公众号  public_number
+        if (html.select("#wechatlist").select("tr").size() > 0) {
+          val d = html.select("#wechatlist").select("tr").asScala.tail.filter(_.children().size() > 0).map { tr =>
+            val avator = tr.child(1).child(0).attr("src")
+            val name = tr.child(2).text()
+            val code = tr.child(3).text()
+            val introduction = tr.child(4).text()
+            PublicNumberRow(id, Some(avator), Some(name), Some(code), Some(introduction))
+          }
+          db.run(PublicNumber ++= d)
+        }
+
+        //新闻舆情  public_number
+        if (html.select("#newslist").select("tr").size() > 0) {
+          val d = html.select("#newslist").select("tr").asScala.tail.map { tr =>
+            val title = tr.child(0).select(".title").text()
+            val source = tr.child(0).select(".clear.subtitle").get(0).ownText()
+            val date = tr.child(0).select(".pull-right").get(0).ownText()
+            NewsLyricsRow(id, Some(title), Some(source), Some(date))
+          }
+          db.run(NewsLyrics ++= d)
+        }
+
+      }
+
   def forBossInfo(url: String, id: Int): Unit =
     ws.url(s"https://www.qichacha.com$url")
       .addHttpHeaders(
@@ -269,7 +443,6 @@ class Crawler @Inject()(ws: WSClient,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
-        println("抓取boss id = " + id)
         val html = Jsoup.parse(response.body)
 
         val introduction = if (html.select("#peopleModal").size() != 0)
@@ -524,16 +697,14 @@ class Crawler @Inject()(ws: WSClient,
         val node = array.flatMap(json => json.\("graph").\("nodes").as[Seq[TempNode]]).groupBy(_.id).map(x => x._2.head)
         val link = array.flatMap(json => json.\("graph").\("relationships").as[Seq[TempLink]]).distinct
 
-        val highlight = url.split(",").flatMap(_.split("_")).toSet
+        // val highlight = url.split(",").flatMap(_.split("_")).toSet
 
         val nodes = node.map { x =>
-          var cate = x.labels(0) match {
+          val cate = x.labels(0) match {
             case "Company" => 0
             case "Person" => 1
             case _ => 2
           }
-
-          if(highlight(x.properties.keyNo) || highlight(x.properties.name)) cate = 2
 
           NodeResult(x.id, x.properties.keyNo, x.properties.name, cate)
         }
