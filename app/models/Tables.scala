@@ -1,4 +1,5 @@
 package models
+
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
 object Tables extends {
@@ -14,7 +15,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -762,6 +763,59 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table MainPersonnel */
   lazy val MainPersonnel = new TableQuery(tag => new MainPersonnel(tag))
+
+  /** Entity class storing rows of table News
+   *  @param img Database column img SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param title Database column title SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param from Database column from SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param time Database column time SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class NewsRow(img: Option[String] = None, title: Option[String] = None, ref: Option[String] = None, from: Option[String] = None, time: Option[String] = None)
+  /** GetResult implicit for fetching NewsRow objects using plain SQL queries */
+  implicit def GetResultNewsRow(implicit e0: GR[Option[String]]): GR[NewsRow] = GR{
+    prs => import prs._
+    NewsRow.tupled((<<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table news. Objects of this class serve as prototypes for rows in queries. */
+  class News(_tableTag: Tag) extends profile.api.Table[NewsRow](_tableTag, Some("data"), "news") {
+    def * = (img, title, ref, from, time) <> (NewsRow.tupled, NewsRow.unapply)
+
+    /** Database column img SqlType(VARCHAR), Length(255,true), Default(None) */
+    val img: Rep[Option[String]] = column[Option[String]]("img", O.Length(255,varying=true), O.Default(None))
+    /** Database column title SqlType(VARCHAR), Length(255,true), Default(None) */
+    val title: Rep[Option[String]] = column[Option[String]]("title", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column from SqlType(VARCHAR), Length(255,true), Default(None) */
+    val from: Rep[Option[String]] = column[Option[String]]("from", O.Length(255,varying=true), O.Default(None))
+    /** Database column time SqlType(VARCHAR), Length(255,true), Default(None) */
+    val time: Rep[Option[String]] = column[Option[String]]("time", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table News */
+  lazy val News = new TableQuery(tag => new News(tag))
+
+  /** Entity class storing rows of table NewsBody
+   *  @param url Database column url SqlType(VARCHAR), Length(255,true)
+   *  @param body Database column body SqlType(LONGTEXT), Length(2147483647,true) */
+  case class NewsBodyRow(url: String, body: String)
+  /** GetResult implicit for fetching NewsBodyRow objects using plain SQL queries */
+  implicit def GetResultNewsBodyRow(implicit e0: GR[String]): GR[NewsBodyRow] = GR{
+    prs => import prs._
+    NewsBodyRow.tupled((<<[String], <<[String]))
+  }
+  /** Table description of table news_body. Objects of this class serve as prototypes for rows in queries. */
+  class NewsBody(_tableTag: Tag) extends profile.api.Table[NewsBodyRow](_tableTag, Some("data"), "news_body") {
+    def * = (url, body) <> (NewsBodyRow.tupled, NewsBodyRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(url), Rep.Some(body)).shaped.<>({r=>import r._; _1.map(_=> NewsBodyRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column url SqlType(VARCHAR), Length(255,true) */
+    val url: Rep[String] = column[String]("url", O.Length(255,varying=true))
+    /** Database column body SqlType(LONGTEXT), Length(2147483647,true) */
+    val body: Rep[String] = column[String]("body", O.Length(2147483647,varying=true))
+  }
+  /** Collection-like TableQuery object for table NewsBody */
+  lazy val NewsBody = new TableQuery(tag => new NewsBody(tag))
 
   /** Entity class storing rows of table NewsLyrics
    *  @param cid Database column cid SqlType(INT)

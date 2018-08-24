@@ -30,7 +30,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
 
   final lazy val baseUrl = config.get[String]("es.baseUrl")
 
-  def index: Action[AnyContent] = Action.async { implicit request =>
+  def index: Action[AnyContent] = Action.async { _ =>
     Future.successful(Ok("GG"))
   }
 
@@ -65,7 +65,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     override protected def executionContext: ExecutionContext = ec
   }
 
-  def query(key: String, kind: Int, sort: Int): Action[AnyContent] = Action.async { implicit request =>
+  def query(key: String, kind: Int, sort: Int): Action[AnyContent] = Action.async { _ =>
     var sc: String = "desc"
     var s: String = "id"
     sort match {
@@ -125,12 +125,12 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getAllCompany: Action[AnyContent] = Action.async { implicit request =>
+  def getAllCompany: Action[AnyContent] = Action.async { _ =>
     crawler.forSearchPage("苏州朗动网络科技有限公司", 2)
     Future.successful(Ok)
   }
 
-  def getCompanyBaseInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getCompanyBaseInfo(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(Company.filter(_.id === id).result.head).flatMap { c =>
       if (c.keyno.isEmpty) {
         crawler.forBaseInfo(c.ref.get, c.id)
@@ -170,7 +170,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getLegalAction(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getLegalAction(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(Company.filter(_.id === id).result.head).flatMap { c =>
       val RefereeFuture = db.run(Referee.filter(_.cid === id).result)
       val CourtNoticeFuture = db.run(CourtNotice.filter(_.cid === id).result)
@@ -194,7 +194,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getOperatingConditions(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getOperatingConditions(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(Company.filter(_.id === id).result.head).flatMap { c =>
       val AdministrativeLicenseIcFuture = db.run(AdministrativeLicenseIc.filter(_.cid === id).result)
       val AdministrativeLicenseChFuture = db.run(AdministrativeLicenseCh.filter(_.cid === id).result)
@@ -239,7 +239,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getBossInfo(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getBossInfo(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(Person.filter(_.id === id).result.head).flatMap { person =>
       if (!person.flag.get) {
         crawler.forBossInfo(person.addr.get, person.id)
@@ -279,7 +279,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getBossGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getBossGraph(id: Int): Action[AnyContent] = Action.async { _ =>
     val personFuture = db.run(Person.filter(_.id === id).result.head)
     val representFuture = db.run(BossRepresent.filter(_.bid === id).result)
     val positionFuture = db.run(BossPosition.filter(_.bid === id).result)
@@ -302,7 +302,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 0).result.headOption).flatMap {
       case Some(json) =>
         Future.successful(Ok(json.data.get).as(JSON))
@@ -312,7 +312,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getEnterpriseGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getEnterpriseGraph(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 1).result.headOption).flatMap {
       case Some(json) =>
         Future.successful(Ok(json.data.get).as(JSON))
@@ -322,7 +322,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getInvestmentGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getInvestmentGraph(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 2).result.headOption).flatMap {
       case Some(json) =>
         Future.successful(Ok(json.data.get).as(JSON))
@@ -332,7 +332,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getAssociationGraph(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 3).result.headOption).flatMap {
       case Some(json) =>
         Future.successful(Ok(json.data.get).as(JSON))
@@ -342,7 +342,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getSecondEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getSecondEquityStructureGraph(id: Int): Action[AnyContent] = Action.async { _ =>
     db.run(CompanyGraph.filter(x => x.cid === id && x.`type` === 4).result.headOption).flatMap {
       case Some(json) =>
         Future.successful(Ok(json.data.get).as(JSON))
@@ -352,7 +352,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { implicit request =>
+  def getCompanyShortInfo(key: String): Action[AnyContent] = Action.async { _ =>
     db.run(ShortInfo.filter(x => x.key === key).result.headOption).flatMap {
       case Some(json) =>
         Future.successful(Ok(json.info.get).as(JSON))
@@ -361,24 +361,38 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
-  def getMultipleAssociationGraph(nodes: String): Action[AnyContent] = Action.async { implicit request =>
+  def getNews: Action[AnyContent] = Action.async { _ =>
+    db.run(News.result).flatMap {
+      case news if news.nonEmpty => Future.successful(Ok(Json.toJson(news)))
+      case _ => crawler.forNews.map(Ok(_))
+    }
+  }
+
+  def getNewsBody(url: String): Action[AnyContent] = Action.async { _ =>
+    db.run(NewsBody.filter(_.url === url).result.headOption).flatMap {
+      case Some(body) => Future.successful(Ok(Json.toJson(body)))
+      case None => crawler.forNewsBody(url).map(Ok(_))
+    }
+  }
+
+  def getMultipleAssociationGraph(nodes: String): Action[AnyContent] = Action.async { _ =>
     crawler.forMultipleAssociationGraph(nodes).map(Ok(_))
   }
 
-  def getHintCompany(name: String): Action[AnyContent] = Action.async { implicit request =>
+  def getHintCompany(name: String): Action[AnyContent] = Action.async { _ =>
     db.run(Company.filter(x => x.keyno.isDefined && x.name.like(s"%$name%"))
       .sortBy(_.money.desc).take(7).result)
       .map(x => Ok(Json.toJson(x)))
   }
 
-  def getHintBoss(id: Int): Action[AnyContent] = Action.async { implicit request =>
+  def getHintBoss(id: Int): Action[AnyContent] = Action.async { _ =>
     val a = MainPersonnel.filter(_.cid === id).map(_.name)
     val b = ShareholderInformation.filter(_.cid === id).map(_.shareholderName)
     val c = a.union(b)
     db.run(c.result).map(x => Ok(Json.toJson(x.zipWithIndex.map(z => Json.obj("id" -> (z._2 + 1).toString, "itemName" -> z._1)))))
   }
 
-  def getInterestedPeople: Action[AnyContent] = Action.async { implicit request =>
+  def getInterestedPeople: Action[AnyContent] = Action.async { _ =>
     db.run(InterestedPeople.result).map(data => getRandomList(data.length).map(data.apply)).map(x => Ok(Json.toJson(x)))
   }
 
@@ -389,7 +403,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     .mapValues(_.size).toList
     .sortBy(_._2).map(_._1)
 
-  /*def test: Action[AnyContent] = Action.async { implicit request =>
+  /*def test: Action[AnyContent] = Action.async { _ =>
     ws.url("http://localhost:9200/data/company/_search").withBody(Json.obj(
       "query" -> Json.obj("match" -> Json.obj("name" -> "小米")),
       "size" -> 100)).get().map(x => Ok(x.json))

@@ -4,10 +4,9 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 
 import com.google.inject.Inject
-import models.Entities.{LinkResult, NodeResult}
+import models.Entities.{LinkResult, NodeResult, _}
 import models.Tables._
 import models.Tables.profile.api._
-import models.Entities._
 import org.jsoup.Jsoup
 import play.api.Configuration
 import play.api.db.NamedDatabase
@@ -15,11 +14,11 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.{JsArray, JsObject, JsValue, Json}
 import play.api.libs.ws.WSClient
 import slick.jdbc.JdbcProfile
-
-import scala.concurrent.{ExecutionContext, Future}
-import scala.collection.JavaConverters._
-import scala.util.Try
 import util.Formats._
+
+import scala.collection.JavaConverters._
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 
 class Crawler @Inject()(ws: WSClient,
                         config: Configuration,
@@ -147,7 +146,6 @@ class Crawler @Inject()(ws: WSClient,
                 val q = for {c <- Company if c.ref === url} yield (c.represent, c.introduction, c.keyno, c.website)
                 val action = q.update(Some(id), introduction, keyNo, website)
                 db.run(action)
-                println("哈哈哈哈")
                 forBossInfo(ref, id)
               }
             } else {
@@ -270,7 +268,6 @@ class Crawler @Inject()(ws: WSClient,
         "Cookie" -> cookie)
       .get()
       .foreach { response =>
-        println(response.body)
         val html = Jsoup.parse(response.body)
 
         //裁判文书 referee
@@ -380,7 +377,7 @@ class Crawler @Inject()(ws: WSClient,
             val name = tr.child(2).text()
             val level = tr.child(3).text()
             val moneny = tr.child(4).text()
-            val source = tr.child(5).text()
+            val source = tr.child(5).html()
             FinancingInformationRow(id, Some(date), Some(name), Some(level), Some(moneny), Some(source))
           }
           db.run(FinancingInformation ++= d)
@@ -426,7 +423,7 @@ class Crawler @Inject()(ws: WSClient,
 
         //新闻舆情  public_number
         if (html.select("#newslist").select("tr").size() > 0) {
-          val d = html.select("#newslist").select("tr").asScala.tail.map { tr =>
+          val d = html.select("#newslist").select("tr").asScala.map { tr =>
             val title = tr.child(0).select(".title").text()
             val source = tr.child(0).select(".clear.subtitle").get(0).ownText()
             val date = tr.child(0).select(".pull-right").get(0).ownText()
@@ -731,6 +728,44 @@ class Crawler @Inject()(ws: WSClient,
         Json.obj("nodes" -> nodes, "links" -> merge)
       }
 
+  def forNews: Future[JsValue] =
+    ws.url("https://www.qichacha.com/news")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { response =>
+        val html = Jsoup.parse(response.body)
+
+        val d = html.select(".list-group-item.clearfix").asScala.take(8).map { div =>
+          val img = Try(div.child(0).select("img").attr("src")).toOption
+          val title = div.select(".clear").get(0).child(0).child(0).ownText()
+          val ref = div.select(".clear").get(0).child(0).child(0).attr("href")
+          val from = div.select("small").get(0).child(0).ownText()
+          val time = div.select("small").get(0).child(1).ownText()
+          NewsRow(img, Some(title), Some(ref), Some(from), Some(time))
+        }
+        db.run(DBIO.seq(News.delete, News ++= d))
+        Json.toJson(d)
+      }
+
+  def forNewsBody(url: String): Future[JsValue] =
+    ws.url(s"https://www.qichacha.com$url")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { response =>
+        val html = Jsoup.parse(response.body)
+
+        val body = html.select(".panel.b-a").get(0).html()
+
+        val row = NewsBodyRow(url, body)
+
+        db.run(NewsBody += row)
+
+        Json.toJson(row)
+      }
 
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt
 
