@@ -2,10 +2,10 @@ package controllers
 
 import com.google.inject.Inject
 import crawler.Crawler
-import models.Tables._
-import models.Tables.profile.api._
 import models.Entities._
 import models.Tables
+import models.Tables._
+import models.Tables.profile.api._
 import play.api.Configuration
 import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
@@ -76,11 +76,14 @@ class Api @Inject()(cc: MessagesControllerComponents,
       case _ => s = "_score"; sc = "desc"
     }
     kind match {
+      // 全部查询
       case 0 =>
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
-          "query" -> Json.obj("multi_match" -> Json.obj("query" -> key, "fields" -> Json.arr("name", "represent"))),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc))
-        ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
+          "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
+            "fields" -> Json.arr("name", "representname", "phone", "addr",
+              "main_personnel.name", "shareholder_information.shareholderName"))),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100))).get()
+          .map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 1 =>
         // 查找公司
         ws.url(baseUrl + "data/company/_search").withBody(Json.obj(
@@ -88,12 +91,36 @@ class Api @Inject()(cc: MessagesControllerComponents,
           "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100)).get()
           .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 2 =>
-        ws.url(baseUrl + "data/company/" + key).delete().map(x => Ok(x.body))
+        // 查找法人和股东
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
+            "fields" -> Json.arr("representname", "shareholder_information.shareholderName"))),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100
+        ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
+      case 3 =>
+        // 查找高管
+        ws.url(baseUrl + "data/company/_search").withBody(Json.obj(
+          "query" -> Json.obj("match" -> Json.obj("main_personnel.name" -> key)),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100)).get()
+          .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 4 =>
+        // 查找品牌和产品
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
           "query" -> Json.obj("match" -> Json.obj("name" -> key))))).get()
           .map(x => Ok(Json.parse(x.body)))
-      case _ => Future.successful(Ok)
+      case 5 =>
+        // 查找地址和电话
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
+            "fields" -> Json.arr("addr", "phone"))),
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100
+        ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
+      case 6 =>
+        // 查找经营范围
+        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+          "query" -> Json.obj("match" -> Json.obj("scope_of_operation" -> key))))).get()
+          .map(x => Ok(Json.parse(x.body)))
+      case _ => Future.successful(NoContent)
     }
   }
 

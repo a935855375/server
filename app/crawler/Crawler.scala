@@ -29,6 +29,7 @@ class Crawler @Inject()(ws: WSClient,
   final val agent = config.get[String]("crawler.agent")
   final val baseUrl = config.get[String]("es.baseUrl")
 
+  // 4 => represent 1 => default 2 => company 3 => 6 => 高管 8=>品牌
   def forCompanyByKeyWord(key: String, page: Int): Unit =
     ws.url(s"https://www.qichacha.com/search_index?key=$key&ajaxflag=1&p=$page&")
       .addHttpHeaders(
@@ -79,7 +80,6 @@ class Crawler @Inject()(ws: WSClient,
       db.run(Company.map(_.name).result).foreach { allData =>
         val set = allData.toSet
         val CompanyWithId = Company returning Company.map(_.id) into ((cp, id) => cp.copy(id = id))
-        import util.Formats._
         data.filterNot(x => set(x.name)).foreach { c =>
           db.run(CompanyWithId += parseMoney(c)).foreach { cid =>
             ws.url(baseUrl + "data/company/" + cid.id).put(Json.toJson(cid))
@@ -134,7 +134,7 @@ class Crawler @Inject()(ws: WSClient,
           val name = html.select(".bname").text()
           val ref = html.select(".bname").first().attr("href")
           val count = html.select(".btouzi").first().child(0).ownText().toInt
-          val avator = html.select(".bheadimg").attr("src") match {
+          val avator: String = html.select(".bheadimg").attr("src") match {
             case s: String if s.startsWith("/") => s"https://www.qichacha.com$s"
             case s => s
           }
@@ -157,7 +157,7 @@ class Crawler @Inject()(ws: WSClient,
         }
 
         // 工商信息
-        if (html.select("#Cominfo").select("tr").size() > 0) {
+        val scope = if (html.select("#Cominfo").select("tr").size() > 0) {
           val table = if (html.select("#Cominfo").select("table").size() == 1)
             html.select("#Cominfo").select("table").get(0)
           else
@@ -192,10 +192,11 @@ class Crawler @Inject()(ws: WSClient,
             }
           }
           db.run(BasicInfo += c)
-        }
+          index.get("经营范围")
+        } else None
 
         // 股东信息
-        if (html.select("#Sockinfo").select("tr").size() > 0) {
+        val shareholderInformation = if (html.select("#Sockinfo").select("tr").size() > 0) {
           val d = html.select("#Sockinfo").select("tr").asScala.tail.map { data =>
             val name = data.child(1).select("a").get(0).text()
             val ref = Try(data.child(1).select("a").get(0).attr("href")).map(Some(_)).getOrElse(None)
@@ -208,7 +209,8 @@ class Crawler @Inject()(ws: WSClient,
             ShareholderInformationRow(id, Some(name), ref, count, ratio, contribution, date)
           }
           db.run(ShareholderInformation ++= d)
-        }
+          Some(d)
+        } else None
 
         // 对外投资
         if (html.select("#touzilist").select("tr").size() > 0) {
@@ -227,7 +229,7 @@ class Crawler @Inject()(ws: WSClient,
         }
 
         // 主要人员
-        if (html.select("#Mainmember").select("tr").size() > 0) {
+        val mainPersonnel = if (html.select("#Mainmember").select("tr").size() > 0) {
           val d = html.select("#Mainmember").select("tr").asScala.tail.map { data =>
             val name = data.child(1).select("a").get(0).text()
             val href = data.child(1).select("a").get(0).attr("href")
@@ -236,7 +238,8 @@ class Crawler @Inject()(ws: WSClient,
             MainPersonnelRow(id, Some(name), Some(href), count, Some(position))
           }
           db.run(MainPersonnel ++= d)
-        }
+          Some(d)
+        } else None
 
         // 分支机构
         if (html.select("#Subcom").select("td").size() > 0) {
@@ -258,6 +261,15 @@ class Crawler @Inject()(ws: WSClient,
             ChangeRecordRow(id, Some(date), Some(project), Some(before), Some(after))
           }
           db.run(ChangeRecord ++= d)
+        }
+
+        // 更新搜索引擎中的数据
+        db.run(Company.filter(_.id === id).result.head).foreach { company =>
+          val json = Json.toJson(company).as[JsObject]
+          val ans = json.+("main_personnel" -> Json.toJson(mainPersonnel))
+            .+("shareholder_information" -> Json.toJson(shareholderInformation))
+            .++(Json.obj("scope_of_operation" -> scope))
+          ws.url(baseUrl + "data/company/" + company.id).put(ans)
         }
       }
 
