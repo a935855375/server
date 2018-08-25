@@ -42,11 +42,13 @@ GET         /hintcompany                       controllers.Api.getHintCompany(na
 
 GET         /hintboss                          controllers.Api.getHintBoss(id: Int)
 
-GET         /searchhint                        controllers.Api.getSearchHint(key: String)
+GET         /searchhint                        controllers.Api.getSearchHint(key: String, kind: Int)
 
 GET         /news                              controllers.Api.getNews
 
 GET         /newsbody                          controllers.Api.getNewsBody(url: String)
+
+GET         /brandbody                         controllers.Api.getBrandBody(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /*file                             controllers.Assets.at(path="/public", file)

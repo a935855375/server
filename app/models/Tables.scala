@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, Brand.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, Brand.schema, BrandBody.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, SearchBrandHistory.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -553,6 +553,29 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Brand */
   lazy val Brand = new TableQuery(tag => new Brand(tag))
+
+  /** Entity class storing rows of table BrandBody
+   *  @param bid Database column bid SqlType(INT)
+   *  @param body Database column body SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+  case class BrandBodyRow(bid: Int, body: Option[String] = None)
+  /** GetResult implicit for fetching BrandBodyRow objects using plain SQL queries */
+  implicit def GetResultBrandBodyRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[BrandBodyRow] = GR{
+    prs => import prs._
+    BrandBodyRow.tupled((<<[Int], <<?[String]))
+  }
+  /** Table description of table brand_body. Objects of this class serve as prototypes for rows in queries. */
+  class BrandBody(_tableTag: Tag) extends profile.api.Table[BrandBodyRow](_tableTag, Some("data"), "brand_body") {
+    def * = (bid, body) <> (BrandBodyRow.tupled, BrandBodyRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(bid), body).shaped.<>({r=>import r._; _1.map(_=> BrandBodyRow.tupled((_1.get, _2)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column bid SqlType(INT) */
+    val bid: Rep[Int] = column[Int]("bid")
+    /** Database column body SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+    val body: Rep[Option[String]] = column[Option[String]]("body", O.Length(2147483647,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table BrandBody */
+  lazy val BrandBody = new TableQuery(tag => new BrandBody(tag))
 
   /** Entity class storing rows of table ChangeRecord
    *  @param cid Database column cid SqlType(INT)
@@ -1177,6 +1200,32 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table ResearchReport */
   lazy val ResearchReport = new TableQuery(tag => new ResearchReport(tag))
+
+  /** Entity class storing rows of table SearchBrandHistory
+   *  @param key Database column key SqlType(VARCHAR), Length(255,true)
+   *  @param count Database column count SqlType(INT), Default(0) */
+  case class SearchBrandHistoryRow(key: String, count: Int = 0)
+  /** GetResult implicit for fetching SearchBrandHistoryRow objects using plain SQL queries */
+  implicit def GetResultSearchBrandHistoryRow(implicit e0: GR[String], e1: GR[Int]): GR[SearchBrandHistoryRow] = GR{
+    prs => import prs._
+    SearchBrandHistoryRow.tupled((<<[String], <<[Int]))
+  }
+  /** Table description of table search_brand_history. Objects of this class serve as prototypes for rows in queries. */
+  class SearchBrandHistory(_tableTag: Tag) extends profile.api.Table[SearchBrandHistoryRow](_tableTag, Some("data"), "search_brand_history") {
+    def * = (key, count) <> (SearchBrandHistoryRow.tupled, SearchBrandHistoryRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(key), Rep.Some(count)).shaped.<>({r=>import r._; _1.map(_=> SearchBrandHistoryRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column key SqlType(VARCHAR), Length(255,true) */
+    val key: Rep[String] = column[String]("key", O.Length(255,varying=true))
+    /** Database column count SqlType(INT), Default(0) */
+    val count: Rep[Int] = column[Int]("count", O.Default(0))
+
+    /** Uniqueness Index over (key) (database name search_brand_history_key_uindex) */
+    val index1 = index("search_brand_history_key_uindex", key, unique=true)
+  }
+  /** Collection-like TableQuery object for table SearchBrandHistory */
+  lazy val SearchBrandHistory = new TableQuery(tag => new SearchBrandHistory(tag))
 
   /** Entity class storing rows of table ShareholderInformation
    *  @param cid Database column cid SqlType(INT)

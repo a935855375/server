@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat
 
 import com.google.inject.Inject
 import models.Entities.{LinkResult, NodeResult, _}
+import models.Tables
 import models.Tables._
 import models.Tables.profile.api._
 import org.jsoup.Jsoup
@@ -801,7 +802,8 @@ class Crawler @Inject()(ws: WSClient,
 
         if (html.select("#searchlist").size() > 0) {
           val d = html.select("#searchlist").asScala.map { line =>
-            val src = line.select("img").first().attr("src")
+            val srcSource = line.select(".pull-left.thumb-lg.m-r").first().child(0).attr("src")
+            val src = if (srcSource.startsWith("/")) "https://www.qichacha.com" + srcSource else srcSource
             val ref = line.child(0).attr("href")
             val name = line.select(".name").text()
             val numAndDate = line.select("small").first().ownText().split(" ")
@@ -809,7 +811,7 @@ class Crawler @Inject()(ws: WSClient,
             val date = numAndDate(3)
             val kindAll = line.select("small").get(1).text()
             val kind = kindAll.substring(kindAll.indexOf(" "))
-            val status = if(line.select(".nstatus").size() > 0) Some(line.select(".nstatus").text()) else None
+            val status = if (line.select(".nstatus").size() > 0) Some(line.select(".nstatus").text()) else None
             val applicant = line.select("footer a").text()
             BrandRow(0, Some(src), Some(ref), Some(name), Some(num), Some(date), Some(applicant), Some(kind), status)
           }
@@ -828,6 +830,24 @@ class Crawler @Inject()(ws: WSClient,
             }
           }
         }
+      }
+
+  def forBrandBody(id: Int, url: String): Future[Tables.BrandBodyRow] =
+    ws.url(s"https://www.qichacha.com$url")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { response =>
+        val html = Jsoup.parse(response.body)
+
+        val body = html.select("#searchlist").html()
+
+        val d = BrandBodyRow(id, Some(body))
+
+        db.run(BrandBody += d)
+
+        d
       }
 
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt

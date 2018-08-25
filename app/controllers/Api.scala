@@ -31,7 +31,6 @@ class Api @Inject()(cc: MessagesControllerComponents,
   final lazy val baseUrl = config.get[String]("es.baseUrl")
 
   def index: Action[AnyContent] = Action.async { _ =>
-    crawler.forBrands("小米")
     Future.successful(Ok("GG"))
   }
 
@@ -66,7 +65,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     override protected def executionContext: ExecutionContext = ec
   }
 
-  def query(key: String, kind: Int, sort: Int): Action[AnyContent] = Action.async { _ =>
+  def query(key: String, kind: Int, sort: Int, size: Int = 100): Action[AnyContent] = Action.async { _ =>
     var sc: String = "desc"
     var s: String = "id"
     sort match {
@@ -83,31 +82,31 @@ class Api @Inject()(cc: MessagesControllerComponents,
           "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
             "fields" -> Json.arr("name", "representname", "phone", "addr",
               "main_personnel.name", "shareholder_information.shareholderName"))),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100))).get()
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> size))).get()
           .map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 1 =>
         // 查找公司
         ws.url(baseUrl + "data/company/_search").withBody(Json.obj(
           "query" -> Json.obj("match" -> Json.obj("name" -> key)),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100)).get()
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> size)).get()
           .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 2 =>
         // 查找法人和股东
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
           "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
             "fields" -> Json.arr("representname", "shareholder_information.shareholderName"))),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> size
         ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 3 =>
         // 查找高管
         ws.url(baseUrl + "data/company/_search").withBody(Json.obj(
           "query" -> Json.obj("match" -> Json.obj("main_personnel.name" -> key)),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100)).get()
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> size)).get()
           .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 4 =>
         // 查找品牌和产品
         ws.url(baseUrl + "brand/doc/_search").withBody(Json.obj(
-          "query" -> Json.obj("match" -> Json.obj("name" -> key)), "size" -> 100)).get()
+          "query" -> Json.obj("match" -> Json.obj("name" -> key)), "size" -> size)).get()
           .map(x => x.json.\("hits").\("hits").as[JsArray].value.map(_.\("_source").\("cid").asOpt[Int]))
           .flatMap(data => db.run(Company.filter(_.id inSet data.flatten.distinct).result)
             .map(x => Ok(Json.toJson(x.map(z => Json.obj("_source" -> z))))))
@@ -116,12 +115,12 @@ class Api @Inject()(cc: MessagesControllerComponents,
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
           "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
             "fields" -> Json.arr("addr", "phone"))),
-          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> 100
+          "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> size
         ))).get().map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 6 =>
         // 查找经营范围
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
-          "query" -> Json.obj("match" -> Json.obj("scope_of_operation" -> key))))).get()
+          "query" -> Json.obj("match" -> Json.obj("scope_of_operation" -> key)), "size" -> size))).get()
           .map(x => Ok(Json.parse(x.body)))
       case _ => Future.successful(NoContent)
     }
@@ -422,24 +421,33 @@ class Api @Inject()(cc: MessagesControllerComponents,
     db.run(c.result).map(x => Ok(Json.toJson(x.zipWithIndex.map(z => Json.obj("id" -> (z._2 + 1).toString, "itemName" -> z._1)))))
   }
 
-  def getSearchHint(key: String): Action[AnyContent] = Action.async { _ =>
-    ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
-      "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
-        "fields" -> Json.arr("name", "representname", "phone", "addr",
-          "main_personnel.name", "shareholder_information.shareholderName"))),
-      "sort" -> Json.obj("_score" -> Json.obj("order" -> "desc")), "size" -> 5))).get()
-      .map(x => Ok(Json.toJson(x.json.\("hits").\("hits").as[JsArray].value.map(_.\("_source").get))))
-  }
+  def getSearchHint(key: String, kind: Int): Action[AnyContent] = this.query(key, kind, 0, 5)
 
   def getInterestedPeople: Action[AnyContent] = Action.async { _ =>
     db.run(InterestedPeople.result).map(data => getRandomList(data.length).map(data.apply)).map(x => Ok(Json.toJson(x)))
   }
 
   def searchBrand(key: String): Action[AnyContent] = Action.async { _ =>
+    db.run(SearchBrandHistory.filter(_.key === key).result.headOption).foreach {
+      case Some(d) => db.run(SearchBrandHistory.filter(_.key === key).map(_.count).update(d.count + 1))
+      case None => crawler.forBrands(key)
+    }
     ws.url(baseUrl + "brand/doc/_search").withBody(Json.obj(
-      "query" -> Json.obj("match" -> Json.obj("name" -> key)), "size" -> 100)).get()
+      "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
+        "fields" -> Json.arr("name", "num", "applicant"))), "size" -> 100)).get()
       .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
   }
+
+  def getBrandBody(id: Int): Action[AnyContent] = Action.async { _ =>
+    db.run(BrandBody.filter(_.bid === id).result.headOption).flatMap {
+      case Some(data) =>
+        Future.successful(Ok(Json.toJson(data)))
+      case None =>
+        db.run(Brand.filter(_.id === id).result.head)
+          .flatMap(x => crawler.forBrandBody(x.id, x.ref.get).map(x => Ok(Json.toJson(x))))
+    }
+  }
+
 
   def getRandomList(n: Int): List[Int] =
     (1 to n * 10)
