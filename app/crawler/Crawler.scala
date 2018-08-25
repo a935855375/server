@@ -779,6 +779,57 @@ class Crawler @Inject()(ws: WSClient,
         Json.toJson(row)
       }
 
+  def forBrands(key: String): Unit =
+    ws.url(s"https://www.qichacha.com/more_brand?key=$key")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        val pages = Try(parseInt(Jsoup.parse(response.body).select("#ajaxpage").last().ownText())).getOrElse(1)
+        1 to math.min(10, pages) foreach (page => forBrand(key, page))
+      }
+
+  def forBrand(key: String, page: Int): Unit =
+    ws.url(s"https://www.qichacha.com/more_brand?key=$key&ajaxflag=true&p=$page")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        val html = Jsoup.parse(response.body)
+
+        if (html.select("#searchlist").size() > 0) {
+          val d = html.select("#searchlist").asScala.map { line =>
+            val src = line.select("img").first().attr("src")
+            val ref = line.child(0).attr("href")
+            val name = line.select(".name").text()
+            val numAndDate = line.select("small").first().ownText().split(" ")
+            val num = numAndDate(1)
+            val date = numAndDate(3)
+            val kindAll = line.select("small").get(1).text()
+            val kind = kindAll.substring(kindAll.indexOf(" "))
+            val status = if(line.select(".nstatus").size() > 0) Some(line.select(".nstatus").text()) else None
+            val applicant = line.select("footer a").text()
+            BrandRow(0, Some(src), Some(ref), Some(name), Some(num), Some(date), Some(applicant), Some(kind), status)
+          }
+
+          // 去除重复
+          db.run(Brand.map(_.ref).result).foreach { allData =>
+            val set = allData.toSet
+            val toSave = d.filterNot(x => set(x.ref))
+
+            // 添加cid
+            db.run(Company.filter(_.name.inSet(toSave.flatMap(_.applicant))).result).foreach { companies =>
+              val index = companies.map(x => x.name -> x.id).toMap
+              val dd = toSave.map(x => if (index.contains(x.applicant.get)) x.copy(cid = Some(index(x.applicant.get))) else x)
+              val BrandWithId = Brand returning Brand.map(_.id) into ((brand, id) => brand.copy(id = id))
+              dd.foreach(brand => db.run(BrandWithId += brand).foreach(b => ws.url(baseUrl + "brand/doc/" + b.id).put(Json.toJson(b))))
+            }
+          }
+        }
+      }
+
   def parseInt(s: String): Int = s.filter(_.isDigit).toInt
 
   def parseDouble(s: String): Double = s.filter(x => x.isDigit || x == '.').toDouble

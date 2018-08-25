@@ -1,5 +1,4 @@
 package models
-
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
 object Tables extends {
@@ -15,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, Brand.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -507,6 +506,53 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Branch */
   lazy val Branch = new TableQuery(tag => new Branch(tag))
+
+  /** Entity class storing rows of table Brand
+   *  @param id Database column id SqlType(INT), AutoInc, PrimaryKey
+   *  @param src Database column src SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param num Database column num SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param date Database column date SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param applicant Database column applicant SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param kind Database column kind SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param cid Database column cid SqlType(INT), Default(None) */
+  case class BrandRow(id: Int, src: Option[String] = None, ref: Option[String] = None, name: Option[String] = None, num: Option[String] = None, date: Option[String] = None, applicant: Option[String] = None, kind: Option[String] = None, status: Option[String] = None, cid: Option[Int] = None)
+  /** GetResult implicit for fetching BrandRow objects using plain SQL queries */
+  implicit def GetResultBrandRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[Option[Int]]): GR[BrandRow] = GR{
+    prs => import prs._
+    BrandRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[Int]))
+  }
+  /** Table description of table brand. Objects of this class serve as prototypes for rows in queries. */
+  class Brand(_tableTag: Tag) extends profile.api.Table[BrandRow](_tableTag, Some("data"), "brand") {
+    def * = (id, src, ref, name, num, date, applicant, kind, status, cid) <> (BrandRow.tupled, BrandRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(id), src, ref, name, num, date, applicant, kind, status, cid).shaped.<>({r=>import r._; _1.map(_=> BrandRow.tupled((_1.get, _2, _3, _4, _5, _6, _7, _8, _9, _10)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column id SqlType(INT), AutoInc, PrimaryKey */
+    val id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
+    /** Database column src SqlType(VARCHAR), Length(255,true), Default(None) */
+    val src: Rep[Option[String]] = column[Option[String]]("src", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column num SqlType(VARCHAR), Length(255,true), Default(None) */
+    val num: Rep[Option[String]] = column[Option[String]]("num", O.Length(255,varying=true), O.Default(None))
+    /** Database column date SqlType(VARCHAR), Length(255,true), Default(None) */
+    val date: Rep[Option[String]] = column[Option[String]]("date", O.Length(255,varying=true), O.Default(None))
+    /** Database column applicant SqlType(VARCHAR), Length(255,true), Default(None) */
+    val applicant: Rep[Option[String]] = column[Option[String]]("applicant", O.Length(255,varying=true), O.Default(None))
+    /** Database column kind SqlType(VARCHAR), Length(255,true), Default(None) */
+    val kind: Rep[Option[String]] = column[Option[String]]("kind", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+    /** Database column cid SqlType(INT), Default(None) */
+    val cid: Rep[Option[Int]] = column[Option[Int]]("cid", O.Default(None))
+  }
+  /** Collection-like TableQuery object for table Brand */
+  lazy val Brand = new TableQuery(tag => new Brand(tag))
 
   /** Entity class storing rows of table ChangeRecord
    *  @param cid Database column cid SqlType(INT)

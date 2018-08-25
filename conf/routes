@@ -4,13 +4,13 @@
 
 GET         /                                  controllers.Api.index
 
-#GET         /test                              controllers.Api.test
-
 POST        /login                             controllers.Api.login
 
 POST        /register                          controllers.Api.register
 
 GET         /search                            controllers.Api.query(key: String, kind:Int ?= 0, sort: Int ?= 0)
+
+GET         /searchbrand                       controllers.Api.searchBrand(key: String)
 
 GET         /companyinfo                       controllers.Api.getCompanyBaseInfo(id: Int)
 
@@ -42,9 +42,11 @@ GET         /hintcompany                       controllers.Api.getHintCompany(na
 
 GET         /hintboss                          controllers.Api.getHintBoss(id: Int)
 
+GET         /searchhint                        controllers.Api.getSearchHint(key: String)
+
 GET         /news                              controllers.Api.getNews
 
-GET         /newsbody                           controllers.Api.getNewsBody(url: String)
+GET         /newsbody                          controllers.Api.getNewsBody(url: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /*file                             controllers.Assets.at(path="/public", file)

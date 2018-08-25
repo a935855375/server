@@ -31,6 +31,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
   final lazy val baseUrl = config.get[String]("es.baseUrl")
 
   def index: Action[AnyContent] = Action.async { _ =>
+    crawler.forBrands("小米")
     Future.successful(Ok("GG"))
   }
 
@@ -105,9 +106,11 @@ class Api @Inject()(cc: MessagesControllerComponents,
           .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
       case 4 =>
         // 查找品牌和产品
-        ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
-          "query" -> Json.obj("match" -> Json.obj("name" -> key))))).get()
-          .map(x => Ok(Json.parse(x.body)))
+        ws.url(baseUrl + "brand/doc/_search").withBody(Json.obj(
+          "query" -> Json.obj("match" -> Json.obj("name" -> key)), "size" -> 100)).get()
+          .map(x => x.json.\("hits").\("hits").as[JsArray].value.map(_.\("_source").\("cid").asOpt[Int]))
+          .flatMap(data => db.run(Company.filter(_.id inSet data.flatten.distinct).result)
+            .map(x => Ok(Json.toJson(x.map(z => Json.obj("_source" -> z))))))
       case 5 =>
         // 查找地址和电话
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
@@ -419,21 +422,31 @@ class Api @Inject()(cc: MessagesControllerComponents,
     db.run(c.result).map(x => Ok(Json.toJson(x.zipWithIndex.map(z => Json.obj("id" -> (z._2 + 1).toString, "itemName" -> z._1)))))
   }
 
+  def getSearchHint(key: String): Action[AnyContent] = Action.async { _ =>
+    ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
+      "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
+        "fields" -> Json.arr("name", "representname", "phone", "addr",
+          "main_personnel.name", "shareholder_information.shareholderName"))),
+      "sort" -> Json.obj("_score" -> Json.obj("order" -> "desc")), "size" -> 5))).get()
+      .map(x => Ok(Json.toJson(x.json.\("hits").\("hits").as[JsArray].value.map(_.\("_source").get))))
+  }
+
   def getInterestedPeople: Action[AnyContent] = Action.async { _ =>
     db.run(InterestedPeople.result).map(data => getRandomList(data.length).map(data.apply)).map(x => Ok(Json.toJson(x)))
   }
 
-  def getRandomList(n: Int): List[Int] = (1 to n * 10)
-    .map(_ => Random.nextInt(n))
-    .++(0 until n)
-    .groupBy(x => x)
-    .mapValues(_.size).toList
-    .sortBy(_._2).map(_._1)
+  def searchBrand(key: String): Action[AnyContent] = Action.async { _ =>
+    ws.url(baseUrl + "brand/doc/_search").withBody(Json.obj(
+      "query" -> Json.obj("match" -> Json.obj("name" -> key)), "size" -> 100)).get()
+      .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
+  }
 
-  /*def test: Action[AnyContent] = Action.async { _ =>
-    ws.url("http://localhost:9200/data/company/_search").withBody(Json.obj(
-      "query" -> Json.obj("match" -> Json.obj("name" -> "小米")),
-      "size" -> 100)).get().map(x => Ok(x.json))
-  }*/
+  def getRandomList(n: Int): List[Int] =
+    (1 to n * 10)
+      .map(_ => Random.nextInt(n))
+      .++(0 until n)
+      .groupBy(x => x)
+      .mapValues(_.size).toList
+      .sortBy(_._2).map(_._1)
 }
 

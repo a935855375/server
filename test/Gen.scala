@@ -9,6 +9,5 @@ object Gen extends App{
   slick.codegen.SourceCodeGenerator.main(
     Array(profile, jdbcDriver, url, outputFolder, pkg, user, password)
   )
-
-  Thread.sleep(2000)
+  System.err.println("dump finished")
 }
