@@ -270,6 +270,7 @@ class Crawler @Inject()(ws: WSClient,
           val ans = json.+("main_personnel" -> Json.toJson(mainPersonnel))
             .+("shareholder_information" -> Json.toJson(shareholderInformation))
             .++(Json.obj("scope_of_operation" -> scope))
+            .++(Json.obj("introduction" -> introduction))
           ws.url(baseUrl + "data/company/" + company.id).put(ans)
         }
       }

@@ -81,7 +81,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
         ws.url(baseUrl + "data/company/_search").withBody(Json.toJson(Json.obj(
           "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
             "fields" -> Json.arr("name", "representname", "phone", "addr",
-              "main_personnel.name", "shareholder_information.shareholderName"))),
+              "main_personnel.name", "shareholder_information.shareholderName", "scope_of_operation"))),
           "sort" -> Json.obj(s -> Json.obj("order" -> sc)), "size" -> size))).get()
           .map(x => Ok(Json.parse(x.body).\("hits").\("hits").as[JsArray]))
       case 1 =>
@@ -431,6 +431,7 @@ class Api @Inject()(cc: MessagesControllerComponents,
     db.run(SearchBrandHistory.filter(_.key === key).result.headOption).foreach {
       case Some(d) => db.run(SearchBrandHistory.filter(_.key === key).map(_.count).update(d.count + 1))
       case None => crawler.forBrands(key)
+        db.run(SearchBrandHistory += SearchBrandHistoryRow(key))
     }
     ws.url(baseUrl + "brand/doc/_search").withBody(Json.obj(
       "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
