@@ -14,7 +14,7 @@ trait Tables {
   import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, Brand.schema, BrandBody.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, SearchBrandHistory.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
+  lazy val schema: profile.SchemaDescription = Array(AdministrativeLicenseCh.schema, AdministrativeLicenseIc.schema, BasicInfo.schema, BiddingInformation.schema, BossHistoryInvestment.schema, BossHistoryPosition.schema, BossHistoryRepresent.schema, BossHoldingCompany.schema, BossInvestment.schema, BossPosition.schema, BossRepresent.schema, Branch.schema, Brand.schema, BrandBody.schema, ChangeRecord.schema, Company.schema, CompanyGraph.schema, CourtNotice.schema, FinancingInformation.schema, InterestedPeople.schema, LoseCredit.schema, LoseCreditBody.schema, MainPersonnel.schema, News.schema, NewsBody.schema, NewsLyrics.schema, OpeningNotice.schema, OutboundInvestment.schema, Person.schema, ProductInformation.schema, PublicNumber.schema, Recruitment.schema, Referee.schema, ResearchReport.schema, SearchHistory.schema, ShareholderInformation.schema, ShortInfo.schema, TaxCredit.schema, User.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 
@@ -801,6 +801,67 @@ trait Tables {
   /** Collection-like TableQuery object for table InterestedPeople */
   lazy val InterestedPeople = new TableQuery(tag => new InterestedPeople(tag))
 
+  /** Entity class storing rows of table LoseCredit
+   *  @param id Database column id SqlType(INT), AutoInc, PrimaryKey
+   *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param num Database column num SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param status Database column status SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param date Database column date SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param court Database column court SqlType(VARCHAR), Length(255,true), Default(None)
+   *  @param ref Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+  case class LoseCreditRow(id: Int, name: Option[String] = None, num: Option[String] = None, status: Option[String] = None, date: Option[String] = None, court: Option[String] = None, ref: Option[String] = None)
+  /** GetResult implicit for fetching LoseCreditRow objects using plain SQL queries */
+  implicit def GetResultLoseCreditRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[LoseCreditRow] = GR{
+    prs => import prs._
+    LoseCreditRow.tupled((<<[Int], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String], <<?[String]))
+  }
+  /** Table description of table lose_credit. Objects of this class serve as prototypes for rows in queries. */
+  class LoseCredit(_tableTag: Tag) extends profile.api.Table[LoseCreditRow](_tableTag, Some("data"), "lose_credit") {
+    def * = (id, name, num, status, date, court, ref) <> (LoseCreditRow.tupled, LoseCreditRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(id), name, num, status, date, court, ref).shaped.<>({r=>import r._; _1.map(_=> LoseCreditRow.tupled((_1.get, _2, _3, _4, _5, _6, _7)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column id SqlType(INT), AutoInc, PrimaryKey */
+    val id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
+    /** Database column name SqlType(VARCHAR), Length(255,true), Default(None) */
+    val name: Rep[Option[String]] = column[Option[String]]("name", O.Length(255,varying=true), O.Default(None))
+    /** Database column num SqlType(VARCHAR), Length(255,true), Default(None) */
+    val num: Rep[Option[String]] = column[Option[String]]("num", O.Length(255,varying=true), O.Default(None))
+    /** Database column status SqlType(VARCHAR), Length(255,true), Default(None) */
+    val status: Rep[Option[String]] = column[Option[String]]("status", O.Length(255,varying=true), O.Default(None))
+    /** Database column date SqlType(VARCHAR), Length(255,true), Default(None) */
+    val date: Rep[Option[String]] = column[Option[String]]("date", O.Length(255,varying=true), O.Default(None))
+    /** Database column court SqlType(VARCHAR), Length(255,true), Default(None) */
+    val court: Rep[Option[String]] = column[Option[String]]("court", O.Length(255,varying=true), O.Default(None))
+    /** Database column ref SqlType(VARCHAR), Length(255,true), Default(None) */
+    val ref: Rep[Option[String]] = column[Option[String]]("ref", O.Length(255,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table LoseCredit */
+  lazy val LoseCredit = new TableQuery(tag => new LoseCredit(tag))
+
+  /** Entity class storing rows of table LoseCreditBody
+   *  @param id Database column id SqlType(INT)
+   *  @param body Database column body SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+  case class LoseCreditBodyRow(id: Int, body: Option[String] = None)
+  /** GetResult implicit for fetching LoseCreditBodyRow objects using plain SQL queries */
+  implicit def GetResultLoseCreditBodyRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[LoseCreditBodyRow] = GR{
+    prs => import prs._
+    LoseCreditBodyRow.tupled((<<[Int], <<?[String]))
+  }
+  /** Table description of table lose_credit_body. Objects of this class serve as prototypes for rows in queries. */
+  class LoseCreditBody(_tableTag: Tag) extends profile.api.Table[LoseCreditBodyRow](_tableTag, Some("data"), "lose_credit_body") {
+    def * = (id, body) <> (LoseCreditBodyRow.tupled, LoseCreditBodyRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(id), body).shaped.<>({r=>import r._; _1.map(_=> LoseCreditBodyRow.tupled((_1.get, _2)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+
+    /** Database column id SqlType(INT) */
+    val id: Rep[Int] = column[Int]("id")
+    /** Database column body SqlType(LONGTEXT), Length(2147483647,true), Default(None) */
+    val body: Rep[Option[String]] = column[Option[String]]("body", O.Length(2147483647,varying=true), O.Default(None))
+  }
+  /** Collection-like TableQuery object for table LoseCreditBody */
+  lazy val LoseCreditBody = new TableQuery(tag => new LoseCreditBody(tag))
+
   /** Entity class storing rows of table MainPersonnel
    *  @param cid Database column cid SqlType(INT)
    *  @param name Database column name SqlType(VARCHAR), Length(255,true), Default(None)
@@ -1201,21 +1262,26 @@ trait Tables {
   /** Collection-like TableQuery object for table ResearchReport */
   lazy val ResearchReport = new TableQuery(tag => new ResearchReport(tag))
 
-  /** Entity class storing rows of table SearchBrandHistory
+  /** Entity class storing rows of table SearchHistory
+   *  @param `type` Database column type SqlType(VARCHAR), Length(255,true)
    *  @param key Database column key SqlType(VARCHAR), Length(255,true)
    *  @param count Database column count SqlType(INT), Default(0) */
-  case class SearchBrandHistoryRow(key: String, count: Int = 0)
-  /** GetResult implicit for fetching SearchBrandHistoryRow objects using plain SQL queries */
-  implicit def GetResultSearchBrandHistoryRow(implicit e0: GR[String], e1: GR[Int]): GR[SearchBrandHistoryRow] = GR{
+  case class SearchHistoryRow(`type`: String, key: String, count: Int = 0)
+  /** GetResult implicit for fetching SearchHistoryRow objects using plain SQL queries */
+  implicit def GetResultSearchHistoryRow(implicit e0: GR[String], e1: GR[Int]): GR[SearchHistoryRow] = GR{
     prs => import prs._
-    SearchBrandHistoryRow.tupled((<<[String], <<[Int]))
+    SearchHistoryRow.tupled((<<[String], <<[String], <<[Int]))
   }
-  /** Table description of table search_brand_history. Objects of this class serve as prototypes for rows in queries. */
-  class SearchBrandHistory(_tableTag: Tag) extends profile.api.Table[SearchBrandHistoryRow](_tableTag, Some("data"), "search_brand_history") {
-    def * = (key, count) <> (SearchBrandHistoryRow.tupled, SearchBrandHistoryRow.unapply)
+  /** Table description of table search_history. Objects of this class serve as prototypes for rows in queries.
+   *  NOTE: The following names collided with Scala keywords and were escaped: type */
+  class SearchHistory(_tableTag: Tag) extends profile.api.Table[SearchHistoryRow](_tableTag, Some("data"), "search_history") {
+    def * = (`type`, key, count) <> (SearchHistoryRow.tupled, SearchHistoryRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(key), Rep.Some(count)).shaped.<>({r=>import r._; _1.map(_=> SearchBrandHistoryRow.tupled((_1.get, _2.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = (Rep.Some(`type`), Rep.Some(key), Rep.Some(count)).shaped.<>({r=>import r._; _1.map(_=> SearchHistoryRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
+    /** Database column type SqlType(VARCHAR), Length(255,true)
+     *  NOTE: The name was escaped because it collided with a Scala keyword. */
+    val `type`: Rep[String] = column[String]("type", O.Length(255,varying=true))
     /** Database column key SqlType(VARCHAR), Length(255,true) */
     val key: Rep[String] = column[String]("key", O.Length(255,varying=true))
     /** Database column count SqlType(INT), Default(0) */
@@ -1224,8 +1290,8 @@ trait Tables {
     /** Uniqueness Index over (key) (database name search_brand_history_key_uindex) */
     val index1 = index("search_brand_history_key_uindex", key, unique=true)
   }
-  /** Collection-like TableQuery object for table SearchBrandHistory */
-  lazy val SearchBrandHistory = new TableQuery(tag => new SearchBrandHistory(tag))
+  /** Collection-like TableQuery object for table SearchHistory */
+  lazy val SearchHistory = new TableQuery(tag => new SearchHistory(tag))
 
   /** Entity class storing rows of table ShareholderInformation
    *  @param cid Database column cid SqlType(INT)

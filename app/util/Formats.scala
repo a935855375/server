@@ -57,6 +57,8 @@ object Formats {
   implicit lazy val NewsBodyFormat: OFormat[Tables.NewsBodyRow] = derived.oformat()
 
   implicit lazy val BrandRowFormat: OFormat[Tables.BrandRow] = derived.oformat()
-
   implicit lazy val BrandBodyRowFormat: OFormat[Tables.BrandBodyRow] = derived.oformat()
+
+  implicit lazy val LoseCreditRowFormat: OFormat[Tables.LoseCreditRow] = derived.oformat()
+  implicit lazy val LoseCreditBodyRowFormat: OFormat[Tables.LoseCreditBodyRow] = derived.oformat()
 }

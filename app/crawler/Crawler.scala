@@ -827,8 +827,52 @@ class Crawler @Inject()(ws: WSClient,
               val index = companies.map(x => x.name -> x.id).toMap
               val dd = toSave.map(x => if (index.contains(x.applicant.get)) x.copy(cid = Some(index(x.applicant.get))) else x)
               val BrandWithId = Brand returning Brand.map(_.id) into ((brand, id) => brand.copy(id = id))
-              dd.foreach(brand => db.run(BrandWithId += brand).foreach(b => ws.url(baseUrl + "brand/doc/" + b.id).put(Json.toJson(b))))
+              db.run(BrandWithId ++= dd).foreach(_.foreach(b => ws.url(baseUrl + "brand/doc/" + b.id).put(Json.toJson(b))))
             }
+          }
+        }
+      }
+
+  def forLoseCredits(key: String): Unit =
+    ws.url(s"https://www.qichacha.com/more_brand?key=$key")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        val pages = Try(parseInt(Jsoup.parse(response.body).select("#ajaxpage").last().ownText())).getOrElse(1)
+        1 to math.min(10, pages) foreach (page => forLoseCredit(key, page))
+      }
+
+  def forLoseCredit(key: String, page: Int): Unit =
+    ws.url(s"https://www.qichacha.com/more_shixin?key=$key&ajaxflag=true&p=$page")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .foreach { response =>
+        val html = Jsoup.parse(response.body)
+
+        if (html.select("#searchlist").size() > 0) {
+          val d = html.select("#searchlist").asScala.map { line =>
+            val ref = line.child(0).attr("href")
+            val name = line.select(".name").text()
+            val numAll = line.select("small").get(0).text()
+            val num = numAll.substring(numAll.indexOf("：") + 1)
+            val statusAll = line.select("small").get(1).text().split(" ").flatMap(_.split("："))
+            val status = statusAll(1)
+            val date = statusAll(3)
+            val courtAll = line.select(".panel-footer.clear").text()
+            val court = courtAll.substring(courtAll.indexOf("：") + 1)
+            LoseCreditRow(0, Some(name), Some(num), Some(status), Some(date), Some(court), Some(ref))
+          }
+
+          // 去除重复
+          db.run(LoseCredit.map(_.ref).result).foreach { allData =>
+            val set = allData.toSet
+            val toSave = d.filterNot(x => set(x.ref))
+            val LoseCreditWithId = LoseCredit returning LoseCredit.map(_.id) into ((credit, id) => credit.copy(id = id))
+            db.run(LoseCreditWithId ++= toSave).foreach(_.foreach(b => ws.url(baseUrl + "credit/doc/" + b.id).put(Json.toJson(b))))
           }
         }
       }
@@ -847,6 +891,25 @@ class Crawler @Inject()(ws: WSClient,
         val d = BrandBodyRow(id, Some(body))
 
         db.run(BrandBody += d)
+
+        d
+      }
+
+  def forLoseCreditBody(id: Int, url: String): Future[Tables.LoseCreditBodyRow] =
+    ws.url(s"https://www.qichacha.com$url")
+      .addHttpHeaders(
+        "User-Agent" -> agent,
+        "Cookie" -> cookie)
+      .get()
+      .map { response =>
+        val html = Jsoup.parse(response.body)
+        println(html)
+
+        val body = html.select("#searchlist").html()
+
+        val d = LoseCreditBodyRow(id, Some(body))
+
+        db.run(LoseCreditBody += d)
 
         d
       }

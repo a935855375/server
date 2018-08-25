@@ -428,10 +428,10 @@ class Api @Inject()(cc: MessagesControllerComponents,
   }
 
   def searchBrand(key: String): Action[AnyContent] = Action.async { _ =>
-    db.run(SearchBrandHistory.filter(_.key === key).result.headOption).foreach {
-      case Some(d) => db.run(SearchBrandHistory.filter(_.key === key).map(_.count).update(d.count + 1))
+    db.run(SearchHistory.filter(x => x.key === key && x.`type` === "brand").result.headOption).foreach {
+      case Some(d) => db.run(SearchHistory.filter(_.key === key).map(_.count).update(d.count + 1))
       case None => crawler.forBrands(key)
-        db.run(SearchBrandHistory += SearchBrandHistoryRow(key))
+        db.run(SearchHistory += SearchHistoryRow("brand", key))
     }
     ws.url(baseUrl + "brand/doc/_search").withBody(Json.obj(
       "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
@@ -449,6 +449,27 @@ class Api @Inject()(cc: MessagesControllerComponents,
     }
   }
 
+  def searchLoseCredit(key: String): Action[AnyContent] = Action.async { _ =>
+    db.run(SearchHistory.filter(x => x.key === key && x.`type` === "lose_credit").result.headOption).foreach {
+      case Some(d) => db.run(SearchHistory.filter(_.key === key).map(_.count).update(d.count + 1))
+      case None => crawler.forLoseCredits(key)
+        db.run(SearchHistory += SearchHistoryRow("lose_credit", key))
+    }
+    ws.url(baseUrl + "credit/doc/_search").withBody(Json.obj(
+      "query" -> Json.obj("multi_match" -> Json.obj("query" -> key,
+        "fields" -> Json.arr("name", "num", "court"))), "size" -> 100)).get()
+      .map(x => Ok(x.json.\("hits").\("hits").as[JsArray]))
+  }
+
+  def getLoseCreditBody(id: Int): Action[AnyContent] = Action.async { _ =>
+    db.run(LoseCreditBody.filter(_.id === id).result.headOption).flatMap {
+      case Some(data) =>
+        Future.successful(Ok(Json.toJson(data)))
+      case None =>
+        db.run(LoseCredit.filter(_.id === id).result.head)
+          .flatMap(x => crawler.forLoseCreditBody(x.id, x.ref.get).map(x => Ok(Json.toJson(x))))
+    }
+  }
 
   def getRandomList(n: Int): List[Int] =
     (1 to n * 10)
@@ -457,5 +478,9 @@ class Api @Inject()(cc: MessagesControllerComponents,
       .groupBy(x => x)
       .mapValues(_.size).toList
       .sortBy(_._2).map(_._1)
+
+  def test: Action[AnyContent] = Action.async { _ =>
+    Future.successful(Ok)
+  }
 }
 

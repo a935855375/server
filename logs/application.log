@@ -1305,3 +1305,534 @@ java.lang.ArrayIndexOutOfBoundsException: 3
 2018-08-25 17:24:18,688 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
 2018-08-25 17:24:18,688 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
 2018-08-25 17:24:18,689 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:13:44,899 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:13:44,902 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:13:45,142 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 19:13:45,160 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-179 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:13:45,161 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-179 - Application started (Dev)
+2018-08-25 19:13:45,169 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:13:45,169 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-25 19:13:45,170 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-25 19:18:15,970 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:18:15,972 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:18:16,182 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 19:18:16,196 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-188 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:18:16,197 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-188 - Application started (Dev)
+2018-08-25 19:18:16,208 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:18:16,209 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 19:18:16,209 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:18:30,370 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-25 19:18:30,375 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-25 19:18:30,618 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 19:18:30,637 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-191 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:18:30,638 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-191 - Application started (Dev)
+2018-08-25 19:18:30,650 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:18:30,650 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 19:18:30,651 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:28:23,644 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:28:23,647 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:28:23,923 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 19:28:23,955 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-197 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:28:23,956 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-197 - Application started (Dev)
+2018-08-25 19:28:23,967 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:28:23,967 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:28:23,967 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 19:30:32,876 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:30:32,877 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:30:33,077 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 19:30:33,092 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-198 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:30:33,093 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-198 - Application started (Dev)
+2018-08-25 19:30:33,099 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:30:33,100 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:30:33,100 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 19:32:19,590 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:32:19,592 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:32:19,847 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 19:32:19,863 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-198 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:32:19,867 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-198 - Application started (Dev)
+2018-08-25 19:32:19,874 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:32:19,874 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 19:32:19,875 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:32:55,181 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:32:55,183 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:32:55,378 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 19:32:55,389 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-199 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:32:55,390 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-199 - Application started (Dev)
+2018-08-25 19:32:55,395 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:32:55,395 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-25 19:32:55,396 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-25 19:33:34,262 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:33:34,264 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:33:34,428 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-25 19:33:34,441 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-197 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:33:34,442 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-197 - Application started (Dev)
+2018-08-25 19:33:34,447 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:33:34,447 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-25 19:33:34,448 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-25 19:37:26,902 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - db - Shutdown initiated...
+2018-08-25 19:37:26,903 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-7 - db - Shutdown completed.
+2018-08-25 19:37:27,070 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 19:37:27,082 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-197 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:37:27,082 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-197 - Application started (Dev)
+2018-08-25 19:37:27,091 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:37:27,092 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:37:27,092 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 19:38:55,125 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:38:55,127 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:38:55,319 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 19:38:55,332 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-202 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:38:55,333 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-202 - Application started (Dev)
+2018-08-25 19:38:55,339 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:38:55,339 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-25 19:38:55,340 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-25 19:40:27,268 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-25 19:40:27,270 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-25 19:40:27,430 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 19:40:27,444 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-201 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:40:27,445 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-201 - Application started (Dev)
+2018-08-25 19:41:58,096 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:41:58,097 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:41:58,097 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 19:41:58,098 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:41:58,098 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:41:58,362 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-25 19:41:58,385 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-195 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:41:58,389 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-195 - Application started (Dev)
+2018-08-25 19:42:15,099 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-4 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:42:15,100 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Starting...
+2018-08-25 19:42:15,100 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Start completed.
+2018-08-25 19:42:15,101 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-25 19:42:15,101 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-25 19:42:15,353 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 19:42:15,374 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-201 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:42:15,375 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-201 - Application started (Dev)
+2018-08-25 19:42:15,687 [ERROR] from akka.dispatch.Dispatcher in application-akka.actor.default-dispatcher-4 - String index out of range: -1
+java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+	at java.lang.String.substring(String.java:1927)
+	at crawler.Crawler.$anonfun$forLoseCredit$2(Crawler.scala:850)
+	at crawler.Crawler.$anonfun$forLoseCredit$2$adapted(Crawler.scala:846)
+	at scala.collection.Iterator.foreach(Iterator.scala:944)
+	at scala.collection.Iterator.foreach$(Iterator.scala:944)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1432)
+	at scala.collection.IterableLike.foreach(IterableLike.scala:71)
+	at scala.collection.IterableLike.foreach$(IterableLike.scala:70)
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54)
+	at crawler.Crawler.$anonfun$forLoseCredit$1(Crawler.scala:846)
+	at crawler.Crawler.$anonfun$forLoseCredit$1$adapted(Crawler.scala:842)
+	at scala.util.Success.foreach(Try.scala:249)
+	at scala.concurrent.Future.$anonfun$foreach$1$adapted(Future.scala:225)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-25 19:42:32,393 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:42:32,393 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 19:42:32,393 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:42:32,394 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:42:32,394 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:42:32,642 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 19:42:32,665 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-201 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:42:32,666 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-201 - Application started (Dev)
+2018-08-25 19:42:33,020 [ERROR] from akka.dispatch.Dispatcher in application-akka.actor.default-dispatcher-2 - String index out of range: -1
+java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+	at java.lang.String.substring(String.java:1927)
+	at crawler.Crawler.$anonfun$forLoseCredit$2(Crawler.scala:853)
+	at crawler.Crawler.$anonfun$forLoseCredit$2$adapted(Crawler.scala:846)
+	at scala.collection.Iterator.foreach(Iterator.scala:944)
+	at scala.collection.Iterator.foreach$(Iterator.scala:944)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1432)
+	at scala.collection.IterableLike.foreach(IterableLike.scala:71)
+	at scala.collection.IterableLike.foreach$(IterableLike.scala:70)
+	at scala.collection.AbstractIterable.foreach(Iterable.scala:54)
+	at crawler.Crawler.$anonfun$forLoseCredit$1(Crawler.scala:846)
+	at crawler.Crawler.$anonfun$forLoseCredit$1$adapted(Crawler.scala:842)
+	at scala.util.Success.foreach(Try.scala:249)
+	at scala.concurrent.Future.$anonfun$foreach$1$adapted(Future.scala:225)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2018-08-25 19:42:57,721 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:42:57,721 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:42:57,722 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 19:42:57,722 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:42:57,722 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:42:57,876 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 19:42:57,888 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-195 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:42:57,889 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-195 - Application started (Dev)
+2018-08-25 19:43:18,102 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-6 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:43:18,102 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Starting...
+2018-08-25 19:43:18,103 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Start completed.
+2018-08-25 19:43:18,103 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Shutdown initiated...
+2018-08-25 19:43:18,103 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Shutdown completed.
+2018-08-25 19:43:18,322 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 19:43:18,339 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-200 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:43:18,340 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-200 - Application started (Dev)
+2018-08-25 19:44:22,503 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:44:22,503 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:44:22,503 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 19:44:22,503 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 19:44:22,504 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 19:44:22,679 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 19:44:22,705 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-195 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:44:22,706 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-195 - Application started (Dev)
+2018-08-25 19:44:39,686 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:44:39,686 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 19:44:39,687 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:44:39,687 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:44:39,687 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:44:39,887 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 19:44:39,908 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-200 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:44:39,909 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-200 - Application started (Dev)
+2018-08-25 19:51:11,441 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:51:11,441 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 19:51:11,441 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 19:51:11,441 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 19:51:11,441 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 19:51:11,589 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 19:51:11,602 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-204 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 19:51:11,603 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-204 - Application started (Dev)
+2018-08-25 19:51:11,945 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 19:51:11,946 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 19:51:11,946 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 20:01:09,526 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 20:01:09,527 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 20:01:09,696 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 20:01:09,711 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-211 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:01:09,712 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-211 - Application started (Dev)
+2018-08-25 20:01:10,089 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:01:10,089 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 20:01:10,090 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 20:07:14,300 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-25 20:07:14,301 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-25 20:07:14,447 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 20:07:14,459 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-209 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:07:14,460 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-209 - Application started (Dev)
+2018-08-25 20:07:14,828 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:07:14,828 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 20:07:14,828 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 20:26:55,453 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 20:26:55,464 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 20:26:55,715 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-25 20:26:55,734 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-217 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:26:55,736 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-217 - Application started (Dev)
+2018-08-25 20:26:56,091 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:26:56,091 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-25 20:26:56,092 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-25 20:27:10,232 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-25 20:27:10,234 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-25 20:27:10,607 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 20:27:10,627 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-217 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:27:10,628 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-217 - Application started (Dev)
+2018-08-25 20:27:11,234 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:27:11,234 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 20:27:11,234 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 20:30:24,438 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Shutdown initiated...
+2018-08-25 20:30:24,440 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Shutdown completed.
+2018-08-25 20:30:24,592 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 20:30:24,606 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-220 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:30:24,607 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-220 - Application started (Dev)
+2018-08-25 20:31:13,454 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:31:13,454 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 20:31:13,455 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 20:31:13,455 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 20:31:13,455 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 20:31:13,640 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 20:31:13,655 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-214 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:31:13,656 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-214 - Application started (Dev)
+2018-08-25 20:31:13,662 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:31:13,662 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 20:31:13,663 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 20:31:13,696 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @793ggl00o - Internal server error, for (GET) [/losecreditbody?id=21] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: Invoker.first]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: Invoker.first
+	at slick.jdbc.Invoker.first(Invoker.scala:33)
+	at slick.jdbc.Invoker.first$(Invoker.scala:29)
+	at slick.jdbc.StatementInvoker.first(StatementInvoker.scala:15)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:52)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:51)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.liftedTree1$1(BasicBackend.scala:242)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.run(BasicBackend.scala:242)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-25 20:31:23,696 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
+
+! @793gglelf - Internal server error, for (GET) [/losecreditbody?id=21] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: Invoker.first]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: Invoker.first
+	at slick.jdbc.Invoker.first(Invoker.scala:33)
+	at slick.jdbc.Invoker.first$(Invoker.scala:29)
+	at slick.jdbc.StatementInvoker.first(StatementInvoker.scala:15)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:52)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:51)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.liftedTree1$1(BasicBackend.scala:242)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.run(BasicBackend.scala:242)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-25 20:32:32,061 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown initiated...
+2018-08-25 20:32:32,063 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Shutdown completed.
+2018-08-25 20:32:32,208 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-25 20:32:32,219 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-214 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:32:32,220 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-214 - Application started (Dev)
+2018-08-25 20:32:32,225 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:32:32,225 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-25 20:32:32,225 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-25 20:32:32,244 [ERROR] from application in application-akka.actor.default-dispatcher-5 - 
+
+! @793ggpc61 - Internal server error, for (GET) [/losecreditbody?id=21] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: Invoker.first]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: Invoker.first
+	at slick.jdbc.Invoker.first(Invoker.scala:33)
+	at slick.jdbc.Invoker.first$(Invoker.scala:29)
+	at slick.jdbc.StatementInvoker.first(StatementInvoker.scala:15)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:52)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:51)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.liftedTree1$1(BasicBackend.scala:242)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.run(BasicBackend.scala:242)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-25 20:33:08,482 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 20:33:08,484 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 20:33:08,667 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 20:33:08,683 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-221 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:33:08,684 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-221 - Application started (Dev)
+2018-08-25 20:33:08,690 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:33:08,690 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 20:33:08,690 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 20:33:08,716 [ERROR] from application in application-akka.actor.default-dispatcher-3 - 
+
+! @793gh1e4l - Internal server error, for (GET) [/losecreditbody?id=21] ->
+ 
+play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[NoSuchElementException: Invoker.first]]
+	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:251)
+	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:178)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:363)
+	at play.core.server.AkkaHttpServer$$anonfun$1.applyOrElse(AkkaHttpServer.scala:361)
+	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:413)
+	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: java.util.NoSuchElementException: Invoker.first
+	at slick.jdbc.Invoker.first(Invoker.scala:33)
+	at slick.jdbc.Invoker.first$(Invoker.scala:29)
+	at slick.jdbc.StatementInvoker.first(StatementInvoker.scala:15)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:52)
+	at slick.jdbc.StreamingInvokerAction$HeadAction.run(StreamingInvokerAction.scala:51)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.liftedTree1$1(BasicBackend.scala:242)
+	at slick.basic.BasicBackend$DatabaseDef$$anon$2.run(BasicBackend.scala:242)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-08-25 20:33:48,775 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 20:33:48,776 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 20:33:48,945 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-5 - Slf4jLogger started
+2018-08-25 20:33:48,959 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-220 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:33:48,959 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-220 - Application started (Dev)
+2018-08-25 20:33:48,965 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-5 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:33:48,965 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Starting...
+2018-08-25 20:33:48,966 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-5 - db - Start completed.
+2018-08-25 20:34:12,616 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Shutdown initiated...
+2018-08-25 20:34:12,618 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-6 - db - Shutdown completed.
+2018-08-25 20:34:12,898 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-2 - Slf4jLogger started
+2018-08-25 20:34:12,918 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-220 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:34:12,919 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-220 - Application started (Dev)
+2018-08-25 20:34:12,930 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:34:12,931 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 20:34:12,931 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
+2018-08-25 20:37:25,870 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown initiated...
+2018-08-25 20:37:25,871 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-4 - db - Shutdown completed.
+2018-08-25 20:37:26,016 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-3 - Slf4jLogger started
+2018-08-25 20:37:26,027 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-226 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:37:26,028 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-226 - Application started (Dev)
+2018-08-25 20:37:26,033 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-3 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:37:26,034 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Starting...
+2018-08-25 20:37:26,034 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-3 - db - Start completed.
+2018-08-25 20:38:53,317 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown initiated...
+2018-08-25 20:38:53,318 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Shutdown completed.
+2018-08-25 20:38:53,454 [INFO] from akka.event.slf4j.Slf4jLogger in application-akka.actor.default-dispatcher-4 - Slf4jLogger started
+2018-08-25 20:38:53,466 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-218 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.cors.CORSFilter
+
+2018-08-25 20:38:53,466 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-218 - Application started (Dev)
+2018-08-25 20:38:53,471 [WARN] from com.zaxxer.hikari.HikariConfig in application-akka.actor.default-dispatcher-2 - The initializationFailFast propery is deprecated, see initializationFailTimeout
+2018-08-25 20:38:53,471 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Starting...
+2018-08-25 20:38:53,472 [INFO] from com.zaxxer.hikari.HikariDataSource in application-akka.actor.default-dispatcher-2 - db - Start completed.
